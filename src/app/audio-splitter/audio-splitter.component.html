@@ -1,0 +1,14 @@
+<app-upload-file></app-upload-file>
+
+<div *ngIf="segments.length > 0">
+  <h2>Segments</h2>
+  <div *ngFor="let segment of segments; let i = index">
+    <p>{{ segment.text }}</p>
+    <app-my-button (click)="audioService.playSegment(segment.audio)" label="Play Segment {{ i + 1 }}"></app-my-button>
+    <app-my-button (click)="audioService.downloadSegment({segment: segment.audio, index: i})" label="Download Segment {{ i + 1 }}" styleClass="p-button-secondary"></app-my-button>
+  </div>
+</div>
+
+<div class="card flex justify-center">
+  <p-button label="Check"></p-button>
+</div>
