@@ -10,6 +10,11 @@ export const routes: Routes = [
         (c) => c.AudioSplitterComponent
       ),
   },
+  { path: 'listen-and-write', loadComponent: () =>
+      import('./listen-and-write/listen-and-write.component').then(
+        (c) => c.ListenAndWriteComponent
+      ),
+  }, // New route
   {
     path: '',
     redirectTo: 'audio-splitter',

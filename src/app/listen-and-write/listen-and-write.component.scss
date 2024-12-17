@@ -1,0 +1,28 @@
+.container {
+  padding: 20px;
+}
+
+.audio-player {
+  margin-bottom: 20px;
+}
+
+.input-container {
+  margin-bottom: 20px;
+
+  label {
+    display: block;
+    margin-bottom: 5px;
+  }
+
+  textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+  }
+}
+
+.segments-list {
+  .p-card {
+    margin-bottom: 10px;
+  }
+}
