@@ -3,11 +3,12 @@ import { CommonModule } from '@angular/common';
 import { AudioService } from '../../core/audio.service';
 import { MessageService } from 'primeng/api';
 import { MessagesModule } from 'primeng/messages';
+import {MyFileUploadComponent} from '../../ui/my-file-uploader/my-file-uploader.component';
 
 @Component({
   selector: 'app-upload-file',
   standalone: true,
-  imports: [CommonModule, MessagesModule],
+  imports: [CommonModule, MessagesModule, MyFileUploadComponent],
   templateUrl: './upload-file.component.html',
   styleUrls: ['./upload-file.component.scss'],
 })
@@ -21,8 +22,8 @@ export class UploadFileComponent {
     private messageService: MessageService
   ) {}
 
-  onAudioFileSelected(event: any) {
-    this.audioFile = event.target.files[0];
+  onAudioFileSelected(file: any) {
+    this.audioFile = file//event.target.files[0];
     if (this.audioFile) {
       this.audioService.setAudioFile(this.audioFile);
       this.messageService.add({
@@ -33,8 +34,8 @@ export class UploadFileComponent {
     }
   }
 
-  onJsonFileSelected(event: any) {
-    this.jsonFile = event.target.files[0];
+  onJsonFileSelected(file: any) {
+    this.jsonFile = file//event.target.files[0];
     if (this.jsonFile) {
       const reader = new FileReader();
       reader.onload = (e) => {

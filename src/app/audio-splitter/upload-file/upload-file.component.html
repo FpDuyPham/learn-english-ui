@@ -1,4 +1,17 @@
-<input type="file" accept="audio/*" (change)="onAudioFileSelected($event)" />
-<input type="file" accept=".json" (change)="onJsonFileSelected($event)" />
+<!--<input type="file" accept="audio/*" (change)="onAudioFileSelected($event)" />-->
+<!--<input type="file" accept=".json" (change)="onJsonFileSelected($event)" />-->
+
+<!--<p-messages [(value)]="messages"></p-messages>-->
+<app-my-file-uploader
+  label="Select an audio file"
+  accept="audio/*"
+  (fileSelect)="onAudioFileSelected($event)"
+></app-my-file-uploader>
+
+<app-my-file-uploader
+  label="Select a JSON file"
+  accept=".json"
+  (fileSelect)="onJsonFileSelected($event)"
+></app-my-file-uploader>
 
 <p-messages [(value)]="messages"></p-messages>

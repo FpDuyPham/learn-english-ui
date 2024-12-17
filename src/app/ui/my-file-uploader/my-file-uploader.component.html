@@ -1,0 +1,19 @@
+<div class="file-uploader-container">
+  <label [attr.for]="inputId">{{ label }}</label>
+  <p-fileUpload
+    [id]="inputId"
+    [accept]="accept"
+    [multiple]="multiple"
+    [customUpload]="customUpload"
+    (onSelect)="onFileSelected($event, fileUpload)"
+    (onUpload)="onUploadHandler($event)"
+    (onError)="onError($event)"
+    #fileUpload
+    mode="basic"
+    [auto]="true"
+    chooseLabel="Browse"
+    url="./upload"
+  >
+  </p-fileUpload>
+  <p-messages [(value)]="messages"></p-messages>
+</div>
