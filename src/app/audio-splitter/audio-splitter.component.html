@@ -1,5 +1,8 @@
 <p-toast></p-toast>
 
+<!-- Add the save button to your audio splitter template -->
+<button pButton type="button" label="Save to Exercise" (click)="saveSegmentsToExercise()"></button>
+
 <p-card>
   <div class="flex justify-content-end">
     <p-button
@@ -17,7 +20,7 @@
       <div *ngIf="segments.length > 0">
         <h2>Segments</h2>
         <div *ngFor="let segment of segments; let i = index">
-          <p>{{ segment.text }}</p>
+          <p>{{i}}. {{ segment.text }}</p>
           <app-my-button
             (click)="playSegment(segment.audio)"
             label="Play Segment {{ i + 1 }}"

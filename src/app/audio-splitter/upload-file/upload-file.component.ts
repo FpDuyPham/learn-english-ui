@@ -26,11 +26,11 @@ export class UploadFileComponent {
     this.audioFile = file//event.target.files[0];
     if (this.audioFile) {
       this.audioService.setAudioFile(this.audioFile);
-      this.messageService.add({
-        severity: 'success',
-        summary: 'File Loaded',
-        detail: 'Audio file loaded successfully.',
-      });
+      // this.messageService.add({
+      //   severity: 'success',
+      //   summary: 'File Loaded',
+      //   detail: 'Audio file loaded successfully.',
+      // });
     }
   }
 
@@ -42,11 +42,11 @@ export class UploadFileComponent {
         try {
           const jsonData = JSON.parse(e.target.result as string);
           this.audioService.setJsonData(jsonData);
-          this.messageService.add({
-            severity: 'success',
-            summary: 'JSON File Loaded',
-            detail: 'JSON file loaded successfully. Proceed to split audio',
-          });
+          // this.messageService.add({
+          //   severity: 'success',
+          //   summary: 'JSON File Loaded',
+          //   detail: 'JSON file loaded successfully. Proceed to split audio',
+          // });
         } catch (error) {
           console.error('Error parsing JSON file:', error);
           this.messageService.add({

@@ -1,6 +1,6 @@
 // exercise.service.ts
 import { Injectable } from '@angular/core';
-import { IndexedDbService } from './indexed-db.service';
+import { DatabaseService } from './database.service';
 import { Exercise, Sentence } from './db-schema';
 
 @Injectable({
@@ -9,7 +9,7 @@ import { Exercise, Sentence } from './db-schema';
 export class ExerciseService {
   private readonly storeName = 'exercises';
 
-  constructor(private indexedDbService: IndexedDbService) {}
+  constructor(private indexedDbService: DatabaseService) {}
 
   async addExercise(exercise: Exercise): Promise<number> {
     return this.indexedDbService.add(this.storeName, exercise);

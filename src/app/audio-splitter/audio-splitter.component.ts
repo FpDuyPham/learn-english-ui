@@ -12,11 +12,14 @@ import { ToastModule } from 'primeng/toast';
 import { UploadFileComponent } from './upload-file/upload-file.component';
 import { CardModule } from 'primeng/card';
 import * as musicMetadata from 'music-metadata-browser';
+import {ExerciseService} from '../core/exercise.service';
+import {Exercise} from '../core/models/exercise.model';
+import {ActivatedRoute} from '@angular/router';
 
 interface SegmentData {
   id?: number;
   text: string;
-  audio: ArrayBuffer;
+  audioBlob: Blob; // Store audio data as Blob
 }
 
 interface JsonDataItem {
@@ -47,13 +50,14 @@ export class AudioSplitterComponent implements OnInit, OnDestroy {
   @ViewChild('fileUpload') fileUpload: FileUpload;
 
   audioBuffer: AudioBuffer | null = null;
-  segments: { text: string; audio: AudioBuffer; arrayBuffer: ArrayBuffer }[] =
-    [];
+  segments: { text: string; audio: AudioBuffer; audioBlob: Blob; }[] = [];
   silenceThreshold = -45;
   minSilenceDuration = 0.5;
   selectedFile: File | null = null;
   audioUrl: string | null = null;
   private audioContext: AudioContext | null = null;
+  exerciseId: number;
+  exercise: Exercise;
   private db: IDBPDatabase;
 
   private audioSubscription: Subscription;
@@ -63,9 +67,15 @@ export class AudioSplitterComponent implements OnInit, OnDestroy {
     public audioService: AudioService,
     private http: HttpClient,
     private messageService: MessageService,
+    private route: ActivatedRoute,
+    private exerciseService: ExerciseService
   ) {}
 
   async ngOnInit() {
+
+    this.exerciseId = +this.route.snapshot.paramMap.get('id');
+    this.exercise = await this.exerciseService.getExercise(this.exerciseId);
+
     await this.initIndexedDB();
     await this.loadSegmentsFromIndexedDB();
 
@@ -143,7 +153,6 @@ export class AudioSplitterComponent implements OnInit, OnDestroy {
       const start = item.audio.start;
       const end = item.audio.end;
 
-      // Ensure end time is not beyond the audio buffer's duration
       if (end > this.audioBuffer.duration) {
         this.messageService.add({
           severity: 'error',
@@ -153,7 +162,7 @@ export class AudioSplitterComponent implements OnInit, OnDestroy {
         console.error(
           `End time ${end} is beyond audio duration ${this.audioBuffer.duration}.`,
         );
-        continue; // Skip this segment
+        continue;
       }
 
       const segmentBuffer = this.createSegmentFromFile(
@@ -162,12 +171,13 @@ export class AudioSplitterComponent implements OnInit, OnDestroy {
         end,
       );
 
-      const audioArrayBuffer = this.audioBufferToArrayBuffer(segmentBuffer);
+      const segmentArrayBuffer = this.audioBufferToArrayBuffer(segmentBuffer);
+      const audioBlob = new Blob([this.createWavFile(segmentBuffer)], { type: 'audio/wav' });
 
       this.segments.push({
         text: item.text,
         audio: segmentBuffer,
-        arrayBuffer: audioArrayBuffer,
+        audioBlob: audioBlob,
       });
     }
 
@@ -183,7 +193,7 @@ export class AudioSplitterComponent implements OnInit, OnDestroy {
   createSegmentFromFile(
     buffer: AudioBuffer,
     start: number,
-    end: number,
+    end: number
   ): AudioBuffer {
     const sampleRate = buffer.sampleRate;
     const startSample = Math.floor(start * sampleRate);
@@ -229,8 +239,8 @@ export class AudioSplitterComponent implements OnInit, OnDestroy {
     await store.clear();
 
     for (const segment of this.segments) {
-      // Store the original ArrayBuffer
-      await store.add({ text: segment.text, audio: segment.arrayBuffer });
+      // Store the Blob
+      await store.add({ text: segment.text, audioBlob: segment.audioBlob });
     }
 
     await tx.done;
@@ -243,7 +253,9 @@ export class AudioSplitterComponent implements OnInit, OnDestroy {
   }
 
   async loadSegmentsFromIndexedDB() {
-    if (!this.db || !this.audioContext) return;
+    if (!this.audioContext) {
+      this.audioContext = new AudioContext();
+    }
 
     const tx = this.db.transaction('segments', 'readonly');
     const store = tx.objectStore('segments');
@@ -251,14 +263,29 @@ export class AudioSplitterComponent implements OnInit, OnDestroy {
 
     this.segments = await Promise.all(
       segmentsData.map(async (item: SegmentData) => {
-        const audioBuffer = await this.arrayBufferToAudioBuffer(item.audio);
-        return {
-          text: item.text,
-          audio: audioBuffer,
-          arrayBuffer: item.audio,
-        };
+        try {
+          const arrayBuffer = await item.audioBlob.arrayBuffer();
+          const audioBuffer = await this.audioContext.decodeAudioData(arrayBuffer);
+
+          return {
+            text: item.text,
+            audio: audioBuffer,
+            audioBlob: item.audioBlob
+          };
+        } catch (error) {
+          console.error('Error decoding audio data:', error);
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Error',
+            detail: 'Failed to decode audio data for a segment.'
+          });
+          return null; // or handle the error as appropriate for your application
+        }
       }),
     );
+
+    // Filter out any null segments that failed to decode
+    this.segments = this.segments.filter(segment => segment !== null);
 
     if (this.segments.length > 0) {
       this.messageService.add({
@@ -267,6 +294,77 @@ export class AudioSplitterComponent implements OnInit, OnDestroy {
         detail: 'Segments loaded from IndexedDB.',
       });
     }
+  }
+
+  async saveSegmentsToExercise() {
+    if (!this.exercise) {
+      console.error('Exercise not loaded.');
+      return;
+    }
+
+    // Update the sentences in the exercise with the current segments
+    this.exercise.sentences = this.segments.map(segment => ({
+      text: segment.text,
+      audioBlob: segment.audioBlob
+    }));
+
+    // Save the updated exercise back to IndexedDB
+    await this.exerciseService.updateExercise(this.exercise);
+
+    this.messageService.add({
+      severity: 'success',
+      summary: 'Exercise Updated',
+      detail: 'Exercise sentences saved successfully.',
+    });
+  }
+
+  clearFile() {
+    if (this.fileUpload) {
+      this.fileUpload.clear();
+    }
+    this.selectedFile = null;
+    this.audioUrl = null;
+    this.audioBuffer = null;
+    this.segments = [];
+    this.messageService.add({
+      severity: 'info',
+      summary: 'File Cleared',
+      detail: 'Audio file and segments cleared.',
+    });
+  }
+
+  async playSegment(audioBuffer: AudioBuffer) {
+    if (!audioBuffer) {
+      console.error('Cannot play segment: audioBuffer is undefined');
+      return;
+    }
+    if (!this.audioContext) {
+      this.audioContext = new AudioContext();
+    }
+
+    if (this.audioContext.state === 'suspended') {
+      await this.audioContext.resume();
+    }
+
+    const source = this.audioContext.createBufferSource();
+    source.buffer = audioBuffer; // Set the buffer property
+    source.connect(this.audioContext.destination);
+    source.start();
+  }
+
+  downloadSegment(
+    segment: { text: string; audio: AudioBuffer; audioBlob: Blob },
+    index: number,
+  ) {
+    // 4. Create a download link and trigger the download
+    const url = URL.createObjectURL(segment.audioBlob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = `segment_${index + 1}.wav`;
+    link.click();
+
+    // 5. Revoke the URL to free up resources
+    URL.revokeObjectURL(url);
   }
 
   audioBufferToArrayBuffer(audioBuffer: AudioBuffer): ArrayBuffer {
@@ -295,68 +393,27 @@ export class AudioSplitterComponent implements OnInit, OnDestroy {
     return arrayBuffer;
   }
 
-  async arrayBufferToAudioBuffer(
-    arrayBuffer: ArrayBuffer,
-  ): Promise<AudioBuffer> {
-    if (!this.audioContext) {
-      this.audioContext = new AudioContext();
-    }
+  createWavFile(audioBuffer: AudioBuffer): Uint8Array {
+    const numChannels = audioBuffer.numberOfChannels;
+    const sampleRate = audioBuffer.sampleRate;
+    const bitsPerSample = 16; // Assuming 16-bit audio
+    const numSamples = audioBuffer.length;
+    const bufferLength = numChannels * numSamples * (bitsPerSample / 8);
+    const headerLength = 44;
+    const fileLength = headerLength + bufferLength;
 
-    const audioBuffer = await this.audioContext.decodeAudioData(
-      arrayBuffer.slice(0),
-    );
-
-    return audioBuffer;
-  }
-
-  clearFile() {
-    if (this.fileUpload) {
-      this.fileUpload.clear();
-    }
-    this.selectedFile = null;
-    this.audioUrl = null;
-    this.audioBuffer = null;
-    this.segments = [];
-    this.messageService.add({
-      severity: 'info',
-      summary: 'File Cleared',
-      detail: 'Audio file and segments cleared.',
-    });
-  }
-
-  async playSegment(audioBuffer: AudioBuffer) {
-    if (!this.audioContext) {
-      this.audioContext = new AudioContext();
-    }
-
-    if (this.audioContext.state === 'suspended') {
-      await this.audioContext.resume();
-    }
-
-    const source = this.audioContext.createBufferSource();
-    source.buffer = audioBuffer;
-    source.connect(this.audioContext.destination);
-    source.start();
-  }
-
-  createWavHeader(audioData: ArrayBuffer): ArrayBuffer {
-    const numChannels = this.audioBuffer.numberOfChannels;
-    const sampleRate = this.audioBuffer.sampleRate;
-    const bitsPerSample = 16;
-    const dataLength = audioData.byteLength;
-
-    const header = new ArrayBuffer(44);
-    const view = new DataView(header);
+    const wav = new Uint8Array(fileLength);
+    const view = new DataView(wav.buffer);
 
     // RIFF chunk descriptor
     view.setUint32(0, 0x52494646, false); // 'RIFF'
-    view.setUint32(4, 36 + dataLength, true); // Chunk size
+    view.setUint32(4, fileLength - 8, true); // File size - 8 bytes for RIFF and size
     view.setUint32(8, 0x57415645, false); // 'WAVE'
 
     // fmt sub-chunk
     view.setUint32(12, 0x666d7420, false); // 'fmt '
-    view.setUint32(16, 16, true); // Sub-chunk size
-    view.setUint16(20, 1, true); // Audio format (1 = PCM)
+    view.setUint32(16, 16, true); // Sub-chunk size (16 for PCM)
+    view.setUint16(20, 1, true); // Audio format (1 for PCM)
     view.setUint16(22, numChannels, true);
     view.setUint32(24, sampleRate, true);
     view.setUint32(28, sampleRate * numChannels * (bitsPerSample / 8), true); // Byte rate
@@ -365,39 +422,19 @@ export class AudioSplitterComponent implements OnInit, OnDestroy {
 
     // data sub-chunk
     view.setUint32(36, 0x64617461, false); // 'data'
-    view.setUint32(40, dataLength, true); // Sub-chunk size
+    view.setUint32(40, bufferLength, true); // Data size
 
-    return header;
-  }
+    // Write the audio data
+    let offset = headerLength;
+    for (let i = 0; i < numSamples; i++) {
+      for (let channel = 0; channel < numChannels; channel++) {
+        const sample = Math.max(-1, Math.min(1, audioBuffer.getChannelData(channel)[i]));
+        const intSample = sample < 0 ? sample * 0x8000 : sample * 0x7FFF;
+        view.setInt16(offset, intSample, true); // Little-endian
+        offset += 2;
+      }
+    }
 
-  downloadSegment(
-    segment: { text: string; audio: AudioBuffer; arrayBuffer: ArrayBuffer },
-    index: number,
-  ) {
-    // 1. Create a WAV file header
-    const wavHeader = this.createWavHeader(segment.arrayBuffer);
-
-    // 2. Combine header and audio data
-    const combinedBuffer = new Uint8Array(
-      wavHeader.byteLength + segment.arrayBuffer.byteLength,
-    );
-    combinedBuffer.set(new Uint8Array(wavHeader), 0);
-    combinedBuffer.set(
-      new Uint8Array(segment.arrayBuffer),
-      wavHeader.byteLength,
-    );
-
-    // 3. Create a Blob from the combined buffer
-    const blob = new Blob([combinedBuffer], { type: 'audio/wav' });
-
-    // 4. Create a download link and trigger the download
-    const url = URL.createObjectURL(blob);
-    const link = document.createElement('a');
-    link.href = url;
-    link.download = `segment_${index + 1}.wav`;
-    link.click();
-
-    // 5. Revoke the URL to free up resources
-    URL.revokeObjectURL(url);
+    return wav;
   }
 }

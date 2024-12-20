@@ -1,6 +1,6 @@
 // sentence.service.ts
 import { Injectable } from '@angular/core';
-import { IndexedDbService } from './indexed-db.service';
+import { DatabaseService } from './database.service';
 import { Sentence } from './db-schema';
 
 @Injectable({
@@ -9,7 +9,7 @@ import { Sentence } from './db-schema';
 export class SentenceService {
   private readonly storeName = 'sentences';
 
-  constructor(private indexedDbService: IndexedDbService) {}
+  constructor(private indexedDbService: DatabaseService) {}
 
   async addSentence(sentence: Sentence): Promise<number> {
     return this.indexedDbService.add(this.storeName, sentence);

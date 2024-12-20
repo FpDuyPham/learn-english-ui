@@ -1,0 +1,19 @@
+<h2>Edit Exercise</h2>
+
+<form [formGroup]="exerciseForm" (ngSubmit)="onSubmit()">
+  <div>
+    <label for="name">Name:</label>
+    <input pInputText type="text" id="name" formControlName="name" />
+    <div *ngIf="exerciseForm.get('name')?.invalid && exerciseForm.get('name')?.touched">
+      Name is required.
+    </div>
+  </div>
+
+  <div>
+    <label for="description">Description:</label>
+    <textarea pInputTextarea id="description" formControlName="description"></textarea>
+  </div>
+
+  <button pButton type="submit" label="Save" [disabled]="!exerciseForm.valid"></button>
+  <button pButton type="button" label="Cancel" [routerLink]="['/exercises', exerciseId]" class="p-button-secondary"></button>
+</form>
