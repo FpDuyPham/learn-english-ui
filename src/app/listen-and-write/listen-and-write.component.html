@@ -1,20 +1,15 @@
 <div class="listen-and-write-container">
-  <app-settings-button
-    [settings]="userSettings"
-    (saveSettings)="onSaveSettings($event)"
-  ></app-settings-button>
+  <app-settings-button class="mb-16"></app-settings-button>
 
-  <app-audio-player [audioUrl]="audioUrl"></app-audio-player>
+  <app-audio-player [audioUrl]="audioUrl" class="mb-16"></app-audio-player>
 
   <app-feedback
     [vietnameseText]="currentSentence?.vietnameseText"
-    [englishText]="currentSentence?.englishText"
-  ></app-feedback>
+    [englishText]="currentSentence?.englishText"></app-feedback>
 
   <app-navigation-bar
     [current]="currentSentenceIndex + 1"
     [total]="sentences.length"
     (previous)="onPrevSentence()"
-    (next)="onNextSentence()"
-  ></app-navigation-bar>
+    (next)="onNextSentence()"></app-navigation-bar>
 </div>

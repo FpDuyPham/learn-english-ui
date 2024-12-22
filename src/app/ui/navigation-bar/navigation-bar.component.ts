@@ -30,8 +30,8 @@ import {MyButtonComponent} from '../my-button/my-button.component';
         align-items: center;
         gap: 10px; /* Spacing between elements */
         padding: 10px;
-        background-color: #f8f9fa; /* Light background */
-        border: 1px solid #ddd;
+        /*background-color: #f8f9fa; !* Light background *!*/
+        /*border: 1px solid #ddd;*/
         border-radius: 5px;
       }
 

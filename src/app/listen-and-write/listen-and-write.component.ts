@@ -40,34 +40,7 @@ export class ListenAndWriteComponent implements OnInit, OnDestroy {
   userInput: string = '';
   audioUrl: string = '';
   audioBlob: Blob;
-  userSettings: Setting[] = [
-    {
-      label: 'Replay Key',
-      options: [
-        { label: 'Ctrl', value: 'ctrl' },
-        { label: 'Shift', value: 'shift' },
-        { label: 'Alt', value: 'alt' },
-      ],
-      selected: { label: 'Ctrl', value: 'ctrl' },
-    },
-    {
-      label: 'Auto Replay',
-      options: [
-        { label: 'Yes', value: true },
-        { label: 'No', value: false },
-      ],
-      selected: { label: 'No', value: false },
-    },
-    {
-      label: 'Time between replays',
-      options: [
-        { label: '0.5 seconds', value: 0.5 },
-        { label: '1 second', value: 1 },
-        { label: '2 seconds', value: 2 },
-      ],
-      selected: { label: '0.5 seconds', value: 0.5 },
-    },
-  ];
+
   isCorrect: boolean = false;
 
   private routeSubscription: Subscription;
@@ -128,12 +101,6 @@ export class ListenAndWriteComponent implements OnInit, OnDestroy {
   // Helper function for text normalization
   normalizeText(text: string): string {
     return text.toLowerCase().replace(/[.,!]/g, '').trim();
-  }
-
-  onSaveSettings(updatedSettings: Setting[]) {
-    console.log('Saving settings:', updatedSettings);
-    this.userSettings = updatedSettings;
-    localStorage.setItem('userSettings', JSON.stringify(this.userSettings));
   }
 
   private updateCurrentSentence(newIndex: number): void {
