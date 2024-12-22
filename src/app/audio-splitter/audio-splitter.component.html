@@ -20,9 +20,10 @@
       <div *ngIf="segments.length > 0">
         <h2>Segments</h2>
         <div *ngFor="let segment of segments; let i = index">
-          <p>{{i}}. {{ segment.text }}</p>
+          <p>{{i}}. {{ segment.englishText }}</p>
+          <p>{{i}}. {{ segment.vietnameseText }}</p>
           <app-my-button
-            (click)="playSegment(segment.audio)"
+            (click)="playSegment(segment)"
             label="Play Segment {{ i + 1 }}"
           ></app-my-button>
           <app-my-button

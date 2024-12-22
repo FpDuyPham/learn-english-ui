@@ -1,208 +1,149 @@
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { Exercise, Sentence } from '../core/db-schema';
+import { Subscription, from, switchMap, forkJoin } from 'rxjs';
+import { ExerciseService } from '../core/exercise.service';
 import {
-  Component,
-  OnInit,
-  ViewChild,
-  ElementRef,
-  AfterViewInit,
-} from '@angular/core';
-import { CommonModule } from '@angular/common';
+  Setting,
+  SettingsButtonComponent,
+} from '../ui/settings-button/settings-button.component';
+import { ActionButtonsComponent } from '../ui/action-buttons/action-buttons.component';
 import { FormsModule } from '@angular/forms';
-import { AudioService } from '../core/audio.service';
-import { ButtonModule } from 'primeng/button';
-import { CardModule } from 'primeng/card';
-import { MessagesModule } from 'primeng/messages';
-import { MessageService } from 'primeng/api';
-import {NewAudioService} from '../core/new-audio.service';
-
-interface SegmentData {
-  id?: number;
-  text: string;
-  audio: ArrayBuffer;
-}
-
-interface UserProgress {
-  segmentIndex: number;
-  userInput: string;
-  isCorrect: boolean;
-}
+import { TextInputComponent } from '../ui/text-input/text-input.component';
+import { AudioPlayerComponent } from '../ui/audio-player/audio-player.component';
+import { NavigationBarComponent } from '../ui/navigation-bar/navigation-bar.component';
+import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
+import { FeedbackComponent } from '../ui/feedback/feedback.component';
+import {SentenceService} from '../core/setence.service';
 
 @Component({
-  selector: 'app-listen-and-write',
   standalone: true,
-  imports: [
-    CommonModule,
-    FormsModule,
-    ButtonModule,
-    CardModule,
-    MessagesModule
-  ],
+  selector: 'app-listen-and-write',
   templateUrl: './listen-and-write.component.html',
   styleUrls: ['./listen-and-write.component.scss'],
-  providers: [MessageService],
+  imports: [
+    SettingsButtonComponent,
+    ActionButtonsComponent,
+    FormsModule,
+    TextInputComponent,
+    AudioPlayerComponent,
+    NavigationBarComponent,
+    FeedbackComponent,
+  ],
 })
-export class ListenAndWriteComponent implements OnInit, AfterViewInit {
-  @ViewChild('audioPlayer') audioPlayer: ElementRef<HTMLAudioElement>;
-  segments: SegmentData[] = [];
+export class ListenAndWriteComponent implements OnInit, OnDestroy {
+  exerciseId: number;
+  exercise: Exercise;
+  sentences: Sentence[] = [];
+  currentSentence: Sentence;
+  currentSentenceIndex: number = 0;
   userInput: string = '';
-  isCorrect: boolean | null = null;
-  currentSegmentIndex: number | null = null;
-  audioContext: AudioContext;
-  userProgress: UserProgress[] = [];
-  showText: boolean = false;
-  maskedText: string = '';
+  audioUrl: string = '';
+  audioBlob: Blob;
+  userSettings: Setting[] = [
+    {
+      label: 'Replay Key',
+      options: [
+        { label: 'Ctrl', value: 'ctrl' },
+        { label: 'Shift', value: 'shift' },
+        { label: 'Alt', value: 'alt' },
+      ],
+      selected: { label: 'Ctrl', value: 'ctrl' },
+    },
+    {
+      label: 'Auto Replay',
+      options: [
+        { label: 'Yes', value: true },
+        { label: 'No', value: false },
+      ],
+      selected: { label: 'No', value: false },
+    },
+    {
+      label: 'Time between replays',
+      options: [
+        { label: '0.5 seconds', value: 0.5 },
+        { label: '1 second', value: 1 },
+        { label: '2 seconds', value: 2 },
+      ],
+      selected: { label: '0.5 seconds', value: 0.5 },
+    },
+  ];
+  isCorrect: boolean = false;
+
+  private routeSubscription: Subscription;
 
   constructor(
-    private audioService: NewAudioService,
-    private messageService: MessageService,
-  ) {
-    this.audioContext = new AudioContext();
-  }
+    private route: ActivatedRoute,
+    private exerciseService: ExerciseService,
+    private sentenceService: SentenceService,
+    private sanitizer: DomSanitizer
+  ) {}
 
-  async ngOnInit() {
-    this.segments = await this.audioService.getSegments();
-    this.loadProgress();
-    if (this.currentSegmentIndex === null && this.segments.length > 0) {
-      this.currentSegmentIndex = 0; // Start with the first segment
-    }
-    this.updateMaskedText();
-  }
-
-  ngAfterViewInit(): void {
-    if (this.audioPlayer) {
-      this.audioPlayer.nativeElement.addEventListener('keydown', (event) => {
-        if (event.ctrlKey) {
-          event.preventDefault();
-          this.playCurrentAudioSegment();
-        }
+  ngOnInit(): void {
+    this.routeSubscription = this.route.params
+      .pipe(
+        switchMap((params) => {
+          this.exerciseId = +params['id'];
+          return from(this.exerciseService.getExercise(this.exerciseId));
+        }),
+        switchMap((exercise: Exercise) => {
+          this.exercise = exercise;
+          const sentenceObservables = exercise.sentences.map((sentence) =>
+            this.sentenceService.getSentence(sentence.id)
+          );
+          return forkJoin(sentenceObservables);
+        })
+      )
+      .subscribe((sentences: Sentence[]) => {
+        this.sentences = sentences.filter((s: Sentence) => s !== undefined);
+        this.startExercise();
       });
+  }
+
+  ngOnDestroy(): void {
+    this.routeSubscription?.unsubscribe();
+  }
+
+  async startExercise(): Promise<void> {
+    if (this.sentences.length > 0) {
+      this.currentSentenceIndex = 0;
+      this.currentSentence = this.sentences[this.currentSentenceIndex];
+      this.audioUrl = this.createAudioUrl(this.currentSentence.audioBlob);
     }
   }
 
-  playCurrentAudioSegment() {
-    if (this.currentSegmentIndex !== null) {
-      this.playAudio(this.segments[this.currentSegmentIndex].audio);
-    }
+  createAudioUrl(blob: Blob): string {
+    const url = URL.createObjectURL(blob);
+    return url;
   }
 
-  selectSegment(index: number) {
-    this.currentSegmentIndex = index;
-    this.isCorrect = null;
-    this.userInput = '';
-    this.updateMaskedText();
+  onPrevSentence(): void {
+    this.updateCurrentSentence(this.currentSentenceIndex - 1);
   }
 
-  playAudio(audioBuffer: ArrayBuffer) {
-    const audioSource = this.audioContext.createBufferSource();
-    const buffer = this.audioContext.createBuffer(
-      2, // Assuming stereo. Change if you have mono audio.
-      audioBuffer.byteLength / 4, // 4 bytes per float32 sample
-      this.audioContext.sampleRate,
-    );
-
-    const channelData = new Float32Array(audioBuffer);
-    for (let channel = 0; channel < buffer.numberOfChannels; channel++) {
-      const nowBuffering = buffer.getChannelData(channel);
-      const segmentSize = channelData.length / buffer.numberOfChannels;
-      for (let i = 0; i < segmentSize; i++) {
-        nowBuffering[i] = channelData[i * buffer.numberOfChannels + channel];
-      }
-    }
-
-    audioSource.buffer = buffer;
-    audioSource.connect(this.audioContext.destination);
-    audioSource.start();
+  onNextSentence(): void {
+    this.updateCurrentSentence(this.currentSentenceIndex + 1);
   }
 
-  checkUserInput() {
-    if (this.currentSegmentIndex !== null) {
-      const correctText = this.segments[
-        this.currentSegmentIndex
-        ].text.trim().toLowerCase();
-      const userInput = this.userInput.trim().toLowerCase();
-      this.isCorrect = userInput === correctText;
-
-      if (this.isCorrect) {
-        this.messageService.add({
-          severity: 'success',
-          summary: 'Correct',
-          detail: 'Well done!',
-        });
-        this.updateProgress(true);
-        this.currentSegmentIndex++;
-        this.userInput = '';
-      } else {
-        this.messageService.add({
-          severity: 'error',
-          summary: 'Incorrect',
-          detail: 'Try again.',
-        });
-      }
-    }
+  // Helper function for text normalization
+  normalizeText(text: string): string {
+    return text.toLowerCase().replace(/[.,!]/g, '').trim();
   }
 
-  nextSegment() {
-    if (this.currentSegmentIndex !== null) {
-      this.currentSegmentIndex++;
+  onSaveSettings(updatedSettings: Setting[]) {
+    console.log('Saving settings:', updatedSettings);
+    this.userSettings = updatedSettings;
+    localStorage.setItem('userSettings', JSON.stringify(this.userSettings));
+  }
+
+  private updateCurrentSentence(newIndex: number): void {
+    if (newIndex >= 0 && newIndex < this.sentences.length) {
+      this.currentSentenceIndex = newIndex;
+      this.currentSentence = this.sentences[this.currentSentenceIndex];
       this.userInput = '';
       this.isCorrect = null;
-      this.updateMaskedText();
-      if (this.currentSegmentIndex >= this.segments.length) {
-        this.currentSegmentIndex = null; // Or handle end of segments
-      }
-    }
-  }
-
-  skipSegment() {
-    if (this.currentSegmentIndex !== null) {
-      this.updateProgress(false); // Mark as skipped (incorrect)
-      this.nextSegment();
-    }
-  }
-
-  updateProgress(isCorrect: boolean) {
-    if (this.currentSegmentIndex !== null) {
-      this.userProgress.push({
-        segmentIndex: this.currentSegmentIndex,
-        userInput: this.userInput,
-        isCorrect: isCorrect,
-      });
-      this.saveProgress();
-    }
-  }
-
-  saveProgress() {
-    localStorage.setItem('userProgress', JSON.stringify(this.userProgress));
-  }
-
-  loadProgress() {
-    const progressString = localStorage.getItem('userProgress');
-    if (progressString) {
-      this.userProgress = JSON.parse(progressString);
-      // Find the last incomplete segment
-      const lastProgress = this.userProgress[this.userProgress.length - 1];
-      if (lastProgress && !lastProgress.isCorrect) {
-        this.currentSegmentIndex = lastProgress.segmentIndex;
-      } else if (lastProgress && lastProgress.isCorrect) {
-        this.currentSegmentIndex = lastProgress.segmentIndex + 1;
-      }
-      if (this.currentSegmentIndex >= this.segments.length) {
-        this.currentSegmentIndex = null; // All segments completed
-      }
-    }
-  }
-
-  toggleTextVisibility() {
-    this.showText = !this.showText;
-  }
-
-  updateMaskedText() {
-    if (this.currentSegmentIndex !== null) {
-      this.maskedText = this.segments[this.currentSegmentIndex].text
-        .split(' ')
-        .map((word) => '*'.repeat(word.length))
-        .join(' ');
-    } else {
-      this.maskedText = '';
+      this.audioUrl = this.createAudioUrl(this.currentSentence.audioBlob);
+      this.audioBlob = this.currentSentence.audioBlob;
     }
   }
 }

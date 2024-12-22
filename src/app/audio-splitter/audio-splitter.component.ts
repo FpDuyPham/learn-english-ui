@@ -1,29 +1,37 @@
-import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  ViewChild,
+  OnDestroy,
+  ChangeDetectorRef,
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AudioService } from '../core/audio.service';
 import { MyButtonComponent } from '../ui/my-button/my-button.component';
 import { ButtonModule } from 'primeng/button';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { catchError, throwError, Subscription } from 'rxjs';
+import { catchError, throwError, Subscription, Observable } from 'rxjs';
 import { MessageService } from 'primeng/api';
-import { openDB, IDBPDatabase } from 'idb';
 import { FileUpload, FileUploadModule } from 'primeng/fileupload';
 import { ToastModule } from 'primeng/toast';
 import { UploadFileComponent } from './upload-file/upload-file.component';
 import { CardModule } from 'primeng/card';
-import * as musicMetadata from 'music-metadata-browser';
-import {ExerciseService} from '../core/exercise.service';
-import {Exercise} from '../core/models/exercise.model';
-import {ActivatedRoute} from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
+import { Exercise, Sentence, AppDBSchema } from '../core/db-schema';
+import { ExerciseService } from '../core/exercise.service';
+import { AppDB, db } from '../core/database.service';
 
 interface SegmentData {
   id?: number;
-  text: string;
-  audioBlob: Blob; // Store audio data as Blob
+  englishText: string;
+  vietnameseText: string;
+  audio: AudioBuffer;
+  audioBlob: Blob;
 }
 
 interface JsonDataItem {
-  text: string;
+  englishText: string;
+  vietnameseText: string;
   audio: {
     start: number;
     end: number;
@@ -50,15 +58,14 @@ export class AudioSplitterComponent implements OnInit, OnDestroy {
   @ViewChild('fileUpload') fileUpload: FileUpload;
 
   audioBuffer: AudioBuffer | null = null;
-  segments: { text: string; audio: AudioBuffer; audioBlob: Blob; }[] = [];
-  silenceThreshold = -45;
-  minSilenceDuration = 0.5;
+  segments: SegmentData[] = [];
   selectedFile: File | null = null;
   audioUrl: string | null = null;
-  private audioContext: AudioContext | null = null;
+  private audioContext: AudioContext;
   exerciseId: number;
+  exercise$: Observable<Exercise | undefined>;
   exercise: Exercise;
-  private db: IDBPDatabase;
+  private db: AppDB;
 
   private audioSubscription: Subscription;
   private jsonSubscription: Subscription;
@@ -68,23 +75,27 @@ export class AudioSplitterComponent implements OnInit, OnDestroy {
     private http: HttpClient,
     private messageService: MessageService,
     private route: ActivatedRoute,
-    private exerciseService: ExerciseService
+    private exerciseService: ExerciseService,
+    private cdr: ChangeDetectorRef
   ) {}
 
   async ngOnInit() {
-
+    this.db = db;
     this.exerciseId = +this.route.snapshot.paramMap.get('id');
-    this.exercise = await this.exerciseService.getExercise(this.exerciseId);
-
-    await this.initIndexedDB();
-    await this.loadSegmentsFromIndexedDB();
+    this.exercise$ = this.exerciseService.getExercise(this.exerciseId);
+    this.exercise$.subscribe(async (exercise) => {
+      this.exercise = exercise;
+      if (this.exercise) {
+        await this.loadSegmentsFromIndexedDB();
+      }
+    });
 
     this.audioSubscription = this.audioService.audioFile$.subscribe(
       async (file) => {
         if (file) {
           await this.onAudioFileSelected(file);
         }
-      },
+      }
     );
 
     this.jsonSubscription = this.audioService.jsonData$.subscribe((data) => {
@@ -114,9 +125,7 @@ export class AudioSplitterComponent implements OnInit, OnDestroy {
 
   async loadAudioFile(file: File) {
     try {
-      if (!this.audioContext) {
-        this.audioContext = new AudioContext();
-      }
+      this.audioContext = new AudioContext();
 
       const arrayBuffer = await file.arrayBuffer();
       this.audioBuffer = await this.audioContext.decodeAudioData(arrayBuffer);
@@ -168,26 +177,37 @@ export class AudioSplitterComponent implements OnInit, OnDestroy {
       const segmentBuffer = this.createSegmentFromFile(
         this.audioBuffer,
         start,
-        end,
+        end
       );
 
-      const segmentArrayBuffer = this.audioBufferToArrayBuffer(segmentBuffer);
-      const audioBlob = new Blob([this.createWavFile(segmentBuffer)], { type: 'audio/wav' });
+      const audioBlob = new Blob([this.createWavFile(segmentBuffer)], {
+        type: 'audio/wav',
+      });
 
       this.segments.push({
-        text: item.text,
+        englishText: item.englishText,
+        vietnameseText: item.vietnameseText,
         audio: segmentBuffer,
         audioBlob: audioBlob,
       });
     }
 
-    await this.saveSegmentsToIndexedDB();
-
-    this.messageService.add({
-      severity: 'success',
-      summary: 'JSON Processed',
-      detail: 'JSON data processed and segments created.',
-    });
+    // Save segments to IndexedDB and show success message
+    try {
+      await this.saveSegmentsToIndexedDB();
+      this.messageService.add({
+        severity: 'success',
+        summary: 'JSON Processed',
+        detail: 'JSON data processed, segments created and saved to IndexedDB.',
+      });
+    } catch (error) {
+      console.error('Error saving segments to IndexedDB:', error);
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Error',
+        detail: 'Failed to save segments to IndexedDB.',
+      });
+    }
   }
 
   createSegmentFromFile(
@@ -203,7 +223,7 @@ export class AudioSplitterComponent implements OnInit, OnDestroy {
     const segmentBuffer = this.audioContext.createBuffer(
       buffer.numberOfChannels,
       segmentLength,
-      sampleRate,
+      sampleRate
     );
 
     for (let channel = 0; channel < buffer.numberOfChannels; channel++) {
@@ -218,104 +238,150 @@ export class AudioSplitterComponent implements OnInit, OnDestroy {
     return segmentBuffer;
   }
 
-  async initIndexedDB() {
-    this.db = await openDB('audio-splitter-db', 1, {
-      upgrade(db) {
-        db.createObjectStore('segments', {
-          keyPath: 'id',
-          autoIncrement: true,
-        });
-      },
-    });
-  }
-
   async saveSegmentsToIndexedDB() {
     if (!this.db) {
-      await this.initIndexedDB();
+      console.error('IndexedDB not initialized.');
+      return;
     }
 
-    const tx = this.db.transaction('segments', 'readwrite');
-    const store = tx.objectStore('segments');
-    await store.clear();
+    try {
+      console.log('track: save to:', this.exerciseId)
 
-    for (const segment of this.segments) {
-      // Store the Blob
-      await store.add({ text: segment.text, audioBlob: segment.audioBlob });
+      // Use Dexie's transaction for atomic operations
+      await this.db.transaction('rw', this.db.sentences, async () => {
+        // Clear existing sentences for this exercise
+        const existingSentences = await this.db.sentences
+          .where('exerciseId')
+          .equals(this.exerciseId)
+          .toArray();
+        const existingSentenceIds = existingSentences.map(s => s.id!);
+        await this.db.sentences.bulkDelete(existingSentenceIds);
+
+        // Prepare new segments to be added
+        const newSegments = this.segments.map(segment => ({
+          exerciseId: this.exerciseId,
+          englishText: segment.englishText,
+          vietnameseText: segment.vietnameseText,
+          audioBlob: segment.audioBlob,
+        }));
+
+        // Add new segments in bulk
+        await this.db.sentences.bulkAdd(newSegments);
+      });
+
+      this.messageService.add({
+        severity: 'success',
+        summary: 'Segments Saved',
+        detail: 'Segments saved to IndexedDB.',
+      });
+    } catch (error) {
+      console.error('Error saving segments to IndexedDB:', error);
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Error',
+        detail: 'Failed to save segments to IndexedDB.',
+      });
     }
-
-    await tx.done;
-
-    this.messageService.add({
-      severity: 'success',
-      summary: 'Segments Saved',
-      detail: 'Segments saved to IndexedDB.',
-    });
   }
 
   async loadSegmentsFromIndexedDB() {
+    if (!this.exercise) {
+      console.error('Exercise not available.');
+      return;
+    }
+
     if (!this.audioContext) {
       this.audioContext = new AudioContext();
     }
 
-    const tx = this.db.transaction('segments', 'readonly');
-    const store = tx.objectStore('segments');
-    const segmentsData: SegmentData[] = await store.getAll();
+    try {
+      // Fetch sentences for the current exercise from IndexedDB
+      const segmentsData: Sentence[] = await this.db.sentences
+        .where('exerciseId')
+        .equals(this.exerciseId)
+        .toArray();
 
-    this.segments = await Promise.all(
-      segmentsData.map(async (item: SegmentData) => {
-        try {
-          const arrayBuffer = await item.audioBlob.arrayBuffer();
-          const audioBuffer = await this.audioContext.decodeAudioData(arrayBuffer);
+      this.segments = await Promise.all(
+        segmentsData.map(async (item: Sentence) => {
+          try {
+            const arrayBuffer = await item.audioBlob.arrayBuffer();
+            const audioBuffer = await this.audioContext.decodeAudioData(arrayBuffer);
 
-          return {
-            text: item.text,
-            audio: audioBuffer,
-            audioBlob: item.audioBlob
-          };
-        } catch (error) {
-          console.error('Error decoding audio data:', error);
-          this.messageService.add({
-            severity: 'error',
-            summary: 'Error',
-            detail: 'Failed to decode audio data for a segment.'
-          });
-          return null; // or handle the error as appropriate for your application
-        }
-      }),
-    );
+            return {
+              englishText: item.englishText,
+              vietnameseText: item.vietnameseText,
+              audio: audioBuffer,
+              audioBlob: item.audioBlob,
+            };
+          } catch (error: any) {
+            console.error('Error processing segment:', error);
+            this.messageService.add({
+              severity: 'error',
+              summary: 'Error',
+              detail: `Failed to process segment: ${error.message || error}`,
+            });
+            return null; // or handle the error as appropriate for your application
+          }
+        })
+      );
 
-    // Filter out any null segments that failed to decode
-    this.segments = this.segments.filter(segment => segment !== null);
+      // Filter out any null segments that failed to decode or process
+      this.segments = this.segments.filter((segment) => segment !== null);
 
-    if (this.segments.length > 0) {
+      if (this.segments.length > 0) {
+        this.messageService.add({
+          severity: 'info',
+          summary: 'Segments Loaded',
+          detail: 'Segments loaded from IndexedDB.',
+        });
+      }
+    } catch (error) {
+      console.error('Error loading segments from IndexedDB:', error);
       this.messageService.add({
-        severity: 'info',
-        summary: 'Segments Loaded',
-        detail: 'Segments loaded from IndexedDB.',
+        severity: 'error',
+        summary: 'Error',
+        detail: 'Failed to load segments from IndexedDB.',
       });
     }
   }
 
   async saveSegmentsToExercise() {
-    if (!this.exercise) {
-      console.error('Exercise not loaded.');
+    if (!this.exercise || !this.exercise.id) {
+      console.error('Exercise not loaded or invalid exercise ID.');
       return;
     }
 
-    // Update the sentences in the exercise with the current segments
-    this.exercise.sentences = this.segments.map(segment => ({
-      text: segment.text,
-      audioBlob: segment.audioBlob
+    // Map the segments to sentences, including only necessary properties
+    const newSentences = this.segments.map((segment) => ({
+      exerciseId: this.exercise.id, // Ensure exerciseId is set
+      englishText: segment.englishText,
+      vietnameseText: segment.vietnameseText,
+      audio: segment.audioBlob,
     }));
 
-    // Save the updated exercise back to IndexedDB
-    await this.exerciseService.updateExercise(this.exercise);
-
-    this.messageService.add({
-      severity: 'success',
-      summary: 'Exercise Updated',
-      detail: 'Exercise sentences saved successfully.',
-    });
+    // Update the exercise in the database
+    this.exerciseService
+      .updateExercise({
+        ...this.exercise,
+        sentences: newSentences,
+      })
+      .subscribe({
+        next: () => {
+          this.messageService.add({
+            severity: 'success',
+            summary: 'Exercise Updated',
+            detail: 'Exercise sentences saved successfully.',
+          });
+        },
+        error: (error) => {
+          console.error('Error updating exercise:', error);
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Error',
+            detail: 'Failed to update exercise.',
+          });
+        },
+      });
   }
 
   clearFile() {
@@ -333,13 +399,10 @@ export class AudioSplitterComponent implements OnInit, OnDestroy {
     });
   }
 
-  async playSegment(audioBuffer: AudioBuffer) {
-    if (!audioBuffer) {
-      console.error('Cannot play segment: audioBuffer is undefined');
+  async playSegment(segment: SegmentData) {
+    if (!segment || !segment.audio) {
+      console.error('Cannot play segment: audio is undefined');
       return;
-    }
-    if (!this.audioContext) {
-      this.audioContext = new AudioContext();
     }
 
     if (this.audioContext.state === 'suspended') {
@@ -347,23 +410,18 @@ export class AudioSplitterComponent implements OnInit, OnDestroy {
     }
 
     const source = this.audioContext.createBufferSource();
-    source.buffer = audioBuffer; // Set the buffer property
+    source.buffer = segment.audio;
     source.connect(this.audioContext.destination);
     source.start();
   }
 
-  downloadSegment(
-    segment: { text: string; audio: AudioBuffer; audioBlob: Blob },
-    index: number,
-  ) {
-    // 4. Create a download link and trigger the download
+  downloadSegment(segment: SegmentData, index: number) {
     const url = URL.createObjectURL(segment.audioBlob);
     const link = document.createElement('a');
     link.href = url;
     link.download = `segment_${index + 1}.wav`;
     link.click();
 
-    // 5. Revoke the URL to free up resources
     URL.revokeObjectURL(url);
   }
 
@@ -379,12 +437,12 @@ export class AudioSplitterComponent implements OnInit, OnDestroy {
       for (let channel = 0; channel < numChannels; channel++) {
         const sample = Math.max(
           -1,
-          Math.min(1, audioBuffer.getChannelData(channel)[i]),
+          Math.min(1, audioBuffer.getChannelData(channel)[i])
         );
         view.setInt16(
           offset,
           sample < 0 ? sample * 0x8000 : sample * 0x7FFF,
-          true,
+          true
         ); // Little-endian
         offset += 2;
       }
@@ -428,7 +486,10 @@ export class AudioSplitterComponent implements OnInit, OnDestroy {
     let offset = headerLength;
     for (let i = 0; i < numSamples; i++) {
       for (let channel = 0; channel < numChannels; channel++) {
-        const sample = Math.max(-1, Math.min(1, audioBuffer.getChannelData(channel)[i]));
+        const sample = Math.max(
+          -1,
+          Math.min(1, audioBuffer.getChannelData(channel)[i])
+        );
         const intSample = sample < 0 ? sample * 0x8000 : sample * 0x7FFF;
         view.setInt16(offset, intSample, true); // Little-endian
         offset += 2;

@@ -1,0 +1,7 @@
+/* settings-button.component.css */
+.settings-dialog .p-datatable .p-datatable-tbody > tr > td {
+  border: none; /* Remove cell borders if you don't want them */
+}
+.p-dropdown-panel {
+  z-index: 1001; /* Adjust this value as needed, must be higher than the table's z-index */
+}

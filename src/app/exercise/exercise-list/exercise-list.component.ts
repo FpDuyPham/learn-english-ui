@@ -1,45 +1,65 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, RouterModule } from '@angular/router';
+import {Router, RouterModule} from '@angular/router';
 import { ExerciseService } from '../../core/exercise.service';
-import { Exercise } from '../../core/models/exercise.model';
-import { CommonModule } from '@angular/common';
-import {MyButtonComponent} from '../../ui/my-button/my-button.component';
+import { Exercise } from '../../core/db-schema';
+import { Observable } from 'rxjs';
+import {ReactiveFormsModule} from '@angular/forms';
+import {CommonModule} from '@angular/common';
+import {ButtonModule} from 'primeng/button';
+import {TableModule} from 'primeng/table';
 
 @Component({
-  selector: 'app-exercise-list',
   standalone: true,
-  imports: [CommonModule, RouterModule, MyButtonComponent],
+  selector: 'app-exercise-list',
   templateUrl: './exercise-list.component.html',
   styleUrls: ['./exercise-list.component.scss'],
+  imports: [ReactiveFormsModule, CommonModule, RouterModule, ButtonModule, TableModule]
 })
 export class ExerciseListComponent implements OnInit {
-  exercises: Exercise[] = [];
+  exercises$: Observable<Exercise[]>;
+  cols: any[]; // Define the columns for the table
 
-  constructor(private exerciseService: ExerciseService, private router: Router) {}
+  constructor(
+    private exerciseService: ExerciseService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
-    this.exerciseService.exerciseList$.subscribe((exercises: Exercise[]) => {
-      this.exercises = exercises;
-    });
+    this.exercises$ = this.exerciseService.getAllExercises();
+
+    // Define the columns for the table
+    this.cols = [
+      { field: 'id', header: 'ID' },
+      { field: 'name', header: 'Name' },
+      { field: 'actions', header: 'Actions' }, // Column for buttons
+    ];
   }
 
-  editExercise(exerciseId: number) {
+  createExercise(): void {
+    this.router.navigate(['/exercises/create']);
+  }
+
+  editExercise(exerciseId: number): void {
     this.router.navigate(['/exercises', exerciseId, 'edit']);
   }
 
-  deleteExercise(exerciseId: number) {
-    if (confirm('Are you sure you want to delete this exercise?')) {
-      this.exerciseService.deleteExercise(exerciseId).then(() => {
-        // Optional: Display a success message
-      });
-    }
+  deleteExercise(exerciseId: number): void {
+    this.exerciseService.deleteExercise(exerciseId).subscribe({
+      next: () => {
+        // Refresh the list after deleting
+        this.exercises$ = this.exerciseService.getAllExercises();
+      },
+      error: (error) => {
+        console.error('Error deleting exercise:', error);
+      },
+    });
   }
 
-  goToAudioSplitter(exerciseId: number) {
+  goToAudioSplitter(exerciseId: number): void {
     this.router.navigate(['/exercises', exerciseId, 'audio-splitter']);
   }
 
-  createExercise() {
-    this.router.navigate(['/exercises/create']);
+  goToListenAndWrite(exerciseId: number): void {
+    this.router.navigate(['/exercises', exerciseId, 'listen-write']);
   }
 }

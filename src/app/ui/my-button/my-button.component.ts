@@ -8,7 +8,6 @@ import { ButtonModule } from 'primeng/button';
   imports: [CommonModule, ButtonModule],
   template: `
     <p-button
-      label="Secondary"
       [rounded]="true"
       [raised]="true"
       (click)="onClick.emit($event)"
