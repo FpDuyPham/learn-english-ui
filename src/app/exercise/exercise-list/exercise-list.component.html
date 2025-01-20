@@ -29,6 +29,7 @@
       <td>{{ exercise.id }}</td>
       <td><a [routerLink]="['/exercises', exercise.id]">{{ exercise.name }}</a></td>
       <td width="400px">
+        <app-my-button pButton type="button" icon="pi pi-play" class="p-button-text" (click)="gotoLearnPassive(exercise.id!)" label="Learn Passive"></app-my-button>
         <app-my-button pButton type="button" icon="pi pi-pencil" class="p-button-text" (click)="editExercise(exercise.id!)" label="Edit"></app-my-button>
         <app-my-button pButton type="button" icon="pi pi-trash" class="p-button-text" (click)="deleteExercise(exercise.id!)" label="Delete"></app-my-button>
         <app-my-button pButton type="button" icon="pi pi-file" class="p-button-text" (click)="goToAudioSplitter(exercise.id!)" label="View"></app-my-button>

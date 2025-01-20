@@ -13,6 +13,9 @@ export interface Sentence {
   englishText: string;
   vietnameseText: string;
   audioBlob?: Blob;
+  selected?: boolean;// ui fields
+  repetitionCount?: number;
+  silentPauseDuration?: number;
 }
 
 export interface AppDBSchema extends DBSchema {

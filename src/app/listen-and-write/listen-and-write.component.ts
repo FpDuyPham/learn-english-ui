@@ -98,6 +98,10 @@ export class ListenAndWriteComponent implements OnInit, OnDestroy {
     this.updateCurrentSentence(this.currentSentenceIndex + 1);
   }
 
+  onMoveSentence(moveIndex: number): void {
+    this.updateCurrentSentence(moveIndex);
+  }
+
   // Helper function for text normalization
   normalizeText(text: string): string {
     return text.toLowerCase().replace(/[.,!]/g, '').trim();

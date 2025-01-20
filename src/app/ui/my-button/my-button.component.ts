@@ -9,7 +9,7 @@ import { ButtonModule } from 'primeng/button';
   template: `
     <p-button
       [rounded]="true"
-      [raised]="true"
+      [raised]="raised"
       (click)="onClick.emit($event)"
       [label]="label"
       [disabled]="disabled"
@@ -23,5 +23,6 @@ export class MyButtonComponent {
   @Input() disabled: boolean;
   @Input() styleClass: string;
   @Input() icon: string;
+  @Input() raised: boolean = true;
   @Output() onClick = new EventEmitter<any>();
 }

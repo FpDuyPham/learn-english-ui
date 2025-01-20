@@ -62,4 +62,8 @@ export class ExerciseListComponent implements OnInit {
   goToListenAndWrite(exerciseId: number): void {
     this.router.navigate(['/exercises', exerciseId, 'listen-write']);
   }
+
+  gotoLearnPassive(exerciseId: number): void {
+    this.router.navigate(['/exercises', exerciseId, 'passive-listen']);
+  }
 }

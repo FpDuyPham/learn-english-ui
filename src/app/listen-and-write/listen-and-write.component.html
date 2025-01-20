@@ -11,5 +11,6 @@
     [current]="currentSentenceIndex + 1"
     [total]="sentences.length"
     (previous)="onPrevSentence()"
-    (next)="onNextSentence()"></app-navigation-bar>
+    (next)="onNextSentence()"
+    (move)="onMoveSentence($event)"></app-navigation-bar>
 </div>
