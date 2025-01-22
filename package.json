@@ -18,8 +18,12 @@
     "@angular/platform-browser": "^18.2.0",
     "@angular/platform-browser-dynamic": "^18.2.0",
     "@angular/router": "^18.2.0",
+    "@ffmpeg/core": "^0.12.10",
+    "@ffmpeg/ffmpeg": "^0.12.15",
+    "@ffmpeg/util": "^0.12.2",
     "@primeng/themes": "^18.0.0",
     "audiobuffer-to-wav": "^1.0.0",
+    "dexie": "^4.0.10",
     "file-saver": "^2.0.5",
     "idb": "^8.0.1",
     "music-metadata-browser": "^2.5.11",
@@ -28,6 +32,7 @@
     "primeng": "^18.0.0",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
+    "wavesurfer.js": "^7.8.11",
     "zone.js": "~0.14.10"
   },
   "devDependencies": {

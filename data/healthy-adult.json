@@ -1,0 +1,858 @@
+[
+    {
+      "englishText": "Welcome to Spotlight.",
+      "vietnameseText": "Chào mừng đến với Spotlight.",
+      "audio": {
+        "start": 3.27,
+        "end": 5.569999999999999
+      }
+    },
+    {
+      "englishText": "I'm Colin Lather.",
+      "vietnameseText": "Tôi là Colin Lather.",
+      "audio": {
+        "start": 5.83,
+        "end": 7.9399999999999995
+      }
+    },
+    {
+      "englishText": "And I'm Liz Waid.",
+      "vietnameseText": "Và tôi là Liz Waid.",
+      "audio": {
+        "start": 8.11,
+        "end": 10.520000000000001
+      }
+    },
+    {
+      "englishText": "Spotlight uses a special English method of broadcasting.",
+      "vietnameseText": "Spotlight sử dụng một phương pháp tiếng Anh đặc biệt để phát sóng.",
+      "audio": {
+        "start": 10.76,
+        "end": 16.169999999999998
+      }
+    },
+    {
+      "englishText": "It is easier for people to understand no matter where in the world they live.",
+      "vietnameseText": "Mọi người dễ hiểu hơn cho dù họ sống ở đâu trên thế giới.",
+      "audio": {
+        "start": 16.34,
+        "end": 24.45
+      }
+    },
+    {
+      "englishText": "Have you ever seen a person try to stand up and then make this sound?",
+      "vietnameseText": "Bạn đã bao giờ thấy một người cố gắng đứng dậy và sau đó tạo ra âm thanh này chưa?",
+      "audio": {
+        "start": 31.54,
+        "end": 39.769999999999996
+      }
+    },
+    {
+      "englishText": "Did it make you think they were old?",
+      "vietnameseText": "Có phải điều đó khiến bạn nghĩ rằng họ đã già?",
+      "audio": {
+        "start": 45.42,
+        "end": 50.05
+      }
+    },
+    {
+      "englishText": "Did it make you wonder what happened to them?",
+      "vietnameseText": "Có phải điều đó khiến bạn tự hỏi điều gì đã xảy ra với họ?",
+      "audio": {
+        "start": 50.190000000000005,
+        "end": 55.55
+      }
+    },
+    {
+      "englishText": "As we grow, our bodies become less able to move.",
+      "vietnameseText": "Khi chúng ta lớn lên, cơ thể chúng ta trở nên kém khả năng di chuyển hơn.",
+      "audio": {
+        "start": 55.7,
+        "end": 62.47
+      }
+    },
+    {
+      "englishText": "We must slow down when we move or exercise or play sport.",
+      "vietnameseText": "Chúng ta phải giảm tốc độ khi di chuyển hoặc tập thể dục hoặc chơi thể thao.",
+      "audio": {
+        "start": 62.400000000000006,
+        "end": 70.63
+      }
+    },
+    {
+      "englishText": "We must be careful.",
+      "vietnameseText": "Chúng ta phải cẩn thận.",
+      "audio": {
+        "start": 70.63000000000001,
+        "end": 73.22
+      }
+    },
+    {
+      "englishText": "If we are not careful, we can hurt our neck, our knees, or our back.",
+      "vietnameseText": "Nếu không cẩn thận, chúng ta có thể bị đau cổ, đầu gối hoặc lưng.",
+      "audio": {
+        "start": 73.34,
+        "end": 82.78
+      }
+    },
+    {
+      "englishText": "When this happens, it can take weeks or even months to feel better.",
+      "vietnameseText": "Khi điều này xảy ra, có thể mất hàng tuần hoặc thậm chí hàng tháng để cảm thấy tốt hơn.",
+      "audio": {
+        "start": 82.75,
+        "end": 91.3
+      }
+    },
+    {
+      "englishText": "And even simple things like sitting down become a problem.",
+      "vietnameseText": "Và ngay cả những việc đơn giản như ngồi xuống cũng trở thành một vấn đề.",
+      "audio": {
+        "start": 91.31,
+        "end": 98.74
+      }
+    },
+    {
+      "englishText": "This does not only happen to much older people.",
+      "vietnameseText": "Điều này không chỉ xảy ra với những người lớn tuổi hơn nhiều.",
+      "audio": {
+        "start": 98.94,
+        "end": 104.91
+      }
+    },
+    {
+      "englishText": "It starts happening as we enter adulthood.",
+      "vietnameseText": "Nó bắt đầu xảy ra khi chúng ta bước vào tuổi trưởng thành.",
+      "audio": {
+        "start": 104.2,
+        "end": 110.39999999999999
+      }
+    },
+    {
+      "englishText": "This program is part of a series of programs called Tips for a healthy life.",
+      "vietnameseText": "Chương trình này là một phần của loạt chương trình có tên Lời khuyên cho cuộc sống lành mạnh.",
+      "audio": {
+        "start": 114.11,
+        "end": 123.8
+      }
+    },
+    {
+      "englishText": "Other programs focused on pregnancy, the first year of life, childhood, and the teenage years.",
+      "vietnameseText": "Các chương trình khác tập trung vào thai kỳ, năm đầu đời, thời thơ ấu và những năm thiếu niên.",
+      "audio": {
+        "start": 122.7,
+        "end": 134.8
+      }
+    },
+    {
+      "englishText": "Today's spotlight is on how to live a healthy adult life and recover from injury.",
+      "vietnameseText": "Spotlight hôm nay nói về cách sống một cuộc sống trưởng thành lành mạnh và phục hồi sau chấn thương.",
+      "audio": {
+        "start": 133.7,
+        "end": 145.3
+      }
+    },
+    {
+      "englishText": "Before we begin, we should note that all information in this program is not meant to replace going to a doctor.",
+      "vietnameseText": "Trước khi bắt đầu, chúng ta nên lưu ý rằng tất cả thông tin trong chương trình này không nhằm thay thế việc đi khám bác sĩ.",
+      "audio": {
+        "start": 143.7,
+        "end": 158.8
+      }
+    },
+    {
+      "englishText": "If you have a serious injury or sickness, you should go to a doctor for help.",
+      "vietnameseText": "Nếu bạn bị thương nặng hoặc bị bệnh, bạn nên đi khám bác sĩ để được giúp đỡ.",
+      "audio": {
+        "start": 158.2,
+        "end": 168.3
+      }
+    },
+    {
+      "englishText": "The human body is an amazing thing.",
+      "vietnameseText": "Cơ thể con người là một điều tuyệt vời.",
+      "audio": {
+        "start": 169.7,
+        "end": 175.8
+      }
+    },
+    {
+      "englishText": "It can fix itself.",
+      "vietnameseText": "Nó có thể tự sửa chữa.",
+      "audio": {
+        "start": 175.2,
+        "end": 178.8
+      }
+    },
+    {
+      "englishText": "This is a miracle that most people do not think about.",
+      "vietnameseText": "Đây là một phép màu mà hầu hết mọi người không nghĩ tới.",
+      "audio": {
+        "start": 177.7,
+        "end": 185.3
+      }
+    },
+    {
+      "englishText": "Julie K. Silver is a doctor who specializes in helping people recover after serious sickness or injury.",
+      "vietnameseText": "Julie K. Silver là một bác sĩ chuyên giúp đỡ mọi người phục hồi sau khi bị bệnh nặng hoặc bị thương.",
+      "audio": {
+        "start": 184.7,
+        "end": 197.3
+      }
+    },
+    {
+      "englishText": "She is amazed at how the human body works to repair itself after an injury.",
+      "vietnameseText": "Cô ấy ngạc nhiên về cách cơ thể con người hoạt động để tự sửa chữa sau chấn thương.",
+      "audio": {
+        "start": 197.01999999999998,
+        "end": 206.13000000000002
+      }
+    },
+    {
+      "englishText": "She wrote for AARP.com:",
+      "vietnameseText": "Cô ấy đã viết cho AARP.com:",
+      "audio": {
+        "start": 206.67,
+        "end": 211.15
+      }
+    },
+    {
+      "englishText": "Your body works hard to help you recover.",
+      "vietnameseText": "Cơ thể bạn làm việc chăm chỉ để giúp bạn phục hồi.",
+      "audio": {
+        "start": 211.67999999999998,
+        "end": 216.96
+      }
+    },
+    {
+      "englishText": "Even if you do little to help the process along.",
+      "vietnameseText": "Ngay cả khi bạn làm rất ít để giúp quá trình diễn ra.",
+      "audio": {
+        "start": 217.70999999999998,
+        "end": 222.97
+      }
+    },
+    {
+      "englishText": "There is a lot happening in your body both day and night to help you to heal.",
+      "vietnameseText": "Có rất nhiều điều xảy ra trong cơ thể bạn cả ngày lẫn đêm để giúp bạn chữa lành.",
+      "audio": {
+        "start": 223.86999999999998,
+        "end": 234.18
+      }
+    },
+    {
+      "englishText": "When you are injured, white blood cells go to the injury to stop things getting worse.",
+      "vietnameseText": "Khi bạn bị thương, các tế bào bạch cầu sẽ đến vết thương để ngăn mọi thứ trở nên tồi tệ hơn.",
+      "audio": {
+        "start": 234.57999999999998,
+        "end": 244.37
+      }
+    },
+    {
+      "englishText": "Other blood cells remove dead cells and help to control inflammation.",
+      "vietnameseText": "Các tế bào máu khác loại bỏ các tế bào chết và giúp kiểm soát chứng viêm.",
+      "audio": {
+        "start": 244.94,
+        "end": 253.78
+      }
+    },
+    {
+      "englishText": "If you break a bone, bone cells build the rough edges back together.",
+      "vietnameseText": "Nếu bạn bị gãy xương, các tế bào xương sẽ xây dựng lại các cạnh gồ ghề với nhau.",
+      "audio": {
+        "start": 254.38,
+        "end": 262.34000000000003
+      }
+    },
+    {
+      "englishText": "There are so many cells assisting us in healing that we could never count them all.",
+      "vietnameseText": "Có rất nhiều tế bào hỗ trợ chúng ta trong việc chữa bệnh mà chúng ta không bao giờ có thể đếm được hết.",
+      "audio": {
+        "start": 262.62,
+        "end": 273.15000000000003
+      }
+    },
+    {
+      "englishText": "These processes happen on their own.",
+      "vietnameseText": "Những quá trình này tự xảy ra.",
+      "audio": {
+        "start": 223.67999999999998,
+        "end": 227.87
+      }
+    },
+    {
+      "englishText": "But there are things smart patients can do to speed and strengthen their recovery.",
+      "vietnameseText": "Nhưng có những điều bệnh nhân thông minh có thể làm để tăng tốc và củng cố sự phục hồi của họ.",
+      "audio": {
+        "start": 228.36999999999998,
+        "end": 237.48000000000002
+      }
+    },
+    {
+      "englishText": "So, what are these things that can help people heal faster and better?",
+      "vietnameseText": "Vậy, những điều này có thể giúp mọi người chữa lành nhanh hơn và tốt hơn là gì?",
+      "audio": {
+        "start": 291.58,
+        "end": 299.59000000000003
+      }
+    },
+    {
+      "englishText": "The first and best thing you can do is to sleep more.",
+      "vietnameseText": "Điều đầu tiên và tốt nhất bạn có thể làm là ngủ nhiều hơn.",
+      "audio": {
+        "start": 300.15999999999997,
+        "end": 306.58
+      }
+    },
+    {
+      "englishText": "Everyone knows that a good night of sleep makes you feel great.",
+      "vietnameseText": "Mọi người đều biết rằng một giấc ngủ ngon sẽ khiến bạn cảm thấy tuyệt vời.",
+      "audio": {
+        "start": 306.8,
+        "end": 314.5
+      }
+    },
+    {
+      "englishText": "But scientists in many different fields of study believe sleep helps in growth, recovery, and mental health.",
+      "vietnameseText": "Nhưng các nhà khoa học trong nhiều lĩnh vực nghiên cứu khác nhau tin rằng giấc ngủ giúp ích cho sự phát triển, phục hồi và sức khỏe tinh thần.",
+      "audio": {
+        "start": 314.46999999999997,
+        "end": 327.40000000000003
+      }
+    },
+    {
+      "englishText": "Most healthy people are not getting enough sleep.",
+      "vietnameseText": "Hầu hết những người khỏe mạnh không ngủ đủ giấc.",
+      "audio": {
+        "start": 327.53999999999996,
+        "end": 332.85
+      }
+    },
+    {
+      "englishText": "And Dr. Silver says that people recovering from an injury need even more.",
+      "vietnameseText": "Và Tiến sĩ Silver nói rằng những người đang hồi phục sau chấn thương cần nhiều hơn nữa.",
+      "audio": {
+        "start": 333.15999999999997,
+        "end": 342.37
+      }
+    },
+    {
+      "englishText": "She says:",
+      "vietnameseText": "Cô ấy nói:",
+      "audio": {
+        "start": 342.37,
+        "end": 344.18
+      }
+    },
+    {
+      "englishText": "If you are like most people, you need seven to eight hours of sleep each night.",
+      "vietnameseText": "Nếu bạn giống như hầu hết mọi người, bạn cần ngủ từ bảy đến tám giờ mỗi đêm.",
+      "audio": {
+        "start": 344.37,
+        "end": 353.44
+      }
+    },
+    {
+      "englishText": "During sickness, you may need more rest than that.",
+      "vietnameseText": "Khi bị bệnh, bạn có thể cần nghỉ ngơi nhiều hơn thế.",
+      "audio": {
+        "start": 353.67,
+        "end": 359.94
+      }
+    },
+    {
+      "englishText": "Your body's healing processes require sleep to work.",
+      "vietnameseText": "Quá trình chữa bệnh của cơ thể bạn cần phải ngủ để hoạt động.",
+      "audio": {
+        "start": 360.2,
+        "end": 366.64
+      }
+    },
+    {
+      "englishText": "For example, your body produces the chemical melatonin when you sleep.",
+      "vietnameseText": "Ví dụ, cơ thể bạn sản xuất chất hóa học melatonin khi bạn ngủ.",
+      "audio": {
+        "start": 367.03999999999996,
+        "end": 375.65000000000003
+      }
+    },
+    {
+      "englishText": "This chemical increases your immune system and helps repair your body.",
+      "vietnameseText": "Hóa chất này làm tăng hệ thống miễn dịch của bạn và giúp sửa chữa cơ thể của bạn.",
+      "audio": {
+        "start": 376.24,
+        "end": 384.74
+      }
+    },
+    {
+      "englishText": "It may even help prevent some forms of cancer.",
+      "vietnameseText": "Nó thậm chí có thể giúp ngăn ngừa một số dạng ung thư.",
+      "audio": {
+        "start": 385.03999999999996,
+        "end": 391.3
+      }
+    },
+    {
+      "englishText": "But if you are not sleeping enough at night, your melatonin levels can be reduced.",
+      "vietnameseText": "Nhưng nếu bạn không ngủ đủ giấc vào ban đêm, mức melatonin của bạn có thể bị giảm.",
+      "audio": {
+        "start": 391.88,
+        "end": 402.39
+      }
+    },
+    {
+      "englishText": "The next tip for recovering after injury is to continue to move in healthy ways.",
+      "vietnameseText": "Mẹo tiếp theo để phục hồi sau chấn thương là tiếp tục di chuyển theo những cách lành mạnh.",
+      "audio": {
+        "start": 404.49,
+        "end": 413.51
+      }
+    },
+    {
+      "englishText": "Do not make the injury worse.",
+      "vietnameseText": "Đừng làm cho chấn thương tồi tệ hơn.",
+      "audio": {
+        "start": 413.74,
+        "end": 417.42
+      }
+    },
+    {
+      "englishText": "Many athletes continue to exercise and play sport when they are injured.",
+      "vietnameseText": "Nhiều vận động viên tiếp tục tập luyện và chơi thể thao khi họ bị chấn thương.",
+      "audio": {
+        "start": 417.94,
+        "end": 425.79
+      }
+    },
+    {
+      "englishText": "They do not know the difference between pain from effort and pain from injury.",
+      "vietnameseText": "Họ không biết sự khác biệt giữa đau do gắng sức và đau do chấn thương.",
+      "audio": {
+        "start": 426.13,
+        "end": 434.45
+      }
+    },
+    {
+      "englishText": "In these cases, they may need total rest.",
+      "vietnameseText": "Trong những trường hợp này, họ có thể cần nghỉ ngơi hoàn toàn.",
+      "audio": {
+        "start": 434.67,
+        "end": 439.84000000000003
+      }
+    },
+    {
+      "englishText": "But many experts say that light activity can help people heal faster.",
+      "vietnameseText": "Nhưng nhiều chuyên gia nói rằng hoạt động nhẹ có thể giúp mọi người chữa lành nhanh hơn.",
+      "audio": {
+        "start": 440.26,
+        "end": 448.36
+      }
+    },
+    {
+      "englishText": "In fact, a study from 2005 showed that wounds healed faster when people moved.",
+      "vietnameseText": "Trên thực tế, một nghiên cứu từ năm 2005 cho thấy vết thương mau lành hơn khi mọi người cử động.",
+      "audio": {
+        "start": 388.9,
+        "end": 398.98
+      }
+    },
+    {
+      "englishText": "Researchers from Ohio State University in Columbus studied a group of older adults from ages 55 to 77.",
+      "vietnameseText": "Các nhà nghiên cứu từ Đại học Bang Ohio ở Columbus đã nghiên cứu một nhóm người lớn tuổi từ 55 đến 77 tuổi.",
+      "audio": {
+        "start": 462.53999999999996,
+        "end": 477.52000000000004
+      }
+    },
+    {
+      "englishText": "All the adults were healthy.",
+      "vietnameseText": "Tất cả người lớn đều khỏe mạnh.",
+      "audio": {
+        "start": 477.51,
+        "end": 480.94
+      }
+    },
+    {
+      "englishText": "During the study, about half of the adults exercised three times a week for three months.",
+      "vietnameseText": "Trong quá trình nghiên cứu, khoảng một nửa số người lớn tập thể dục ba lần một tuần trong ba tháng.",
+      "audio": {
+        "start": 481.17,
+        "end": 491.09000000000003
+      }
+    },
+    {
+      "englishText": "The other half did not exercise during this time.",
+      "vietnameseText": "Nửa còn lại không tập thể dục trong thời gian này.",
+      "audio": {
+        "start": 491.19,
+        "end": 496.65000000000003
+      }
+    },
+    {
+      "englishText": "Each person in the study also received a small but deep wound on the upper part of their arm.",
+      "vietnameseText": "Mỗi người trong nghiên cứu cũng nhận được một vết thương nhỏ nhưng sâu ở phần trên cánh tay của họ.",
+      "audio": {
+        "start": 496.99,
+        "end": 507.83
+      }
+    },
+    {
+      "englishText": "Researchers took pictures of the wound over time as it healed.",
+      "vietnameseText": "Các nhà nghiên cứu đã chụp ảnh vết thương theo thời gian khi nó lành lại.",
+      "audio": {
+        "start": 508.14,
+        "end": 515.67
+      }
+    },
+    {
+      "englishText": "And the adults recorded their exercise.",
+      "vietnameseText": "Và những người lớn đã ghi lại bài tập của họ.",
+      "audio": {
+        "start": 515.97,
+        "end": 520.8399999999999
+      }
+    },
+    {
+      "englishText": "At the end of the study, researchers discovered something amazing.",
+      "vietnameseText": "Vào cuối cuộc nghiên cứu, các nhà nghiên cứu đã phát hiện ra một điều đáng kinh ngạc.",
+      "audio": {
+        "start": 521.0400000000001,
+        "end": 528.53
+      }
+    },
+    {
+      "englishText": "The wounds of the people who exercised healed about 10 days faster than the wounds of the people who did not exercise.",
+      "vietnameseText": "Vết thương của những người tập thể dục lành nhanh hơn khoảng 10 ngày so với vết thương của những người không tập thể dục.",
+      "audio": {
+        "start": 528.48,
+        "end": 542.78
+      }
+    },
+    {
+      "englishText": "The next tip to recover after an injury is to eat good food and drink enough water.",
+      "vietnameseText": "Mẹo tiếp theo để phục hồi sau chấn thương là ăn thức ăn ngon và uống đủ nước.",
+      "audio": {
+        "start": 546.7,
+        "end": 557.63
+      }
+    },
+    {
+      "englishText": "Food is the first medicine.",
+      "vietnameseText": "Thực phẩm là loại thuốc đầu tiên.",
+      "audio": {
+        "start": 558.0500000000001,
+        "end": 561.78
+      }
+    },
+    {
+      "englishText": "What we put in our bodies becomes our bodies.",
+      "vietnameseText": "Những gì chúng ta đưa vào cơ thể sẽ trở thành cơ thể của chúng ta.",
+      "audio": {
+        "start": 562.0400000000001,
+        "end": 567.77
+      }
+    },
+    {
+      "englishText": "Foods like fish, eggs, and yogurt can help with broken bones.",
+      "vietnameseText": "Thực phẩm như cá, trứng và sữa chua có thể giúp ích cho việc gãy xương.",
+      "audio": {
+        "start": 568.34,
+        "end": 575.27
+      }
+    },
+    {
+      "englishText": "Meat, nuts, and seeds can help our blood.",
+      "vietnameseText": "Thịt, các loại hạt và hạt có thể giúp ích cho máu của chúng ta.",
+      "audio": {
+        "start": 575.84,
+        "end": 580.8499999999999
+      }
+    },
+    {
+      "englishText": "Fruits and vegetables contain vitamin C.",
+      "vietnameseText": "Trái cây và rau quả chứa vitamin C.",
+      "audio": {
+        "start": 581.4000000000001,
+        "end": 585.89
+      }
+    },
+    {
+      "englishText": "Vitamin C helps people stay healthy and heal from cuts on the skin.",
+      "vietnameseText": "Vitamin C giúp mọi người khỏe mạnh và chữa lành vết cắt trên da.",
+      "audio": {
+        "start": 586.19,
+        "end": 593.8
+      }
+    },
+    {
+      "englishText": "Eating good food is important for all people.",
+      "vietnameseText": "Ăn thức ăn ngon là điều quan trọng đối với tất cả mọi người.",
+      "audio": {
+        "start": 594.45,
+        "end": 599.76
+      }
+    },
+    {
+      "englishText": "And it is very important when recovering from a sickness or injury.",
+      "vietnameseText": "Và nó rất quan trọng khi phục hồi sau khi bị bệnh hoặc bị thương.",
+      "audio": {
+        "start": 600.0600000000001,
+        "end": 607.01
+      }
+    },
+    {
+      "englishText": "The final tip to help recover after an injury is to work on the mental parts of recovery.",
+      "vietnameseText": "Mẹo cuối cùng để giúp phục hồi sau chấn thương là làm việc trên các phần tinh thần của quá trình phục hồi.",
+      "audio": {
+        "start": 609.25,
+        "end": 619.24
+      }
+    },
+    {
+      "englishText": "An injury often requires us to change the way we live.",
+      "vietnameseText": "Một chấn thương thường đòi hỏi chúng ta phải thay đổi cách sống.",
+      "audio": {
+        "start": 619.47,
+        "end": 625.74
+      }
+    },
+    {
+      "englishText": "This can be frustrating.",
+      "vietnameseText": "Điều này có thể gây khó chịu.",
+      "audio": {
+        "start": 626.0400000000001,
+        "end": 629.0799999999999
+      }
+    },
+    {
+      "englishText": "We want to be able to live at the same fast speed that we always did.",
+      "vietnameseText": "Chúng ta muốn có thể sống với tốc độ nhanh như chúng ta đã từng.",
+      "audio": {
+        "start": 629.25,
+        "end": 637.92
+      }
+    },
+    {
+      "englishText": "But an injury can make us slow down.",
+      "vietnameseText": "Nhưng một chấn thương có thể khiến chúng ta chậm lại.",
+      "audio": {
+        "start": 638.08,
+        "end": 643.2099999999999
+      }
+    },
+    {
+      "englishText": "Carrie Cheedle is a professor of sports psychology at John F.",
+      "vietnameseText": "Carrie Cheedle là giáo sư tâm lý học thể thao tại John F.",
+      "audio": {
+        "start": 643.35,
+        "end": 649.89
+      }
+    },
+    {
+      "englishText": "Kennedy University.",
+      "vietnameseText": "Đại học Kennedy.",
+      "audio": {
+        "start": 649.8900000000001,
+        "end": 652.52
+      }
+    },
+    {
+      "englishText": "She told Outside Magazine how people cannot deny what it will take to recover.",
+      "vietnameseText": "Cô ấy nói với Tạp chí Bên ngoài rằng mọi người không thể phủ nhận những gì cần thiết để phục hồi.",
+      "audio": {
+        "start": 652.8000000000001,
+        "end": 662.16
+      }
+    },
+    {
+      "englishText": "She says:",
+      "vietnameseText": "Cô ấy nói:",
+      "audio": {
+        "start": 662.4200000000001,
+        "end": 663.91
+      }
+    },
+    {
+      "englishText": "You should not ignore the frustration and sadness that come with injury.",
+      "vietnameseText": "Bạn không nên bỏ qua sự thất vọng và nỗi buồn đi kèm với chấn thương.",
+      "audio": {
+        "start": 664.5300000000001,
+        "end": 672.41
+      }
+    },
+    {
+      "englishText": "But you should look at all the good things in your life.",
+      "vietnameseText": "Nhưng bạn nên nhìn vào tất cả những điều tốt đẹp trong cuộc sống của bạn.",
+      "audio": {
+        "start": 672.61,
+        "end": 678.74
+      }
+    },
+    {
+      "englishText": "Let yourself have some joy.",
+      "vietnameseText": "Hãy để bản thân có một số niềm vui.",
+      "audio": {
+        "start": 679.1400000000001,
+        "end": 682.75
+      }
+    },
+    {
+      "englishText": "It makes you understand that everything is not horrible.",
+      "vietnameseText": "Nó khiến bạn hiểu rằng không phải mọi thứ đều khủng khiếp.",
+      "audio": {
+        "start": 683.07,
+        "end": 688.9499999999999
+      }
+    },
+    {
+      "englishText": "It is often as simple as focusing on something that makes you happy that is not exercise or sport.",
+      "vietnameseText": "Nó thường đơn giản như tập trung vào một cái gì đó khiến bạn hạnh phúc mà không phải là tập thể dục hoặc thể thao.",
+      "audio": {
+        "start": 689.25,
+        "end": 700.5899999999999
+      }
+    },
+    {
+      "englishText": "You may even try keeping a journal and writing down three things you are thankful for every night.",
+      "vietnameseText": "Bạn thậm chí có thể thử viết nhật ký và viết ra ba điều bạn biết ơn mỗi đêm.",
+      "audio": {
+        "start": 701.0400000000001,
+        "end": 711.06
+      }
+    },
+    {
+      "englishText": "This can help move your thoughts away from your injury.",
+      "vietnameseText": "Điều này có thể giúp chuyển suy nghĩ của bạn ra khỏi chấn thương.",
+      "audio": {
+        "start": 711.4000000000001,
+        "end": 717.39
+      }
+    },
+    {
+      "englishText": "Have you ever had an injury?",
+      "vietnameseText": "Bạn đã bao giờ bị chấn thương chưa?",
+      "audio": {
+        "start": 722.38,
+        "end": 725.14
+      }
+    },
+    {
+      "englishText": "What did you do to recover?",
+      "vietnameseText": "Bạn đã làm gì để phục hồi?",
+      "audio": {
+        "start": 725.26,
+        "end": 729.26
+      }
+    },
+    {
+      "englishText": "Tell us what you think.",
+      "vietnameseText": "Hãy cho chúng tôi biết bạn nghĩ gì.",
+      "audio": {
+        "start": 729.49,
+        "end": 732.4599999999999
+      }
+    },
+    {
+      "englishText": "You can leave a comment on our website.",
+      "vietnameseText": "Bạn có thể để lại nhận xét trên trang web của chúng tôi.",
+      "audio": {
+        "start": 732.6400000000001,
+        "end": 736.77
+      }
+    },
+    {
+      "englishText": "Or email us at contact@spotlightenglish.com.",
+      "vietnameseText": "Hoặc gửi email cho chúng tôi theo địa chỉ contact@spotlightenglish.com.",
+      "audio": {
+        "start": 737.1400000000001,
+        "end": 743.53
+      }
+    },
+    {
+      "englishText": "You can also find us on Facebook and YouTube.",
+      "vietnameseText": "Bạn cũng có thể tìm thấy chúng tôi trên Facebook và YouTube.",
+      "audio": {
+        "start": 743.8900000000001,
+        "end": 749.05
+      }
+    },
+    {
+      "englishText": "The writer of this program was Adam Navis.",
+      "vietnameseText": "Người viết chương trình này là Adam Navis.",
+      "audio": {
+        "start": 750.13,
+        "end": 754.64
+      }
+    },
+    {
+      "englishText": "The producer was Michio Ozaki.",
+      "vietnameseText": "Nhà sản xuất là Michio Ozaki.",
+      "audio": {
+        "start": 754.7700000000001,
+        "end": 758.64
+      }
+    },
+    {
+      "englishText": "The voices you heard were from the United Kingdom and the United States.",
+      "vietnameseText": "Giọng nói bạn nghe được là từ Vương quốc Anh và Hoa Kỳ.",
+      "audio": {
+        "start": 758.7700000000001,
+        "end": 765.9799999999999
+      }
+    },
+    {
+      "englishText": "All quotes were adapted for this program and voiced by Spotlight.",
+      "vietnameseText": "Tất cả các trích dẫn đã được điều chỉnh cho chương trình này và được lồng tiếng bởi Spotlight.",
+      "audio": {
+        "start": 766.1800000000001,
+        "end": 772.8499999999999
+      }
+    },
+    {
+      "englishText": "You can listen to this program again and read it on the internet at www.spotlightenglish.com.",
+      "vietnameseText": "Bạn có thể nghe lại chương trình này và đọc nó trên internet tại www.spotlightenglish.com.",
+      "audio": {
+        "start": 773.11,
+        "end": 785.8299999999999
+      }
+    },
+    {
+      "englishText": "This program is called Tips for a healthy adult.",
+      "vietnameseText": "Chương trình này có tên là Lời khuyên cho người lớn khỏe mạnh.",
+      "audio": {
+        "start": 786.1700000000001,
+        "end": 791.5799999999999
+      }
+    },
+    {
+      "englishText": "How to recover from an injury.",
+      "vietnameseText": "Cách phục hồi sau chấn thương.",
+      "audio": {
+        "start": 791.48,
+        "end": 795.27
+      }
+    },
+    {
+      "englishText": "Visit our website to download our free official app for Android and Apple devices.",
+      "vietnameseText": "Truy cập trang web của chúng tôi để tải xuống ứng dụng chính thức miễn phí của chúng tôi cho các thiết bị Android và Apple.",
+      "audio": {
+        "start": 796.1,
+        "end": 804.5
+      }
+    },
+    {
+      "englishText": "We hope you can join us again for the next Spotlight program.",
+      "vietnameseText": "Chúng tôi hy vọng bạn có thể tham gia với chúng tôi một lần nữa cho chương trình Spotlight tiếp theo.",
+      "audio": {
+        "start": 804.75,
+        "end": 810.64
+      }
+    },
+    {
+      "englishText": "Goodbye.",
+      "vietnameseText": "Tạm biệt.",
+      "audio": {
+        "start": 810.87,
+        "end": 812.3
+      }
+    }
+  ]

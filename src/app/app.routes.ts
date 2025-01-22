@@ -4,6 +4,8 @@ import {ExerciseCreateComponent} from './exercise/exercise-create/exercise-creat
 import {ExerciseDetailComponent} from './exercise/exercise-detail/exercise-detail.component';
 import {ExerciseEditComponent} from './exercise/exercise-edit/exercise-edit.component';
 import {AudioSplitterComponent} from './audio-splitter/audio-splitter.component';
+import {ListenAndWriteComponent} from './listen-and-write/listen-and-write.component';
+import {ExercisePassiveListeningComponent} from './exercise/exercise-passive-listening/exercise-passive-listening.component';
 
 // export const routes: Routes = [];
 
@@ -35,4 +37,6 @@ export const routes: Routes = [
   { path: 'exercises/:id', component: ExerciseDetailComponent },
   { path: 'exercises/:id/edit', component: ExerciseEditComponent },
   { path: 'exercises/:id/audio-splitter', component: AudioSplitterComponent },
+  { path: 'exercises/:id/listen-write', component: ListenAndWriteComponent },
+  { path: 'exercises/:id/passive-listen', component: ExercisePassiveListeningComponent },
 ];

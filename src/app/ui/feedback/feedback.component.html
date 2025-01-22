@@ -1,0 +1,34 @@
+<div class="mb-16">
+  <app-text-input
+    [(userInput)]="userInput"
+    (checkAnswer)="onCheckAnswer()"></app-text-input>
+</div>
+
+<app-my-button label="Check" icon="pi pi-check" (click)="onCheckAnswer()"></app-my-button>
+
+<div class="feedback-area">
+  <app-my-button
+    class="toggle-answer"
+    styleClass="p-button-text"
+    (onClick)="toggleShowAnswer()"
+    [icon]="showFullAnswer ? 'pi pi-eye-slash' : 'pi pi-eye'"></app-my-button>
+
+  <div *ngIf="isCorrect === false" class="incorrect">
+    <span class="warning-icon">⚠️</span> Incorrect
+  </div>
+  <div *ngIf="isCorrect === true" class="correct">
+    <span class="check-icon">✅</span> Correct!
+  </div>
+
+  <div class="answer-area">
+    <div class="user-input-text" *ngIf="!showFullAnswer">
+      {{ maskedText }}
+    </div>
+
+    <div class="full-answer" *ngIf="showFullAnswer">
+      <p><strong>English:</strong> {{ englishText }}</p>
+      <p><strong>Vietnamese:</strong> {{ vietnameseText }}</p>
+    </div>
+  </div>
+</div>
+

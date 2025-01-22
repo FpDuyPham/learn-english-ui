@@ -1,19 +1,21 @@
-<h2>Edit Exercise</h2>
-
-<form [formGroup]="exerciseForm" (ngSubmit)="onSubmit()">
-  <div>
-    <label for="name">Name:</label>
-    <input pInputText type="text" id="name" formControlName="name" />
-    <div *ngIf="exerciseForm.get('name')?.invalid && exerciseForm.get('name')?.touched">
-      Name is required.
+<div class="container">
+  <h2>Edit Exercise</h2>
+  <div class="container" *ngIf="exerciseForm"> <form [formGroup]="exerciseForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label for="name">Name:</label>
+      <input pInputText id="name" formControlName="name" required />
+      <small *ngIf="exerciseForm.get('name')?.invalid && exerciseForm.get('name')?.touched" class="p-error">
+        Name is required.
+      </small>
     </div>
-  </div>
 
-  <div>
-    <label for="description">Description:</label>
-    <textarea pInputTextarea id="description" formControlName="description"></textarea>
-  </div>
+    <div class="form-group">
+      <label for="description">Description:</label>
+      <textarea pInputTextarea id="description" formControlName="description" rows="5"></textarea>
+    </div>
 
-  <button pButton type="submit" label="Save" [disabled]="!exerciseForm.valid"></button>
-  <button pButton type="button" label="Cancel" [routerLink]="['/exercises', exerciseId]" class="p-button-secondary"></button>
-</form>
+    <button pButton type="submit" label="Save" [disabled]="!exerciseForm.valid"></button>
+    <button pButton type="button" label="Cancel" class="p-button-secondary" (click)="router.navigate(['/exercises'])"></button>
+  </form>
+  </div>
+</div>

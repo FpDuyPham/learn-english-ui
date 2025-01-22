@@ -1,41 +1,16 @@
-<div class="container">
-  <div class="audio-player">
-    <audio #audioPlayer controls></audio>
-  </div>
+<div class="listen-and-write-container">
+  <app-settings-button class="mb-16"></app-settings-button>
 
-  <div class="input-container">
-    <label for="userInput">Enter the sentence you hear:</label>
-    <textarea
-      id="userInput"
-      [(ngModel)]="userInput"
-      (keyup.enter)="checkUserInput()"
-      (keydown.control)="playCurrentAudioSegment()"
-    ></textarea>
-<!--    <p-message-->
-<!--      *ngIf="isCorrect === true"-->
-<!--      severity="success"-->
-<!--      text="Correct!"-->
-<!--    ></p-message>-->
-<!--    <p-message-->
-<!--      *ngIf="isCorrect === false"-->
-<!--      severity="error"-->
-<!--      text="Incorrect. Try again."-->
-<!--    ></p-message>-->
-  </div>
+  <app-audio-player [audioUrl]="audioUrl" class="mb-16"></app-audio-player>
 
-  <div class="current-segment" *ngIf="currentSegmentIndex !== null">
-    <p-card>
-      <ng-template pTemplate="header">
-        Segment {{ currentSegmentIndex + 1 }}
-      </ng-template>
-      <ng-template pTemplate="content">
-        <p *ngIf="showText">Text: {{ maskedText }}</p>
-        <button pButton type="button" icon="pi pi-play" label="Play" (click)="playCurrentAudioSegment()"></button>
-        <button pButton type="button" label="Check" (click)="checkUserInput()" [disabled]="isCorrect === true"></button>
-        <button pButton type="button" label="Next" (click)="nextSegment()" *ngIf="isCorrect"></button>
-        <button pButton type="button" label="Skip" (click)="skipSegment()"></button>
-      </ng-template>
-    </p-card>
-  </div>
-  <button pButton type="button" label="Show Text" (click)="toggleTextVisibility()"></button>
+  <app-feedback
+    [vietnameseText]="currentSentence?.vietnameseText"
+    [englishText]="currentSentence?.englishText"></app-feedback>
+
+  <app-navigation-bar
+    [current]="currentSentenceIndex + 1"
+    [total]="sentences.length"
+    (previous)="onPrevSentence()"
+    (next)="onNextSentence()"
+    (move)="onMoveSentence($event)"></app-navigation-bar>
 </div>

@@ -1,0 +1,995 @@
+[
+    {
+      "englishText": "Welcome to Spotlight.",
+      "vietnameseText": "Chào mừng bạn đến với Spotlight.",
+      "audio": {
+        "start": 7.130000000000001,
+        "end": 10.06
+      }
+    },
+    {
+      "englishText": "I'm Bruce Gulland.",
+      "vietnameseText": "Tôi là Bruce Gulland.",
+      "audio": {
+        "start": 9.72,
+        "end": 12.54
+      }
+    },
+    {
+      "englishText": "And I'm Liz Wade.",
+      "vietnameseText": "Và tôi là Liz Wade.",
+      "audio": {
+        "start": 12.07,
+        "end": 15.17
+      }
+    },
+    {
+      "englishText": "Spotlight uses a special English method of broadcasting.",
+      "vietnameseText": "Spotlight sử dụng một phương pháp phát sóng tiếng Anh đặc biệt.",
+      "audio": {
+        "start": 14.94,
+        "end": 20.96
+      }
+    },
+    {
+      "englishText": "It is easier for people to understand no matter where in the world they live.",
+      "vietnameseText": "Mọi người có thể hiểu dễ dàng hơn cho dù họ sống ở đâu trên thế giới.",
+      "audio": {
+        "start": 20.59,
+        "end": 29.48
+      }
+    },
+    {
+      "englishText": "Some people drink it with food in the afternoon.",
+      "vietnameseText": "Một số người uống nó với thức ăn vào buổi chiều.",
+      "audio": {
+        "start": 39.35,
+        "end": 44.980000000000004
+      }
+    },
+    {
+      "englishText": "Some people drink it to give themselves energy in the morning.",
+      "vietnameseText": "Một số người uống nó để cung cấp năng lượng cho bản thân vào buổi sáng.",
+      "audio": {
+        "start": 44.53,
+        "end": 51.730000000000004
+      }
+    },
+    {
+      "englishText": "Some people drink it as part of a ceremony.",
+      "vietnameseText": "Một số người uống nó như một phần của nghi lễ.",
+      "audio": {
+        "start": 51.87,
+        "end": 56.99
+      }
+    },
+    {
+      "englishText": "Some people drink it when they are sick.",
+      "vietnameseText": "Một số người uống nó khi họ bị bệnh.",
+      "audio": {
+        "start": 56.96,
+        "end": 62.09
+      }
+    },
+    {
+      "englishText": "Some people drink it hot.",
+      "vietnameseText": "Một số người uống nó nóng.",
+      "audio": {
+        "start": 62.059999999999995,
+        "end": 65.42999999999999
+      }
+    },
+    {
+      "englishText": "Some people drink it very cold.",
+      "vietnameseText": "Một số người uống nó rất lạnh.",
+      "audio": {
+        "start": 65,
+        "end": 69.07
+      }
+    },
+    {
+      "englishText": "People have been drinking it for hundreds of years in hundreds of countries.",
+      "vietnameseText": "Mọi người đã uống nó hàng trăm năm ở hàng trăm quốc gia.",
+      "audio": {
+        "start": 68.96000000000001,
+        "end": 77.74
+      }
+    },
+    {
+      "englishText": "What is it?",
+      "vietnameseText": "Đó là gì?",
+      "audio": {
+        "start": 77.65,
+        "end": 80.14
+      }
+    },
+    {
+      "englishText": "Tea.",
+      "vietnameseText": "Trà.",
+      "audio": {
+        "start": 79.44000000000001,
+        "end": 81.5
+      }
+    },
+    {
+      "englishText": "Tea comes from the Camelia Sinensis plant.",
+      "vietnameseText": "Trà đến từ cây Camelia Sinensis.",
+      "audio": {
+        "start": 82.67,
+        "end": 87.89
+      }
+    },
+    {
+      "englishText": "People pick the leaves off the plant.",
+      "vietnameseText": "Mọi người hái lá từ cây.",
+      "audio": {
+        "start": 87.53,
+        "end": 92.8
+      }
+    },
+    {
+      "englishText": "They set the leaves to dry.",
+      "vietnameseText": "Họ đặt lá để khô.",
+      "audio": {
+        "start": 92.22,
+        "end": 96.3
+      }
+    },
+    {
+      "englishText": "The tea leaves are ready when all the water from the leaves is evaporated.",
+      "vietnameseText": "Lá trà sẵn sàng khi tất cả nước từ lá đã bay hơi.",
+      "audio": {
+        "start": 96.08000000000001,
+        "end": 104.32
+      }
+    },
+    {
+      "englishText": "There are many ways to prepare the leaves before making the tea drink.",
+      "vietnameseText": "Có nhiều cách để chuẩn bị lá trước khi pha đồ uống trà.",
+      "audio": {
+        "start": 104.63000000000001,
+        "end": 112.64
+      }
+    },
+    {
+      "englishText": "Some tea leaves are left open to the air before they are dried.",
+      "vietnameseText": "Một số lá trà được để thoáng khí trước khi sấy khô.",
+      "audio": {
+        "start": 112.78,
+        "end": 120.44999999999999
+      }
+    },
+    {
+      "englishText": "This makes the leaves darker.",
+      "vietnameseText": "Điều này làm cho lá sẫm màu hơn.",
+      "audio": {
+        "start": 120.45,
+        "end": 124.39
+      }
+    },
+    {
+      "englishText": "They will taste stronger.",
+      "vietnameseText": "Chúng sẽ có vị đậm đà hơn.",
+      "audio": {
+        "start": 124.16000000000001,
+        "end": 127.64999999999999
+      }
+    },
+    {
+      "englishText": "Some people mix tea leaves with flowers, oils, and other plants to give teas different tastes.",
+      "vietnameseText": "Một số người trộn lá trà với hoa, dầu và các loại cây khác để tạo cho trà những hương vị khác nhau.",
+      "audio": {
+        "start": 127.64000000000001,
+        "end": 138.69
+      }
+    },
+
+    {
+      "englishText": "The people who originally discovered tea developed these methods many years ago.",
+      "vietnameseText": "Những người đầu tiên phát hiện ra trà đã phát triển những phương pháp này từ nhiều năm trước.",
+      "audio": {
+        "start": 138.81,
+        "end": 148
+      }
+    },
+    {
+      "englishText": "The story of tea begins in China.",
+      "vietnameseText": "Câu chuyện về trà bắt đầu ở Trung Quốc.",
+      "audio": {
+        "start": 152.07000000000002,
+        "end": 157.04999999999998
+      }
+    },
+    {
+      "englishText": "Chinese history says that over 5,000 years ago, Chinese Emperor Shen Nong discovered tea.",
+      "vietnameseText": "Lịch sử Trung Quốc kể rằng hơn 5.000 năm trước, Hoàng đế Thần Nông của Trung Quốc đã phát hiện ra trà.",
+      "audio": {
+        "start": 157,
+        "end": 168.60999999999999
+      }
+    },
+    {
+      "englishText": "Stories say that a dry leaf from the tea plant fell into the emperor's cup of hot water.",
+      "vietnameseText": "Các câu chuyện kể rằng một chiếc lá khô từ cây trà đã rơi vào tách nước nóng của hoàng đế.",
+      "audio": {
+        "start": 168.95000000000002,
+        "end": 178.79999999999998
+      }
+    },
+    {
+      "englishText": "The emperor saw that his water turned dark.",
+      "vietnameseText": "Hoàng đế thấy rằng nước của mình chuyển sang màu sẫm.",
+      "audio": {
+        "start": 179.3,
+        "end": 184.82
+      }
+    },
+    {
+      "englishText": "He tasted the water and liked it.",
+      "vietnameseText": "Ông nếm thử nước và thích nó.",
+      "audio": {
+        "start": 184.96,
+        "end": 189.39999999999998
+      }
+    },
+    {
+      "englishText": "This was the first cup of tea.",
+      "vietnameseText": "Đây là tách trà đầu tiên.",
+      "audio": {
+        "start": 189.84,
+        "end": 194.5
+      }
+    },
+    {
+      "englishText": "However it started, tea became very popular in China.",
+      "vietnameseText": "Dù bắt đầu như thế nào, trà đã trở nên rất phổ biến ở Trung Quốc.",
+      "audio": {
+        "start": 195.15,
+        "end": 202.20999999999998
+      }
+    },
+    {
+      "englishText": "People believed that tea was healthy.",
+      "vietnameseText": "Mọi người tin rằng trà tốt cho sức khỏe.",
+      "audio": {
+        "start": 202.05,
+        "end": 206.95
+      }
+    },
+    {
+      "englishText": "People in China also created many different ways to prepare tea.",
+      "vietnameseText": "Người dân ở Trung Quốc cũng đã tạo ra nhiều cách pha trà khác nhau.",
+      "audio": {
+        "start": 206.8,
+        "end": 214.46999999999997
+      }
+    },
+    {
+      "englishText": "In fact, a man named Lu Yu wrote a book just about tea late in the 8th century.",
+      "vietnameseText": "Trên thực tế, một người đàn ông tên là Lục Vũ đã viết một cuốn sách chỉ về trà vào cuối thế kỷ thứ 8.",
+      "audio": {
+        "start": 214.14000000000001,
+        "end": 224.64
+      }
+    },
+    {
+      "englishText": "Soon after this, tea traveled to Japan.",
+      "vietnameseText": "Ngay sau đó, trà đã du nhập vào Nhật Bản.",
+      "audio": {
+        "start": 224.94,
+        "end": 230.06
+      }
+    },
+    {
+      "englishText": "Japanese Buddhist priests traveled to China, and they brought tea back with them.",
+      "vietnameseText": "Các nhà sư Phật giáo Nhật Bản đã đến Trung Quốc và mang trà trở lại cùng họ.",
+      "audio": {
+        "start": 230.70000000000002,
+        "end": 239.70999999999998
+      }
+    },
+    {
+      "englishText": "In Japan, people developed special ceremonies to serve tea.",
+      "vietnameseText": "Ở Nhật Bản, người dân đã phát triển các nghi lễ đặc biệt để phục vụ trà.",
+      "audio": {
+        "start": 239.84000000000003,
+        "end": 246.67
+      }
+    },
+    {
+      "englishText": "Serving tea became a new form of art.",
+      "vietnameseText": "Việc phục vụ trà đã trở thành một hình thức nghệ thuật mới.",
+      "audio": {
+        "start": 246.91000000000003,
+        "end": 251.43
+      }
+    },
+    {
+      "englishText": "It was most common among wealthy people.",
+      "vietnameseText": "Nó phổ biến nhất trong giới giàu có.",
+      "audio": {
+        "start": 251.97000000000003,
+        "end": 257
+      }
+    },
+    {
+      "englishText": "Tea was an important part of both Chinese and Japanese culture.",
+      "vietnameseText": "Trà là một phần quan trọng của cả văn hóa Trung Quốc và Nhật Bản.",
+      "audio": {
+        "start": 259.3,
+        "end": 266.92999999999995
+      }
+    },
+    {
+      "englishText": "It had traveled to other Asian countries too.",
+      "vietnameseText": "Nó cũng đã du nhập sang các nước châu Á khác.",
+      "audio": {
+        "start": 266.91,
+        "end": 272.52
+      }
+    },
+    {
+      "englishText": "But tea had not yet traveled anywhere else in the world.",
+      "vietnameseText": "Nhưng trà vẫn chưa du hành đến bất kỳ nơi nào khác trên thế giới.",
+      "audio": {
+        "start": 272.55,
+        "end": 279.22999999999996
+      }
+    },
+    {
+      "englishText": "Finally, in the late 1500s, Portuguese travelers brought small amounts of tea back to Europe.",
+      "vietnameseText": "Cuối cùng, vào cuối những năm 1500, những nhà thám hiểm người Bồ Đào Nha đã mang một lượng nhỏ trà trở lại châu Âu.",
+      "audio": {
+        "start": 279.01,
+        "end": 289.41999999999996
+      }
+    },
+    {
+      "englishText": "Portugal was one of the first European countries to trade with China.",
+      "vietnameseText": "Bồ Đào Nha là một trong những quốc gia châu Âu đầu tiên giao thương với Trung Quốc.",
+      "audio": {
+        "start": 289.38,
+        "end": 296.59999999999997
+      }
+    },
+    {
+      "englishText": "Portugal worked with the Netherlands to move the tea through Europe.",
+      "vietnameseText": "Bồ Đào Nha đã hợp tác với Hà Lan để vận chuyển trà khắp châu Âu.",
+      "audio": {
+        "start": 296.65000000000003,
+        "end": 303.46
+      }
+    },
+    {
+      "englishText": "Dutch ships took tea to France and other countries on the Baltic Sea.",
+      "vietnameseText": "Các tàu Hà Lan đã chở trà đến Pháp và các nước khác trên biển Baltic.",
+      "audio": {
+        "start": 303.32,
+        "end": 311.21999999999997
+      }
+    },
+    {
+      "englishText": "Only very wealthy people had enough money to drink tea in Europe.",
+      "vietnameseText": "Chỉ những người rất giàu mới có đủ tiền để uống trà ở châu Âu.",
+      "audio": {
+        "start": 312.13,
+        "end": 319.53999999999996
+      }
+    },
+    {
+      "englishText": "It took many months to transport the tea from Asia.",
+      "vietnameseText": "Phải mất nhiều tháng để vận chuyển trà từ châu Á.",
+      "audio": {
+        "start": 319.95000000000005,
+        "end": 326.46999999999997
+      }
+    },
+    {
+      "englishText": "And only a limited amount was transported.",
+      "vietnameseText": "Và chỉ một số lượng hạn chế được vận chuyển.",
+      "audio": {
+        "start": 326.39,
+        "end": 331.51
+      }
+    },
+    {
+      "englishText": "But more countries started to trade with China.",
+      "vietnameseText": "Nhưng ngày càng có nhiều quốc gia bắt đầu giao thương với Trung Quốc.",
+      "audio": {
+        "start": 332.02,
+        "end": 337.24
+      }
+    },
+    {
+      "englishText": "They also brought tea back to Europe.",
+      "vietnameseText": "Họ cũng mang trà trở lại châu Âu.",
+      "audio": {
+        "start": 337.47,
+        "end": 341.64
+      }
+    },
+    {
+      "englishText": "Prices became lower and more people could drink tea.",
+      "vietnameseText": "Giá cả trở nên thấp hơn và nhiều người có thể uống trà hơn.",
+      "audio": {
+        "start": 341.91,
+        "end": 347.90999999999997
+      }
+    },
+    {
+      "englishText": "Today, England is the European country most known for tea.",
+      "vietnameseText": "Ngày nay, Anh là quốc gia châu Âu nổi tiếng nhất về trà.",
+      "audio": {
+        "start": 350.47,
+        "end": 357.4
+      }
+    },
+    {
+      "englishText": "British traders started shipping tea to England in the late 1600s.",
+      "vietnameseText": "Các thương nhân người Anh bắt đầu vận chuyển trà đến Anh vào cuối những năm 1600.",
+      "audio": {
+        "start": 357.55,
+        "end": 365.77
+      }
+    },
+    {
+      "englishText": "Tea trade had become a very profitable business.",
+      "vietnameseText": "Buôn bán trà đã trở thành một ngành kinh doanh rất sinh lợi.",
+      "audio": {
+        "start": 365.83000000000004,
+        "end": 371.97999999999996
+      }
+    },
+    {
+      "englishText": "England imported about 18,000 kg of tea a year in 1669.",
+      "vietnameseText": "Anh đã nhập khẩu khoảng 18.000 kg trà mỗi năm vào năm 1669.",
+      "audio": {
+        "start": 371.92,
+        "end": 381.59999999999997
+      }
+    },
+    {
+      "englishText": "10 years later, the country imported six times that amount of tea.",
+      "vietnameseText": "10 năm sau, đất nước này đã nhập khẩu lượng trà gấp sáu lần.",
+      "audio": {
+        "start": 381.76,
+        "end": 389.46
+      }
+    },
+    {
+      "englishText": "British colonists also brought tea wherever they settled.",
+      "vietnameseText": "Những người thực dân Anh cũng mang trà đến bất cứ nơi nào họ định cư.",
+      "audio": {
+        "start": 389.95000000000005,
+        "end": 396.03999999999996
+      }
+    },
+    {
+      "englishText": "Tea became very important in India.",
+      "vietnameseText": "Trà trở nên rất quan trọng ở Ấn Độ.",
+      "audio": {
+        "start": 396.23,
+        "end": 401.21999999999997
+      }
+    },
+    {
+      "englishText": "It is still a very important crop there.",
+      "vietnameseText": "Nó vẫn là một loại cây trồng rất quan trọng ở đó.",
+      "audio": {
+        "start": 401.29,
+        "end": 406.57
+      }
+    },
+    {
+      "englishText": "And Indian tea is known around the world.",
+      "vietnameseText": "Và trà Ấn Độ được biết đến trên toàn thế giới.",
+      "audio": {
+        "start": 406.4,
+        "end": 411.53
+      }
+    },
+    {
+      "englishText": "Tea played an important part in one British colony you might know.",
+      "vietnameseText": "Trà đóng một vai trò quan trọng trong một thuộc địa của Anh mà bạn có thể biết.",
+      "audio": {
+        "start": 414.05,
+        "end": 421.13
+      }
+    },
+    {
+      "englishText": "This colony is now known as the United States of America.",
+      "vietnameseText": "Thuộc địa này bây giờ được gọi là Hợp chủng quốc Hoa Kỳ.",
+      "audio": {
+        "start": 420.82000000000005,
+        "end": 427.89
+      }
+    },
+    {
+      "englishText": "England sent tea to America.",
+      "vietnameseText": "Anh đã gửi trà đến Mỹ.",
+      "audio": {
+        "start": 427.98,
+        "end": 432.27
+      }
+    },
+    {
+      "englishText": "But as time went on, England raised the taxes on the tea and other goods it sent.",
+      "vietnameseText": "Nhưng khi thời gian trôi qua, Anh đã tăng thuế đối với trà và các hàng hóa khác mà họ gửi.",
+      "audio": {
+        "start": 432.03,
+        "end": 442.25
+      }
+    },
+    {
+      "englishText": "The people living in the colonies did not like these taxes.",
+      "vietnameseText": "Những người sống ở các thuộc địa không thích những loại thuế này.",
+      "audio": {
+        "start": 442.20000000000005,
+        "end": 448.83
+      }
+    },
+    {
+      "englishText": "To protest the high taxes, a group of colonists took a large shipment of tea and threw it into the ocean.",
+      "vietnameseText": "Để phản đối các loại thuế cao, một nhóm người thực dân đã lấy một lô hàng trà lớn và ném nó xuống biển.",
+      "audio": {
+        "start": 448.84000000000003,
+        "end": 461.77
+      }
+    },
+    {
+      "englishText": "Today, this event is known as the Boston Tea Party.",
+      "vietnameseText": "Ngày nay, sự kiện này được gọi là Bữa tiệc trà Boston.",
+      "audio": {
+        "start": 461.87,
+        "end": 468.65999999999997
+      }
+    },
+    {
+      "englishText": "It was one of the most important events in the American Revolution.",
+      "vietnameseText": "Đó là một trong những sự kiện quan trọng nhất trong Cách mạng Mỹ.",
+      "audio": {
+        "start": 468.41,
+        "end": 476.7
+      }
+    },
+    {
+      "englishText": "Tea has also changed over many years.",
+      "vietnameseText": "Trà cũng đã thay đổi qua nhiều năm.",
+      "audio": {
+        "start": 481.59000000000003,
+        "end": 486.49
+      }
+    },
+    {
+      "englishText": "In the past, people drank tea by putting the leaves directly into the water.",
+      "vietnameseText": "Trong quá khứ, mọi người uống trà bằng cách bỏ trực tiếp lá trà vào nước.",
+      "audio": {
+        "start": 486.82000000000005,
+        "end": 494.66999999999996
+      }
+    },
+    {
+      "englishText": "But around 1908, an American inventor developed a new method, tea bags.",
+      "vietnameseText": "Nhưng vào khoảng năm 1908, một nhà phát minh người Mỹ đã phát triển một phương pháp mới, đó là túi trà.",
+      "audio": {
+        "start": 494.53000000000003,
+        "end": 505.12
+      }
+    },
+    {
+      "englishText": "Thomas Sullivan put the tea in a small silk bag.",
+      "vietnameseText": "Thomas Sullivan đã cho trà vào một túi lụa nhỏ.",
+      "audio": {
+        "start": 505.32000000000005,
+        "end": 510.92999999999995
+      }
+    },
+    {
+      "englishText": "This bag of tea could be put directly into the hot water.",
+      "vietnameseText": "Túi trà này có thể được đặt trực tiếp vào nước nóng.",
+      "audio": {
+        "start": 511.09000000000004,
+        "end": 518.54
+      }
+    },
+    {
+      "englishText": "At first, people in Britain did not like tea bags.",
+      "vietnameseText": "Ban đầu, người dân ở Anh không thích túi trà.",
+      "audio": {
+        "start": 517.5200000000001,
+        "end": 524.68
+      }
+    },
+    {
+      "englishText": "But during World War II, people could not get their normal tea.",
+      "vietnameseText": "Nhưng trong Thế chiến thứ hai, mọi người không thể mua được loại trà thông thường của họ.",
+      "audio": {
+        "start": 523.84,
+        "end": 532.04
+      }
+    },
+    {
+      "englishText": "So, they had to use tea bags.",
+      "vietnameseText": "Vì vậy, họ đã phải sử dụng túi trà.",
+      "audio": {
+        "start": 531.6500000000001,
+        "end": 536.1499999999999
+      }
+    },
+    {
+      "englishText": "Today, most tea bags are made of paper, and they are very popular in many parts of the world.",
+      "vietnameseText": "Ngày nay, hầu hết các túi trà được làm bằng giấy và chúng rất phổ biến ở nhiều nơi trên thế giới.",
+      "audio": {
+        "start": 536.0800000000001,
+        "end": 547.97
+      }
+    },
+    {
+      "englishText": "Today, most tea bags are made of paper,",
+      "vietnameseText": "Ngày nay, hầu hết các túi trà được làm bằng giấy,",
+      "audio": {
+        "start": 535.6999999999999,
+        "end": 541.51
+      }
+    },
+    {
+      "englishText": "and they are very popular in many parts of the world.",
+      "vietnameseText": "và chúng rất phổ biến ở nhiều nơi trên thế giới.",
+      "audio": {
+        "start": 540.3199999999999,
+        "end": 547.7099999999999
+      }
+    },
+    {
+      "englishText": "Today, people on every continent drink tea.",
+      "vietnameseText": "Ngày nay, người dân ở mọi châu lục đều uống trà.",
+      "audio": {
+        "start": 552.4399999999999,
+        "end": 558.4899999999999
+      }
+    },
+    {
+      "englishText": "But people in different places drink tea differently.",
+      "vietnameseText": "Nhưng người dân ở những nơi khác nhau uống trà khác nhau.",
+      "audio": {
+        "start": 558.3499999999999,
+        "end": 564.7099999999999
+      }
+    },
+    {
+      "englishText": "In the United Kingdom, tea became part of the daily meal.",
+      "vietnameseText": "Ở Vương quốc Anh, trà đã trở thành một phần của bữa ăn hàng ngày.",
+      "audio": {
+        "start": 564.4599999999999,
+        "end": 572.01
+      }
+    },
+    {
+      "englishText": "Traditionally, two meals involved tea in British homes.",
+      "vietnameseText": "Theo truyền thống, có hai bữa ăn có trà trong các gia đình người Anh.",
+      "audio": {
+        "start": 572.1999999999999,
+        "end": 578.78
+      }
+    },
+    {
+      "englishText": "These meals became popular in the 1600s.",
+      "vietnameseText": "Những bữa ăn này trở nên phổ biến vào những năm 1600.",
+      "audio": {
+        "start": 578.26,
+        "end": 584.53
+      }
+    },
+    {
+      "englishText": "The first was afternoon tea, or low tea.",
+      "vietnameseText": "Bữa đầu tiên là trà chiều, hay trà nhẹ.",
+      "audio": {
+        "start": 583.88,
+        "end": 590.38
+      }
+    },
+    {
+      "englishText": "This was popular among wealthy people.",
+      "vietnameseText": "Điều này phổ biến đối với những người giàu có.",
+      "audio": {
+        "start": 589.63,
+        "end": 594.8299999999999
+      }
+    },
+    {
+      "englishText": "They would drink tea and eat small sandwiches of meat and bread.",
+      "vietnameseText": "Họ sẽ uống trà và ăn bánh mì sandwich nhỏ với thịt.",
+      "audio": {
+        "start": 594.1999999999999,
+        "end": 602
+      }
+    },
+    {
+      "englishText": "This meal happened around 3:00 in the afternoon.",
+      "vietnameseText": "Bữa ăn này diễn ra vào khoảng 3 giờ chiều.",
+      "audio": {
+        "start": 602.6,
+        "end": 608.2
+      }
+    },
+    {
+      "englishText": "The other meal was called high tea.",
+      "vietnameseText": "Bữa ăn còn lại được gọi là trà nặng.",
+      "audio": {
+        "start": 608.46,
+        "end": 612
+      }
+    },
+    {
+      "englishText": "High tea was a larger meal eaten later in the night.",
+      "vietnameseText": "Trà nặng là một bữa ăn lớn hơn được ăn vào cuối đêm.",
+      "audio": {
+        "start": 612,
+        "end": 618
+      }
+    },
+    {
+      "englishText": "It was popular among poorer people.",
+      "vietnameseText": "Nó phổ biến đối với những người nghèo hơn.",
+      "audio": {
+        "start": 618,
+        "end": 622
+      }
+    },
+    {
+      "englishText": "In Western Asia and the Middle East, a popular way to enjoy tea is as masala chai.",
+      "vietnameseText": "Ở Tây Á và Trung Đông, một cách phổ biến để thưởng thức trà là trà masala.",
+      "audio": {
+        "start": 622,
+        "end": 633
+      }
+    },
+    {
+      "englishText": "Masala chai is a drink made from black tea.",
+      "vietnameseText": "Trà masala là một loại đồ uống được làm từ trà đen.",
+      "audio": {
+        "start": 633,
+        "end": 639
+      }
+    },
+    {
+      "englishText": "But this drink has sugar, spices, and milk in it.",
+      "vietnameseText": "Nhưng đồ uống này có đường, gia vị và sữa trong đó.",
+      "audio": {
+        "start": 639,
+        "end": 647
+      }
+    },
+    {
+      "englishText": "Around the world, people boil plants and flowers to make drinks similar to tea.",
+      "vietnameseText": "Trên khắp thế giới, người ta đun sôi cây và hoa để tạo ra đồ uống tương tự như trà.",
+      "audio": {
+        "start": 647,
+        "end": 656.2
+      }
+    },
+    {
+      "englishText": "These are called tisans.",
+      "vietnameseText": "Chúng được gọi là trà thảo mộc.",
+      "audio": {
+        "start": 656.2,
+        "end": 661
+      }
+    },
+    {
+      "englishText": "A tisane is any drink made from hot water and any plant material except from the tea plant.",
+      "vietnameseText": "Trà thảo dược là bất kỳ loại đồ uống nào được làm từ nước nóng và bất kỳ nguyên liệu thực vật nào ngoại trừ cây trà.",
+      "audio": {
+        "start": 659.48,
+        "end": 670.9
+      }
+    },
+    {
+      "englishText": "They are also often called herbal teas.",
+      "vietnameseText": "Chúng cũng thường được gọi là trà thảo dược.",
+      "audio": {
+        "start": 670.88,
+        "end": 675.7
+      }
+    },
+    {
+      "englishText": "In areas of South America, people enjoy a particular tisane.",
+      "vietnameseText": "Ở các khu vực Nam Mỹ, người dân thưởng thức một loại trà thảo dược đặc biệt.",
+      "audio": {
+        "start": 676.38,
+        "end": 683.3
+      }
+    },
+    {
+      "englishText": "The drink is called Mate.",
+      "vietnameseText": "Đồ uống đó được gọi là Mate.",
+      "audio": {
+        "start": 684.28,
+        "end": 687.3
+      }
+    },
+    {
+      "englishText": "People make it from the leaves of the Yerba Mate plant.",
+      "vietnameseText": "Người dân làm nó từ lá của cây Yerba Mate.",
+      "audio": {
+        "start": 687.68,
+        "end": 693.7
+      }
+    },
+    {
+      "englishText": "A person puts dry Yerba Mate leaves into a dry gourd.",
+      "vietnameseText": "Một người đặt lá Yerba Mate khô vào một quả bầu khô.",
+      "audio": {
+        "start": 693.88,
+        "end": 701.7
+      }
+    },
+    {
+      "englishText": "This is a container made from a dried vegetable skin.",
+      "vietnameseText": "Đây là một chiếc bình đựng làm từ vỏ rau củ phơi khô.",
+      "audio": {
+        "start": 702.88,
+        "end": 708.4
+      }
+    },
+    {
+      "englishText": "He then adds water to the gourd.",
+      "vietnameseText": "Sau đó, anh ta thêm nước vào quả bầu.",
+      "audio": {
+        "start": 707.98,
+        "end": 713.2
+      }
+    },
+    {
+      "englishText": "He drinks the liquid through a thin metal tube, a bombilla.",
+      "vietnameseText": "Anh ta uống chất lỏng thông qua một ống kim loại mỏng, một chiếc bombilla.",
+      "audio": {
+        "start": 713.78,
+        "end": 722
+      }
+    },
+    {
+      "englishText": "People in Southern Africa make a drink called rooibos.",
+      "vietnameseText": "Người dân ở Nam Phi làm một loại đồ uống gọi là rooibos.",
+      "audio": {
+        "start": 721,
+        "end": 728
+      }
+    },
+    {
+      "englishText": "This hot drink is made similar to tea.",
+      "vietnameseText": "Đồ uống nóng này được pha chế tương tự như trà.",
+      "audio": {
+        "start": 727.4,
+        "end": 733
+      }
+    },
+    {
+      "englishText": "But instead of tea leaves, it uses the leaves from the rooibos plant.",
+      "vietnameseText": "Nhưng thay vì lá trà, nó sử dụng lá từ cây rooibos.",
+      "audio": {
+        "start": 732.4,
+        "end": 740.2
+      }
+    },
+    {
+      "englishText": "The drink is a red color and is often called red tea.",
+      "vietnameseText": "Đồ uống có màu đỏ và thường được gọi là trà đỏ.",
+      "audio": {
+        "start": 740.1,
+        "end": 748
+      }
+    },
+    {
+      "englishText": "However you drink tea, the next time you have a cup, think of all the people around the world who are joining you.",
+      "vietnameseText": "Dù bạn uống trà theo cách nào, lần tới khi bạn có một tách trà, hãy nghĩ đến tất cả những người trên khắp thế giới đang cùng tham gia với bạn.",
+      "audio": {
+        "start": 748,
+        "end": 760
+      }
+    },
+    {
+      "englishText": "Enjoy.",
+      "vietnameseText": "Chúc bạn ngon miệng.",
+      "audio": {
+        "start": 760,
+        "end": 763
+      }
+    },
+    {
+      "englishText": "Do you drink tea?",
+      "vietnameseText": "Bạn có uống trà không?",
+      "audio": {
+        "start": 767,
+        "end": 771
+      }
+    },
+    {
+      "englishText": "What kinds of tea do you drink?",
+      "vietnameseText": "Bạn uống loại trà nào?",
+      "audio": {
+        "start": 771,
+        "end": 775
+      }
+    },
+    {
+      "englishText": "You can leave a comment on our website or email us at radio@radioenglish.net.",
+      "vietnameseText": "Bạn có thể để lại bình luận trên trang web của chúng tôi hoặc gửi email cho chúng tôi theo địa chỉ radio@radioenglish.net.",
+      "audio": {
+        "start": 775,
+        "end": 785.8
+      }
+    },
+    {
+      "englishText": "You can also comment on Facebook at facebook.com/spotlightradio.",
+      "vietnameseText": "Bạn cũng có thể bình luận trên Facebook tại facebook.com/spotlightradio.",
+      "audio": {
+        "start": 785.4,
+        "end": 794
+      }
+    },
+    {
+      "englishText": "The writer of this program was Joshua Leo.",
+      "vietnameseText": "Biên kịch của chương trình này là Joshua Leo.",
+      "audio": {
+        "start": 794,
+        "end": 799
+      }
+    },
+    {
+      "englishText": "The producer was Michio Ozaki.",
+      "vietnameseText": "Nhà sản xuất là Michio Ozaki.",
+      "audio": {
+        "start": 799,
+        "end": 803.4
+      }
+    },
+    {
+      "englishText": "The voices you heard were from the United Kingdom and the United States.",
+      "vietnameseText": "Những giọng bạn nghe được là từ Vương quốc Anh và Hoa Kỳ.",
+      "audio": {
+        "start": 803.1,
+        "end": 811
+      }
+    },
+    {
+      "englishText": "You can listen to this program again and read it on the internet at www.radioenglish.net.",
+      "vietnameseText": "Bạn có thể nghe lại chương trình này và đọc nó trên internet tại www.radioenglish.net.",
+      "audio": {
+        "start": 810.5,
+        "end": 823.5
+      }
+    },
+    {
+      "englishText": "This program is called The Amazing History of Tea.",
+      "vietnameseText": "Chương trình này có tên là Lịch Sử Kỳ Diệu Của Trà.",
+      "audio": {
+        "start": 823.2,
+        "end": 830
+      }
+    },
+    {
+      "englishText": "Visit our website to download our free official app for Android and Apple devices.",
+      "vietnameseText": "Hãy truy cập trang web của chúng tôi để tải xuống ứng dụng chính thức miễn phí của chúng tôi cho các thiết bị Android và Apple.",
+      "audio": {
+        "start": 829.4,
+        "end": 838
+      }
+    },
+    {
+      "englishText": "We hope you can join us again for the next spotlight program.",
+      "vietnameseText": "Chúng tôi hy vọng bạn có thể tham gia cùng chúng tôi một lần nữa cho chương trình Spotlight tiếp theo.",
+      "audio": {
+        "start": 837,
+        "end": 844
+      }
+    },
+    {
+      "englishText": "Goodbye.",
+      "vietnameseText": "Tạm biệt.",
+      "audio": {
+        "start": 844,
+        "end": 846
+      }
+    }
+  ]
