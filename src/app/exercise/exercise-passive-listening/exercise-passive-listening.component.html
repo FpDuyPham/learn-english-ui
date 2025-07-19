@@ -37,7 +37,11 @@
       <td>
         <p-checkbox [(ngModel)]="sentence.selected" [binary]="true" [inputId]="'select-' + rowIndex"></p-checkbox>
       </td>
-      <td>{{rowIndex + 1}}</td>
+      <td>
+        {{rowIndex + 1}}
+        <p-button icon="pi pi-play" [rounded]="true" [text]="true" (click)="playSegment(sentence.audioBlob)">
+        </p-button>
+      </td>
       <td>{{ sentence.englishText }}</td>
       <td>{{ sentence.vietnameseText }}</td>
       <td>

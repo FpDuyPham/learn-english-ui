@@ -1,0 +1,3583 @@
+# ==================================================
+# Path: C:\Works\Company\English\learn-english-ui
+# Detected tech: angular, javascript, python, typescript
+# ==================================================
+
+## DIRECTORY STRUCTURE
+```
+learn-english-ui/
+├── .angular/
+├── .git/
+├── .idea/
+├── .vs/
+├── .vscode/
+├── data/
+│   ├── caffein/
+│   │   ├── caffeine-1.json
+│   │   ├── caffeine-2.json
+│   │   └── caffeine-full.json
+│   ├── world food day/
+│   │   ├── world food day-1.json
+│   │   ├── world food day-2.json
+│   │   ├── world food day-3.json
+│   │   ├── world food day-4.json
+│   │   ├── world food day-5.json
+│   │   ├── world food day-6.json
+│   │   ├── world food day-7.json
+│   │   └── world food day-zero.json
+│   ├── healthy-adult.json
+│   └── tieng-duc.json
+├── dist/
+├── node_modules/
+├── public/
+│   └── favicon.ico
+├── src/
+│   ├── app/
+│   │   ├── audio-splitter/
+│   │   │   ├── upload-file/
+│   │   │   │   ├── upload-file.component.html
+│   │   │   │   ├── upload-file.component.scss
+│   │   │   │   └── upload-file.component.ts
+│   │   │   ├── audio-splitter.component.html
+│   │   │   ├── audio-splitter.component.scss
+│   │   │   └── audio-splitter.component.ts
+│   │   ├── core/
+│   │   │   ├── models/
+│   │   │   │   └── exercise.model.ts
+│   │   │   ├── audio.service.ts
+│   │   │   ├── database.service.ts
+│   │   │   ├── db-schema.ts
+│   │   │   ├── exercise-db.service.ts
+│   │   │   ├── exercise.service.ts
+│   │   │   ├── indexed-db.service.ts
+│   │   │   ├── new-audio.service.ts
+│   │   │   └── setence.service.ts
+│   │   ├── exercise/
+│   │   │   ├── exercise-create/
+│   │   │   │   ├── exercise-create.component.html
+│   │   │   │   ├── exercise-create.component.scss
+│   │   │   │   └── exercise-create.component.ts
+│   │   │   ├── exercise-detail/
+│   │   │   │   ├── exercise-detail.component.html
+│   │   │   │   ├── exercise-detail.component.scss
+│   │   │   │   └── exercise-detail.component.ts
+│   │   │   ├── exercise-edit/
+│   │   │   │   ├── exercise-edit.component.html
+│   │   │   │   ├── exercise-edit.component.scss
+│   │   │   │   └── exercise-edit.component.ts
+│   │   │   ├── exercise-list/
+│   │   │   │   ├── exercise-list.component.html
+│   │   │   │   ├── exercise-list.component.scss
+│   │   │   │   └── exercise-list.component.ts
+│   │   │   └── exercise-passive-listening/
+│   │   │       ├── exercise-passive-listening.component.html
+│   │   │       ├── exercise-passive-listening.component.scss
+│   │   │       └── exercise-passive-listening.component.ts
+│   │   ├── features/
+│   │   ├── listen-and-write/
+│   │   │   ├── listen-and-write.component.html
+│   │   │   ├── listen-and-write.component.scss
+│   │   │   └── listen-and-write.component.ts
+│   │   ├── ui/
+│   │   │   ├── action-buttons/
+│   │   │   │   └── action-buttons.component.ts
+│   │   │   ├── audio-player/
+│   │   │   │   └── audio-player.component.ts
+│   │   │   ├── feedback/
+│   │   │   │   ├── feedback.component.html
+│   │   │   │   ├── feedback.component.scss
+│   │   │   │   └── feedback.component.ts
+│   │   │   ├── menu/
+│   │   │   │   ├── menu.component.html
+│   │   │   │   └── menu.component.ts
+│   │   │   ├── my-button/
+│   │   │   │   └── my-button.component.ts
+│   │   │   ├── my-file-uploader/
+│   │   │   │   ├── my-file-uploader.component.html
+│   │   │   │   ├── my-file-uploader.component.scss
+│   │   │   │   └── my-file-uploader.component.ts
+│   │   │   ├── my-input-number/
+│   │   │   │   └── my-input-number.component.ts
+│   │   │   ├── my-slider/
+│   │   │   │   └── my-slider.component.ts
+│   │   │   ├── navigation-bar/
+│   │   │   │   └── navigation-bar.component.ts
+│   │   │   ├── settings-button/
+│   │   │   │   ├── settings-button.component.scss
+│   │   │   │   └── settings-button.component.ts
+│   │   │   └── text-input/
+│   │   │       └── text-input.component.ts
+│   │   ├── app.component.html
+│   │   ├── app.component.scss
+│   │   ├── app.component.ts
+│   │   ├── app.config.ts
+│   │   └── app.routes.ts
+│   ├── types/
+│   │   └── pcm-util.d.ts
+│   ├── index.html
+│   ├── main.ts
+│   └── styles.scss
+├── .editorconfig
+├── .gitignore
+├── README.md
+├── angular.json
+├── package-lock.json
+├── package.json
+├── tsconfig.app.json
+├── tsconfig.json
+└── tsconfig.spec.json
+```
+
+## FILE CONTENTS
+
+### src\index.html
+```html
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>LearnEnglishUi</title>
+  <base href="/">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+</head>
+<body>
+  <app-root></app-root>
+</body>
+</html>
+
+```
+
+### src\main.ts
+```ts
+import { bootstrapApplication } from '@angular/platform-browser';
+import { appConfig } from './app/app.config';
+import { AppComponent } from './app/app.component';
+import {ApplicationConfig} from '@angular/core';
+import {provideRouter} from '@angular/router';
+import {provideHttpClient} from '@angular/common/http';
+import {routes} from './app/app.routes';
+
+
+bootstrapApplication(AppComponent, appConfig)
+  .catch((err) => console.error(err));
+
+```
+
+### src\styles.scss
+```scss
+//@import "primeng/resources/themes/lara-light-blue/theme.css";
+//@import "primeng/resources/primeng.css";
+@import "primeicons/primeicons.css";
+
+.mt-16 {
+  margin-top: 16px;
+}
+.mb-16 {
+  margin-bottom: 16px;
+}
+.mr-auto {
+  margin-right: auto;
+}
+.ml-auto {
+  margin-left: auto;
+}
+.mb-auto {
+  margin-bottom: auto;
+}
+.mt-auto {
+  margin-top: auto;
+}
+
+```
+
+### src\app\app.component.html
+```html
+<app-menu></app-menu>
+<div class="content">
+  <router-outlet></router-outlet>
+</div>
+
+```
+
+### src\app\app.component.scss
+```scss
+
+```
+
+### src\app\app.component.ts
+```ts
+import { Component } from '@angular/core';
+import { RouterOutlet } from '@angular/router';
+import {ButtonModule} from 'primeng/button';
+import {MenuComponent} from './ui/menu/menu.component';
+
+@Component({
+  selector: 'app-root',
+  standalone: true,
+  imports: [RouterOutlet, ButtonModule, MenuComponent],
+  templateUrl: './app.component.html',
+  styleUrl: './app.component.scss',
+  providers: []
+})
+export class AppComponent {
+}
+
+```
+
+### src\app\app.config.ts
+```ts
+import { ApplicationConfig, provideZoneChangeDetection } from '@angular/core';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { provideRouter } from '@angular/router';
+
+import { routes } from './app.routes';
+
+import { providePrimeNG } from 'primeng/config';
+import Aura from '@primeng/themes/aura';
+import {MessageService} from 'primeng/api';
+import {provideHttpClient} from '@angular/common/http';
+
+export const appConfig: ApplicationConfig = {
+  providers: [
+    provideZoneChangeDetection({ eventCoalescing: true }),
+    provideRouter(routes),
+    provideHttpClient(), // Provide HttpClient here
+    MessageService,
+    provideAnimationsAsync(),
+    providePrimeNG({
+      theme: {
+        preset: Aura
+      }
+    })
+  ]
+};
+
+//
+// const appConfig: ApplicationConfig = {
+//   providers: [
+//     provideRouter(routes),
+//     // ... other providers, such as:
+//     // provideAnimations(),
+//     // provideStore(...),
+//     // importProvidersFrom(SomeModule.forRoot()), // If you have modules with forRoot()
+//   ],
+// };
+
+```
+
+### src\app\app.routes.ts
+```ts
+import {RouterModule, Routes} from '@angular/router';
+import {ExerciseListComponent} from './exercise/exercise-list/exercise-list.component';
+import {ExerciseCreateComponent} from './exercise/exercise-create/exercise-create.component';
+import {ExerciseDetailComponent} from './exercise/exercise-detail/exercise-detail.component';
+import {ExerciseEditComponent} from './exercise/exercise-edit/exercise-edit.component';
+import {AudioSplitterComponent} from './audio-splitter/audio-splitter.component';
+import {ListenAndWriteComponent} from './listen-and-write/listen-and-write.component';
+import {ExercisePassiveListeningComponent} from './exercise/exercise-passive-listening/exercise-passive-listening.component';
+import {NgModule} from '@angular/core';
+
+// export const routes: Routes = [];
+
+// export const routes: Routes = [
+//   {
+//     path: 'audio-splitter',
+//     loadComponent: () =>
+//       import('./audio-splitter/audio-splitter.component').then(
+//         (c) => c.AudioSplitterComponent
+//       ),
+//   },
+//   { path: 'listen-and-write', loadComponent: () =>
+//       import('./listen-and-write/listen-and-write.component').then(
+//         (c) => c.ListenAndWriteComponent
+//       ),
+//   }, // New route
+//   {
+//     path: '',
+//     redirectTo: 'audio-splitter',
+//     pathMatch: 'full',
+//   }
+// ];
+//
+//
+// export const routes: Routes = [
+//   { path: '', redirectTo: '/exercises', pathMatch: 'full' },
+//   { path: 'exercises', component: ExerciseListComponent },
+//   { path: 'exercises/create', component: ExerciseCreateComponent },
+//   { path: 'exercises/:id', component: ExerciseDetailComponent },
+//   { path: 'exercises/:id/edit', component: ExerciseEditComponent },
+//   { path: 'exercises/:id/audio-splitter', component: AudioSplitterComponent },
+//   { path: 'exercises/:id/listen-write', component: ListenAndWriteComponent },
+//   { path: 'exercises/:id/passive-listen', component: ExercisePassiveListeningComponent },
+// ];
+
+export const routes: Routes = [
+  { path: '', redirectTo: '/exercises', pathMatch: 'full' },
+  {
+    path: 'exercises',
+    loadComponent: () => import('./exercise/exercise-list/exercise-list.component').then(m => m.ExerciseListComponent)
+  },
+  {
+    path: 'exercises/create',
+    loadComponent: () => import('./exercise/exercise-create/exercise-create.component').then(m => m.ExerciseCreateComponent)
+  },
+  {
+    path: 'exercises/:id',
+    loadComponent: () => import('./exercise/exercise-detail/exercise-detail.component').then(m => m.ExerciseDetailComponent)
+  },
+  {
+    path: 'exercises/:id/edit',
+    loadComponent: () => import('./exercise/exercise-edit/exercise-edit.component').then(m => m.ExerciseEditComponent)
+  },
+  {
+    path: 'exercises/:id/audio-splitter',
+    loadComponent: () => import('./audio-splitter/audio-splitter.component').then(m => m.AudioSplitterComponent)
+  },
+  {
+    path: 'exercises/:id/listen-write',
+    loadComponent: () => import('./listen-and-write/listen-and-write.component').then(m => m.ListenAndWriteComponent)
+  },
+  {
+    path: 'exercises/:id/passive-listen',
+    loadComponent: () => import('./exercise/exercise-passive-listening/exercise-passive-listening.component').then(m => m.ExercisePassiveListeningComponent)
+  },
+];
+
+```
+
+### src\app\audio-splitter\audio-splitter.component.html
+```html
+<p-toast></p-toast>
+
+<!-- Add the save button to your audio splitter template -->
+<button pButton type="button" label="Save to Exercise" (click)="saveSegmentsToExercise()"></button>
+
+<p-card>
+  <div class="flex justify-content-end">
+    <p-button
+      (click)="clearFile()"
+      icon="pi pi-times"
+      label="Clear File"
+      [disabled]="selectedFile === null"
+      styleClass="p-button-danger"
+    ></p-button>
+  </div>
+  <app-upload-file></app-upload-file>
+
+  <div class="grid">
+    <div class="col-12">
+      <div *ngIf="segments.length > 0">
+        <h2>Segments</h2>
+        <div *ngFor="let segment of segments; let i = index">
+          <p>{{i}}. {{ segment.englishText }}</p>
+          <p>{{i}}. {{ segment.vietnameseText }}</p>
+          <app-my-button
+            (click)="playSegment(segment)"
+            label="Play Segment {{ i + 1 }}"
+          ></app-my-button>
+          <app-my-button
+            (click)="downloadSegment(segment, i)"
+            label="Download Segment {{ i + 1 }}"
+            styleClass="p-button-secondary"
+          ></app-my-button>
+        </div>
+      </div>
+    </div>
+  </div>
+</p-card>
+
+```
+
+### src\app\audio-splitter\audio-splitter.component.scss
+```scss
+
+```
+
+### src\app\audio-splitter\audio-splitter.component.ts
+```ts
+import {
+  Component,
+  OnInit,
+  ViewChild,
+  OnDestroy,
+  ChangeDetectorRef,
+} from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { AudioService } from '../core/audio.service';
+import { MyButtonComponent } from '../ui/my-button/my-button.component';
+import { ButtonModule } from 'primeng/button';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { catchError, throwError, Subscription, Observable } from 'rxjs';
+import { MessageService } from 'primeng/api';
+import { FileUpload, FileUploadModule } from 'primeng/fileupload';
+import { ToastModule } from 'primeng/toast';
+import { UploadFileComponent } from './upload-file/upload-file.component';
+import { CardModule } from 'primeng/card';
+import { ActivatedRoute } from '@angular/router';
+import { Exercise, Sentence, AppDBSchema } from '../core/db-schema';
+import { ExerciseService } from '../core/exercise.service';
+import { AppDB, db } from '../core/database.service';
+
+interface SegmentData {
+  id?: number;
+  englishText: string;
+  vietnameseText: string;
+  audio: AudioBuffer;
+  audioBlob: Blob;
+}
+
+interface JsonDataItem {
+  englishText: string;
+  vietnameseText: string;
+  audio: {
+    start: number;
+    end: number;
+  };
+}
+
+@Component({
+  selector: 'app-audio-splitter',
+  standalone: true,
+  imports: [
+    CommonModule,
+    MyButtonComponent,
+    ButtonModule,
+    FileUploadModule,
+    ToastModule,
+    UploadFileComponent,
+    CardModule,
+  ],
+  templateUrl: './audio-splitter.component.html',
+  styleUrls: ['./audio-splitter.component.scss'],
+  providers: [MessageService],
+})
+export class AudioSplitterComponent implements OnInit, OnDestroy {
+  @ViewChild('fileUpload') fileUpload: FileUpload;
+
+  audioBuffer: AudioBuffer | null = null;
+  segments: SegmentData[] = [];
+  selectedFile: File | null = null;
+  audioUrl: string | null = null;
+  private audioContext: AudioContext;
+  exerciseId: number;
+  exercise$: Observable<Exercise | undefined>;
+  exercise: Exercise;
+  private db: AppDB;
+
+  private audioSubscription: Subscription;
+  private jsonSubscription: Subscription;
+
+  constructor(
+    public audioService: AudioService,
+    private http: HttpClient,
+    private messageService: MessageService,
+    private route: ActivatedRoute,
+    private exerciseService: ExerciseService,
+    private cdr: ChangeDetectorRef
+  ) {}
+
+  async ngOnInit() {
+    this.db = db;
+    this.exerciseId = +this.route.snapshot.paramMap.get('id');
+    this.exercise$ = this.exerciseService.getExercise(this.exerciseId);
+    this.exercise$.subscribe(async (exercise) => {
+      this.exercise = exercise;
+      if (this.exercise) {
+        await this.loadSegmentsFromIndexedDB();
+      }
+    });
+
+    this.audioSubscription = this.audioService.audioFile$.subscribe(
+      async (file) => {
+        if (file) {
+          await this.onAudioFileSelected(file);
+        }
+      }
+    );
+
+    this.jsonSubscription = this.audioService.jsonData$.subscribe((data) => {
+      if (data) {
+        this.processJsonData(data);
+      }
+    });
+  }
+
+  ngOnDestroy() {
+    if (this.audioSubscription) {
+      this.audioSubscription.unsubscribe();
+    }
+    if (this.jsonSubscription) {
+      this.jsonSubscription.unsubscribe();
+    }
+    if (this.audioContext) {
+      this.audioContext.close();
+    }
+  }
+
+  async onAudioFileSelected(file: File) {
+    this.selectedFile = file;
+    this.audioUrl = URL.createObjectURL(file);
+    await this.loadAudioFile(file);
+  }
+
+  async loadAudioFile(file: File) {
+    try {
+      this.audioContext = new AudioContext();
+
+      const arrayBuffer = await file.arrayBuffer();
+      this.audioBuffer = await this.audioContext.decodeAudioData(arrayBuffer);
+
+      this.messageService.add({
+        severity: 'success',
+        summary: 'File Loaded',
+        detail: 'Audio file loaded successfully.',
+      });
+    } catch (error) {
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Error',
+        detail: 'Failed to load audio file.',
+      });
+      console.error('Error loading audio file:', error);
+    }
+  }
+
+  async processJsonData(jsonData: JsonDataItem[]) {
+    if (!this.audioBuffer) {
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Error',
+        detail: 'Audio file not loaded.',
+      });
+      console.error('Audio file not loaded.');
+      return;
+    }
+
+    this.segments = [];
+
+    for (const item of jsonData) {
+      const start = item.audio.start;
+      const end = item.audio.end;
+
+      if (end > this.audioBuffer.duration) {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: `End time ${end} is beyond audio duration ${this.audioBuffer.duration}.`,
+        });
+        console.error(
+          `End time ${end} is beyond audio duration ${this.audioBuffer.duration}.`,
+        );
+        continue;
+      }
+
+      const segmentBuffer = this.createSegmentFromFile(
+        this.audioBuffer,
+        start,
+        end
+      );
+
+      const audioBlob = new Blob([this.createWavFile(segmentBuffer)], {
+        type: 'audio/wav',
+      });
+
+      this.segments.push({
+        englishText: item.englishText,
+        vietnameseText: item.vietnameseText,
+        audio: segmentBuffer,
+        audioBlob: audioBlob,
+      });
+    }
+
+    // Save segments to IndexedDB and show success message
+    try {
+      await this.saveSegmentsToIndexedDB();
+      this.messageService.add({
+        severity: 'success',
+        summary: 'JSON Processed',
+        detail: 'JSON data processed, segments created and saved to IndexedDB.',
+      });
+    } catch (error) {
+      console.error('Error saving segments to IndexedDB:', error);
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Error',
+        detail: 'Failed to save segments to IndexedDB.',
+      });
+    }
+  }
+
+  createSegmentFromFile(
+    buffer: AudioBuffer,
+    start: number,
+    end: number
+  ): AudioBuffer {
+    const sampleRate = buffer.sampleRate;
+    const startSample = Math.floor(start * sampleRate);
+    const endSample = Math.floor(end * sampleRate);
+    const segmentLength = Math.max(0, endSample - startSample);
+
+    const segmentBuffer = this.audioContext.createBuffer(
+      buffer.numberOfChannels,
+      segmentLength,
+      sampleRate
+    );
+
+    for (let channel = 0; channel < buffer.numberOfChannels; channel++) {
+      const channelData = buffer.getChannelData(channel);
+      const segmentChannelData = segmentBuffer.getChannelData(channel);
+
+      for (let i = 0; i < segmentLength; i++) {
+        segmentChannelData[i] = channelData[startSample + i];
+      }
+    }
+
+    return segmentBuffer;
+  }
+
+  async saveSegmentsToIndexedDB() {
+    if (!this.db) {
+      console.error('IndexedDB not initialized.');
+      return;
+    }
+
+    try {
+      console.log('track: save to:', this.exerciseId)
+
+      // Use Dexie's transaction for atomic operations
+      await this.db.transaction('rw', this.db.sentences, async () => {
+        // Clear existing sentences for this exercise
+        const existingSentences = await this.db.sentences
+          .where('exerciseId')
+          .equals(this.exerciseId)
+          .toArray();
+        const existingSentenceIds = existingSentences.map(s => s.id!);
+        await this.db.sentences.bulkDelete(existingSentenceIds);
+
+        // Prepare new segments to be added
+        const newSegments = this.segments.map(segment => ({
+          exerciseId: this.exerciseId,
+          englishText: segment.englishText,
+          vietnameseText: segment.vietnameseText,
+          audioBlob: segment.audioBlob,
+        }));
+
+        // Add new segments in bulk
+        await this.db.sentences.bulkAdd(newSegments);
+      });
+
+      this.messageService.add({
+        severity: 'success',
+        summary: 'Segments Saved',
+        detail: 'Segments saved to IndexedDB.',
+      });
+    } catch (error) {
+      console.error('Error saving segments to IndexedDB:', error);
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Error',
+        detail: 'Failed to save segments to IndexedDB.',
+      });
+    }
+  }
+
+  async loadSegmentsFromIndexedDB() {
+    if (!this.exercise) {
+      console.error('Exercise not available.');
+      return;
+    }
+
+    if (!this.audioContext) {
+      this.audioContext = new AudioContext();
+    }
+
+    try {
+      // Fetch sentences for the current exercise from IndexedDB
+      const segmentsData: Sentence[] = await this.db.sentences
+        .where('exerciseId')
+        .equals(this.exerciseId)
+        .toArray();
+
+      this.segments = await Promise.all(
+        segmentsData.map(async (item: Sentence) => {
+          try {
+            const arrayBuffer = await item.audioBlob.arrayBuffer();
+            const audioBuffer = await this.audioContext.decodeAudioData(arrayBuffer);
+
+            return {
+              englishText: item.englishText,
+              vietnameseText: item.vietnameseText,
+              audio: audioBuffer,
+              audioBlob: item.audioBlob,
+            };
+          } catch (error: any) {
+            console.error('Error processing segment:', error);
+            this.messageService.add({
+              severity: 'error',
+              summary: 'Error',
+              detail: `Failed to process segment: ${error.message || error}`,
+            });
+            return null; // or handle the error as appropriate for your application
+          }
+        })
+      );
+
+      // Filter out any null segments that failed to decode or process
+      this.segments = this.segments.filter((segment) => segment !== null);
+
+      if (this.segments.length > 0) {
+        this.messageService.add({
+          severity: 'info',
+          summary: 'Segments Loaded',
+          detail: 'Segments loaded from IndexedDB.',
+        });
+      }
+    } catch (error) {
+      console.error('Error loading segments from IndexedDB:', error);
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Error',
+        detail: 'Failed to load segments from IndexedDB.',
+      });
+    }
+  }
+
+  async saveSegmentsToExercise() {
+    if (!this.exercise || !this.exercise.id) {
+      console.error('Exercise not loaded or invalid exercise ID.');
+      return;
+    }
+
+    // Map the segments to sentences, including only necessary properties
+    const newSentences = this.segments.map((segment) => ({
+      exerciseId: this.exercise.id, // Ensure exerciseId is set
+      englishText: segment.englishText,
+      vietnameseText: segment.vietnameseText,
+      audio: segment.audioBlob,
+    }));
+
+    // Update the exercise in the database
+    this.exerciseService
+      .updateExercise({
+        ...this.exercise,
+        sentences: newSentences,
+      })
+      .subscribe({
+        next: () => {
+          this.messageService.add({
+            severity: 'success',
+            summary: 'Exercise Updated',
+            detail: 'Exercise sentences saved successfully.',
+          });
+        },
+        error: (error) => {
+          console.error('Error updating exercise:', error);
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Error',
+            detail: 'Failed to update exercise.',
+          });
+        },
+      });
+  }
+
+  clearFile() {
+    if (this.fileUpload) {
+      this.fileUpload.clear();
+    }
+    this.selectedFile = null;
+    this.audioUrl = null;
+    this.audioBuffer = null;
+    this.segments = [];
+    this.messageService.add({
+      severity: 'info',
+      summary: 'File Cleared',
+      detail: 'Audio file and segments cleared.',
+    });
+  }
+
+  async playSegment(segment: SegmentData) {
+    if (!segment || !segment.audio) {
+      console.error('Cannot play segment: audio is undefined');
+      return;
+    }
+
+    if (this.audioContext.state === 'suspended') {
+      await this.audioContext.resume();
+    }
+
+    const source = this.audioContext.createBufferSource();
+    source.buffer = segment.audio;
+    source.connect(this.audioContext.destination);
+    source.start();
+  }
+
+  downloadSegment(segment: SegmentData, index: number) {
+    const url = URL.createObjectURL(segment.audioBlob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = `segment_${index + 1}.wav`;
+    link.click();
+
+    URL.revokeObjectURL(url);
+  }
+
+  audioBufferToArrayBuffer(audioBuffer: AudioBuffer): ArrayBuffer {
+    const numChannels = audioBuffer.numberOfChannels;
+    const numSamples = audioBuffer.length;
+    const bufferLength = numChannels * numSamples * 2; // 2 bytes per sample (16-bit)
+    const arrayBuffer = new ArrayBuffer(bufferLength);
+    const view = new DataView(arrayBuffer);
+
+    let offset = 0;
+    for (let i = 0; i < numSamples; i++) {
+      for (let channel = 0; channel < numChannels; channel++) {
+        const sample = Math.max(
+          -1,
+          Math.min(1, audioBuffer.getChannelData(channel)[i])
+        );
+        view.setInt16(
+          offset,
+          sample < 0 ? sample * 0x8000 : sample * 0x7FFF,
+          true
+        ); // Little-endian
+        offset += 2;
+      }
+    }
+
+    return arrayBuffer;
+  }
+
+  createWavFile(audioBuffer: AudioBuffer): Uint8Array {
+    const numChannels = audioBuffer.numberOfChannels;
+    const sampleRate = audioBuffer.sampleRate;
+    const bitsPerSample = 16; // Assuming 16-bit audio
+    const numSamples = audioBuffer.length;
+    const bufferLength = numChannels * numSamples * (bitsPerSample / 8);
+    const headerLength = 44;
+    const fileLength = headerLength + bufferLength;
+
+    const wav = new Uint8Array(fileLength);
+    const view = new DataView(wav.buffer);
+
+    // RIFF chunk descriptor
+    view.setUint32(0, 0x52494646, false); // 'RIFF'
+    view.setUint32(4, fileLength - 8, true); // File size - 8 bytes for RIFF and size
+    view.setUint32(8, 0x57415645, false); // 'WAVE'
+
+    // fmt sub-chunk
+    view.setUint32(12, 0x666d7420, false); // 'fmt '
+    view.setUint32(16, 16, true); // Sub-chunk size (16 for PCM)
+    view.setUint16(20, 1, true); // Audio format (1 for PCM)
+    view.setUint16(22, numChannels, true);
+    view.setUint32(24, sampleRate, true);
+    view.setUint32(28, sampleRate * numChannels * (bitsPerSample / 8), true); // Byte rate
+    view.setUint16(32, numChannels * (bitsPerSample / 8), true); // Block align
+    view.setUint16(34, bitsPerSample, true); // Bits per sample
+
+    // data sub-chunk
+    view.setUint32(36, 0x64617461, false); // 'data'
+    view.setUint32(40, bufferLength, true); // Data size
+
+    // Write the audio data
+    let offset = headerLength;
+    for (let i = 0; i < numSamples; i++) {
+      for (let channel = 0; channel < numChannels; channel++) {
+        const sample = Math.max(
+          -1,
+          Math.min(1, audioBuffer.getChannelData(channel)[i])
+        );
+        const intSample = sample < 0 ? sample * 0x8000 : sample * 0x7FFF;
+        view.setInt16(offset, intSample, true); // Little-endian
+        offset += 2;
+      }
+    }
+
+    return wav;
+  }
+}
+
+```
+
+### src\app\audio-splitter\upload-file\upload-file.component.html
+```html
+<app-my-file-uploader
+  label="Select an audio file"
+  accept="audio/*"
+  (fileSelect)="onAudioFileSelected($event)"
+></app-my-file-uploader>
+
+<app-my-file-uploader
+  label="Select a JSON file"
+  accept=".json"
+  (fileSelect)="onJsonFileSelected($event)"
+></app-my-file-uploader>
+
+<p-messages [(value)]="messages"></p-messages>
+
+```
+
+### src\app\audio-splitter\upload-file\upload-file.component.scss
+```scss
+
+```
+
+### src\app\audio-splitter\upload-file\upload-file.component.ts
+```ts
+import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { AudioService } from '../../core/audio.service';
+import { MessageService } from 'primeng/api';
+import { MessagesModule } from 'primeng/messages';
+import {MyFileUploadComponent} from '../../ui/my-file-uploader/my-file-uploader.component';
+
+@Component({
+  selector: 'app-upload-file',
+  standalone: true,
+  imports: [CommonModule, MessagesModule, MyFileUploadComponent],
+  templateUrl: './upload-file.component.html',
+  styleUrls: ['./upload-file.component.scss'],
+})
+export class UploadFileComponent {
+  audioFile: File | null = null;
+  jsonFile: File | null = null;
+  messages: any[] = [];
+
+  constructor(
+    private audioService: AudioService,
+    private messageService: MessageService
+  ) {}
+
+  onAudioFileSelected(file: any) {
+    this.audioFile = file//event.target.files[0];
+    if (this.audioFile) {
+      this.audioService.setAudioFile(this.audioFile);
+      // this.messageService.add({
+      //   severity: 'success',
+      //   summary: 'File Loaded',
+      //   detail: 'Audio file loaded successfully.',
+      // });
+    }
+  }
+
+  onJsonFileSelected(file: any) {
+    this.jsonFile = file//event.target.files[0];
+    if (this.jsonFile) {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        try {
+          const jsonData = JSON.parse(e.target.result as string);
+          this.audioService.setJsonData(jsonData);
+          // this.messageService.add({
+          //   severity: 'success',
+          //   summary: 'JSON File Loaded',
+          //   detail: 'JSON file loaded successfully. Proceed to split audio',
+          // });
+        } catch (error) {
+          console.error('Error parsing JSON file:', error);
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Error',
+            detail: 'Invalid JSON file format.',
+          });
+        }
+      };
+      reader.readAsText(this.jsonFile);
+    }
+  }
+}
+
+```
+
+### src\app\core\audio.service.ts
+```ts
+import { Injectable } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
+
+@Injectable({
+  providedIn: 'root',
+})
+export class AudioService {
+  private audioFileSubject = new BehaviorSubject<File | null>(null);
+  audioFile$ = this.audioFileSubject.asObservable();
+
+  private jsonDataSubject = new BehaviorSubject<any>(null); // Use a more specific interface if you have one
+  jsonData$ = this.jsonDataSubject.asObservable();
+
+  constructor() {}
+
+  setAudioFile(file: File) {
+    this.audioFileSubject.next(file);
+  }
+
+  setJsonData(data: any) {
+    this.jsonDataSubject.next(data);
+  }
+}
+
+```
+
+### src\app\core\database.service.ts
+```ts
+import Dexie, { Table } from 'dexie';
+import { Exercise, Sentence } from './db-schema';
+
+export class AppDB extends Dexie {
+  exercises: Table<Exercise, number>;
+  sentences: Table<Sentence, number>;
+
+  constructor() {
+    super('english-db');
+    this.version(1).stores({
+      exercises: '++id, name', // Auto-incrementing primary key, index on name
+      sentences: '++id, exerciseId, englishText, vietnameseText', // Auto-incrementing primary key, index on exerciseId
+    });
+  }
+}
+
+export const db = new AppDB();
+
+```
+
+### src\app\core\db-schema.ts
+```ts
+import { DBSchema } from 'idb';
+
+export interface Exercise {
+  id?: number;
+  name: string;
+  description: string;
+  sentences: Sentence[];
+}
+
+export interface Sentence {
+  id?: number;
+  exerciseId: number;
+  englishText: string;
+  vietnameseText: string;
+  audioBlob?: Blob;
+  selected?: boolean;// ui fields
+  repetitionCount?: number;
+  silentPauseDuration?: number;
+}
+
+export interface AppDBSchema extends DBSchema {
+  exercises: {
+    value: Exercise;
+    key: number;
+    indexes: { name: string };
+  };
+  sentences: {
+    value: Sentence;
+    key: number;
+    indexes: { exerciseId: number };
+  };
+}
+
+export type StoreName = keyof AppDBSchema;
+export type StoreValue<T extends StoreName> = AppDBSchema[T]['value'];
+
+```
+
+### src\app\core\exercise-db.service.ts
+```ts
+// exercise.service.ts
+import { Injectable } from '@angular/core';
+import { DatabaseService } from './database.service';
+import { Exercise, Sentence } from './db-schema';
+
+@Injectable({
+  providedIn: 'root',
+})
+export class ExerciseService {
+  private readonly storeName = 'exercises';
+
+  constructor(private indexedDbService: DatabaseService) {}
+
+  async addExercise(exercise: Exercise): Promise<number> {
+    return this.indexedDbService.add(this.storeName, exercise);
+  }
+
+  async getExercise(id: number): Promise<Exercise> {
+    return this.indexedDbService.get(this.storeName, id);
+  }
+
+  async getAllExercises(): Promise<Exercise[]> {
+    return this.indexedDbService.getAll(this.storeName);
+  }
+
+  async updateExercise(id: number, exercise: Exercise): Promise<void> {
+    return this.indexedDbService.update(this.storeName, id, exercise);
+  }
+
+  async deleteExercise(id: number): Promise<void> {
+    return this.indexedDbService.delete(this.storeName, id);
+  }
+
+  // Example of a more complex operation: getting an exercise with its sentences
+  async getExerciseWithSentences(id: number): Promise<{ exercise: Exercise; sentences: Sentence[] }> {
+    const exercise = await this.getExercise(id);
+    const sentences: Sentence[] = [];
+    for (const sentenceId of exercise.sentenceIds) {
+      const sentence = await this.indexedDbService.get('sentences', sentenceId);
+      if (sentence) {
+        sentences.push(sentence);
+      }
+    }
+    return { exercise, sentences };
+  }
+}
+
+```
+
+### src\app\core\exercise.service.ts
+```ts
+import { Injectable } from '@angular/core';
+import { Exercise, Sentence } from './db-schema';
+import { Observable, from, of, throwError, forkJoin } from 'rxjs';
+import { catchError, map, switchMap } from 'rxjs/operators';
+import { db } from './database.service';
+
+@Injectable({
+  providedIn: 'root',
+})
+export class ExerciseService {
+  constructor() {}
+
+  getExercise(id: number): Observable<Exercise | undefined> {
+    return from(db.exercises.get(id)).pipe(
+      catchError((error) => {
+        console.error('Error fetching exercise:', error);
+        return of(undefined);
+      }),
+      switchMap((exercise) => {
+        if (!exercise) return of(undefined);
+        return from(
+          db.sentences.where('exerciseId').equals(id).toArray()
+        ).pipe(
+          map((sentences) => ({ ...exercise, sentences })),
+          catchError((error) => {
+            console.error('Error fetching sentences for exercise:', error);
+            return of(exercise);
+          })
+        );
+      })
+    );
+  }
+
+  addExercise(exercise: Exercise): Observable<number> {
+    return from(
+      db.transaction('rw', db.exercises, db.sentences, async () => {
+        const exerciseId = await db.exercises.add({
+          ...exercise,
+          sentences: [], // Add exercise without sentences initially
+        });
+
+        // Add sentences with the correct exerciseId
+        const sentenceIds = await db.sentences.bulkAdd(
+          exercise.sentences.map((sentence) => ({
+            ...sentence,
+            exerciseId,
+          }))
+        );
+
+        return exerciseId;
+      })
+    ).pipe(
+      catchError((error) => {
+        console.error('Error adding exercise:', error);
+        return throwError(() => error);
+      })
+    );
+  }
+
+  getAllExercises(): Observable<Exercise[]> {
+    return from(db.exercises.toArray()).pipe(
+      switchMap((exercises: Exercise[]) => {
+        if (exercises.length === 0) return of([]);
+        const exercises$ = exercises.map((exercise: Exercise) =>
+          from(
+            db.sentences.where('exerciseId').equals(exercise.id!).toArray()
+          ).pipe(
+            map((sentences) => ({ ...exercise, sentences })),
+            catchError((error) => {
+              console.error(
+                'Error fetching sentences for exercise:',
+                error
+              );
+              return of({ ...exercise, sentences: [] });
+            })
+          )
+        );
+        return forkJoin(exercises$);
+      }),
+      catchError((error) => {
+        console.error('Error getting all exercises:', error);
+        return of([]);
+      })
+    );
+  }
+
+  updateExercise(exercise: Exercise): Observable<void> {
+    return from(
+      db.transaction('rw', db.exercises, db.sentences, async () => {
+        // Update the exercise
+        await db.exercises.update(exercise.id!, {
+          name: exercise.name//,
+          // description: 'exercise.description',
+        });
+
+        // Get the current sentences associated with the exercise
+        const currentSentences = await db.sentences
+          .where('exerciseId')
+          .equals(exercise.id!)
+          .toArray();
+
+        // Identify sentences to add, update, and delete
+        const sentencesToAdd = exercise.sentences.filter(
+          (s) => !s.id
+        );
+        const sentencesToUpdate = exercise.sentences.filter((s) =>
+          currentSentences.some((cs: Sentence) => cs.id === s.id)
+        );
+        const sentencesToDelete = currentSentences.filter(
+          (cs: Sentence) => !exercise.sentences.some((s) => s.id === cs.id)
+        );
+
+        // Add new sentences
+        await db.sentences.bulkAdd(
+          sentencesToAdd.map((sentence) => ({
+            ...sentence,
+            exerciseId: exercise.id!,
+          }))
+        );
+
+        // Update existing sentences
+        await Promise.all(
+          sentencesToUpdate.map((sentence) =>
+            db.sentences.update(sentence.id!, sentence)
+          )
+        );
+
+        // Delete removed sentences
+        await db.sentences.bulkDelete(
+          sentencesToDelete.map((sentence: Sentence) => sentence.id!)
+        );
+      })
+    ).pipe(
+      map(() => {
+        return;
+      }),
+      catchError((error) => {
+        console.error('Error updating exercise:', error);
+        return throwError(() => error);
+      })
+    );
+  }
+
+  deleteExercise(id: number): Observable<void> {
+    return from(
+      db.transaction('rw', db.exercises, db.sentences, async () => {
+        // Delete the exercise
+        await db.exercises.delete(id);
+
+        // Delete associated sentences
+        await db.sentences.where('exerciseId').equals(id).delete();
+      })
+    ).pipe(
+      map(() => {
+        return;
+      }),
+      catchError((error) => {
+        console.error('Error deleting exercise:', error);
+        return throwError(() => error);
+      })
+    );
+  }
+}
+
+```
+
+### src\app\core\indexed-db.service.ts
+```ts
+
+// indexed-db.service.ts
+import { Injectable } from '@angular/core';
+import { openDB, IDBPDatabase } from 'idb';
+import { AppDBSchema, Sentence, Exercise } from './db-schema'; // Import schema and interfaces
+import { DBSchema } from 'idb';
+
+// Database schema
+interface AppDBSchema extends DBSchema {
+  sentences: {
+    key: number;
+    value: { text: string; audio: AudioBuffer };
+  };
+  exercises: {
+    key: number;
+    value: { name: string; sentenceIds: number[] };
+  };
+}
+
+// Data interfaces
+interface Sentence {
+  id?: number; // Optional because it will be auto-generated by IndexedDB
+  text: string;
+  audio: AudioBuffer;
+}
+
+interface Exercise {
+  id?: number; // Optional
+  name: string;
+  sentenceIds: number[];
+}
+
+
+@Injectable({
+  providedIn: 'root',
+})
+export class IndexedDbService {
+  private db: IDBPDatabase<AppDBSchema> | undefined;
+  private readonly dbName = 'audio-app-db';
+
+  constructor() {
+    this.initDatabase();
+  }
+
+  private async initDatabase() {
+    this.db = await openDB<AppDBSchema>(this.dbName, 1, {
+      upgrade(db) {
+        db.createObjectStore('sentences', {
+          autoIncrement: true,
+        });
+        db.createObjectStore('exercises', {
+          autoIncrement: true,
+        });
+      },
+    });
+  }
+
+  // Basic CRUD operations (can be made more generic if needed)
+  async add(storeName: string, value: any): Promise<number> {
+    return (await this.db)?.add(storeName, value);
+  }
+
+  async get(storeName: string, key: number): Promise<any> {
+    return (await this.db)?.get(storeName, key);
+  }
+
+  async getAll(storeName: string): Promise<any[]> {
+    return (await this.db)?.getAll(storeName) || [];
+  }
+
+  async update(storeName: string, key: number, value: any): Promise<void> {
+    await (await this.db)?.put(storeName, value, key);
+  }
+
+  async delete(storeName: string, key: number): Promise<void> {
+    await (await this.db)?.delete(storeName, key);
+  }
+}
+
+```
+
+### src\app\core\new-audio.service.ts
+```ts
+import { Injectable } from '@angular/core';
+import { IDBPDatabase, openDB } from 'idb';
+import { BehaviorSubject, Observable, Subject, catchError, throwError } from 'rxjs';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+
+interface SegmentData {
+  id?: number;
+  text: string;
+  audio: ArrayBuffer;
+}
+
+@Injectable({
+  providedIn: 'root',
+})
+export class NewAudioService {
+  private db: IDBPDatabase;
+  private audioBufferSubject = new Subject<AudioBuffer>();
+  private jsonDataSubject = new BehaviorSubject<any[]>(null);
+
+  audioBuffer$ = this.audioBufferSubject.asObservable();
+  jsonData$ = this.jsonDataSubject.asObservable();
+
+  constructor(private http: HttpClient) {
+    this.initIndexedDB();
+  }
+
+  async initIndexedDB() {
+    this.db = await openDB('audio-splitter-db', 1, {
+      upgrade(db) {
+        if (!db.objectStoreNames.contains('segments')) {
+          db.createObjectStore('segments', {
+            keyPath: 'id',
+            autoIncrement: true,
+          });
+        }
+      },
+    });
+  }
+
+  setAudioFile(file: File) {
+    const reader = new FileReader();
+    reader.onload = () => {
+      const arrayBuffer = reader.result as ArrayBuffer;
+      const audioContext = new AudioContext();
+      audioContext.decodeAudioData(
+        arrayBuffer.slice(0),
+        (buffer) => {
+          this.audioBufferSubject.next(buffer);
+        },
+        (error) => {
+          console.error('Error decoding audio data', error);
+        },
+      );
+    };
+    reader.onerror = (error) => {
+      console.error('Error reading file', error);
+    };
+    reader.readAsArrayBuffer(file);
+  }
+
+  setJsonData(jsonData: any[]) {
+    this.jsonDataSubject.next(jsonData);
+  }
+
+  async getSegments(): Promise<SegmentData[]> {
+    if (!this.db) {
+      await this.initIndexedDB();
+    }
+    const tx = this.db.transaction('segments', 'readonly');
+    const store = tx.objectStore('segments');
+    return await store.getAll();
+  }
+
+  private handleError(error: HttpErrorResponse) {
+    console.error('An error occurred:', error.error);
+    return throwError(
+      () => new Error('Something bad happened; please try again later.'),
+    );
+  }
+}
+
+```
+
+### src\app\core\setence.service.ts
+```ts
+import { Injectable } from '@angular/core';
+import { Sentence } from './db-schema';
+import {Observable, from, throwError, of} from 'rxjs';
+import { catchError, map } from 'rxjs/operators';
+import { db } from './database.service'; // Assuming you have a db instance from Dexie
+
+@Injectable({
+  providedIn: 'root',
+})
+export class SentenceService {
+  constructor() {}
+
+  addSentence(sentence: Sentence): Observable<number> {
+    return from(db.sentences.add(sentence)).pipe(
+      catchError((error) => {
+        console.error('Error adding sentence:', error);
+        return throwError(() => error);
+      })
+    );
+  }
+
+  getSentence(id: number): Observable<Sentence | undefined> {
+    return from(db.sentences.get(id)).pipe(
+      catchError((error) => {
+        console.error('Error fetching sentence:', error);
+        return of(undefined); // or throwError if you want to propagate the error
+      })
+    );
+  }
+
+  getAllSentences(): Observable<Sentence[]> {
+    return from(db.sentences.toArray()).pipe(
+      catchError((error) => {
+        console.error('Error fetching all sentences:', error);
+        return of([]); // Return an empty array on error
+      })
+    );
+  }
+
+  updateSentence(sentence: Sentence): Observable<void> {
+    return from(db.sentences.update(sentence.id!, sentence)).pipe(
+      map(() => {
+        return;
+      }), // Update operation doesn't return a value in Dexie
+      catchError((error) => {
+        console.error('Error updating sentence:', error);
+        return throwError(() => error);
+      })
+    );
+  }
+
+  deleteSentence(id: number): Observable<void> {
+    return from(db.sentences.delete(id)).pipe(
+      map(() => {
+        return;
+      }), // Delete operation doesn't return a value in Dexie
+      catchError((error) => {
+        console.error('Error deleting sentence:', error);
+        return throwError(() => error);
+      })
+    );
+  }
+
+  getSentencesByIds(ids: number[]): Observable<Sentence[]> {
+    return from(
+      db.sentences
+        .where('id')
+        .anyOf(ids)
+        .toArray()
+    ).pipe(
+      catchError(error => {
+        console.error('Error getting sentences by ids:', error);
+        return of([]);
+      })
+    );
+  }
+}
+
+```
+
+### src\app\core\models\exercise.model.ts
+```ts
+// export interface Sentence {
+//   text: string;
+//   audioBlob?: Blob;
+// }
+//
+// export interface Exercise {
+//   id?: number;
+//   name: string;
+//   description?: string;
+//   sentences: Sentence[];
+// }
+
+```
+
+### src\app\exercise\exercise-create\exercise-create.component.html
+```html
+<h2>Create Exercise</h2>
+
+<form [formGroup]="exerciseForm" (ngSubmit)="onSubmit()">
+  <div>
+    <label for="name">Name:</label>
+    <input pInputText type="text" id="name" formControlName="name" />
+    <div *ngIf="exerciseForm.get('name')?.invalid && exerciseForm.get('name')?.touched">
+      Name is required.
+    </div>
+  </div>
+
+  <div>
+    <label for="description">Description:</label>
+    <textarea pInputTextarea id="description" formControlName="description"></textarea>
+  </div>
+
+  <button pButton type="submit" label="Create" [disabled]="!exerciseForm.valid"></button>
+  <button pButton type="button" label="Cancel" [routerLink]="['/exercises']" class="p-button-secondary"></button>
+</form>
+
+```
+
+### src\app\exercise\exercise-create\exercise-create.component.scss
+```scss
+
+```
+
+### src\app\exercise\exercise-create\exercise-create.component.ts
+```ts
+import { Component } from '@angular/core';
+import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
+import { ExerciseService } from '../../core/exercise.service';
+import { Router, RouterModule } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { ButtonModule } from 'primeng/button';
+import { InputTextModule } from 'primeng/inputtext';
+import { Textarea } from 'primeng/inputtextarea';
+
+@Component({
+  selector: 'app-exercise-create',
+  standalone: true,
+  imports: [ReactiveFormsModule, CommonModule, RouterModule, ButtonModule, InputTextModule, Textarea],
+  templateUrl: './exercise-create.component.html',
+  styleUrls: ['./exercise-create.component.scss'],
+})
+export class ExerciseCreateComponent {
+  exerciseForm: FormGroup;
+
+  constructor(
+    private fb: FormBuilder,
+    private exerciseService: ExerciseService,
+    private router: Router
+  ) {
+    this.exerciseForm = this.fb.group({
+      name: ['', Validators.required],
+      description: [''],
+    });
+  }
+
+  onSubmit() {
+    if (this.exerciseForm.valid) {
+      this.exerciseService.addExercise({
+        ...this.exerciseForm.value,
+        sentences: [], // Initialize with empty sentences array
+      }).subscribe(newId => {
+        this.router.navigate(['/exercises', newId]);
+      });
+    }
+  }
+}
+
+```
+
+### src\app\exercise\exercise-detail\exercise-detail.component.html
+```html
+<p>exercise-detail works!</p>
+
+<button
+  pButton
+  type="button"
+  label="Back to Exercises"
+  class="p-button-primary"
+  icon="pi pi-arrow-left"
+  [routerLink]="['/exercises']"
+></button>
+
+```
+
+### src\app\exercise\exercise-detail\exercise-detail.component.scss
+```scss
+
+```
+
+### src\app\exercise\exercise-detail\exercise-detail.component.ts
+```ts
+import { Component } from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {RouterModule} from '@angular/router';
+import {ButtonModule} from 'primeng/button';
+
+@Component({
+  selector: 'app-exercise-detail',
+  standalone: true,
+  imports: [CommonModule, ButtonModule, RouterModule],
+  templateUrl: './exercise-detail.component.html',
+  styleUrl: './exercise-detail.component.scss'
+})
+export class ExerciseDetailComponent {
+
+}
+
+```
+
+### src\app\exercise\exercise-edit\exercise-edit.component.html
+```html
+<div class="container">
+  <h2>Edit Exercise</h2>
+  <div class="container" *ngIf="exerciseForm"> <form [formGroup]="exerciseForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label for="name">Name:</label>
+      <input pInputText id="name" formControlName="name" required />
+      <small *ngIf="exerciseForm.get('name')?.invalid && exerciseForm.get('name')?.touched" class="p-error">
+        Name is required.
+      </small>
+    </div>
+
+    <div class="form-group">
+      <label for="description">Description:</label>
+      <textarea pInputTextarea id="description" formControlName="description" rows="5"></textarea>
+    </div>
+
+    <button pButton type="submit" label="Save" [disabled]="!exerciseForm.valid"></button>
+    <button pButton type="button" label="Cancel" class="p-button-secondary" (click)="router.navigate(['/exercises'])"></button>
+  </form>
+  </div>
+</div>
+
+```
+
+### src\app\exercise\exercise-edit\exercise-edit.component.scss
+```scss
+
+```
+
+### src\app\exercise\exercise-edit\exercise-edit.component.ts
+```ts
+import { Component, OnInit } from '@angular/core';
+import {
+  FormBuilder,
+  FormGroup,
+  Validators,
+  ReactiveFormsModule,
+  FormControl,
+} from '@angular/forms';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
+import { Exercise, Sentence } from '../../core/db-schema';
+import { CommonModule } from '@angular/common';
+import { ButtonModule } from 'primeng/button';
+import { InputTextModule } from 'primeng/inputtext';
+import {ExerciseService} from '../../core/exercise.service';
+
+@Component({
+  selector: 'app-exercise-edit',
+  standalone: true,
+  imports: [
+    ReactiveFormsModule,
+    CommonModule,
+    RouterModule,
+    ButtonModule,
+    InputTextModule,
+  ],
+  templateUrl: './exercise-edit.component.html',
+  styleUrls: ['./exercise-edit.component.scss'],
+})
+export class ExerciseEditComponent implements OnInit {
+  exerciseForm: FormGroup;
+  exerciseId: number;
+  exercise: Exercise;
+
+  constructor(
+    private fb: FormBuilder,
+    private exerciseService: ExerciseService,
+    protected router: Router,
+    private route: ActivatedRoute
+  ) {
+    this.exerciseForm = this.fb.group({
+      name: ['', Validators.required],
+      description: [''],
+      sentences: [[]]
+    });
+  }
+
+  ngOnInit(): void {
+    this.exerciseId = +this.route.snapshot.paramMap.get('id');
+
+    this.exerciseService.getExercise(this.exerciseId).subscribe((exercise) => {
+      if (exercise) {
+        this.exercise = exercise;
+        // Initialize form after getting exercise data
+        this.exerciseForm = this.fb.group({
+          name: [this.exercise.name || '', Validators.required],
+          description: [this.exercise.description || ''],
+          sentences: [this.exercise.sentences || []],
+        });
+      } else {
+        console.error('Exercise not found');
+        this.router.navigate(['/404']);
+      }
+    });
+  }
+
+  onSubmit() {
+    if (this.exerciseForm.valid) {
+      const updatedExercise: Exercise = {
+        id: this.exerciseId,
+        ...this.exerciseForm.value,
+      };
+
+      this.exerciseService.updateExercise(updatedExercise).subscribe({
+        next: () => {
+          this.router.navigate(['/exercises', this.exerciseId]);
+        },
+        error: (error) => {
+          console.error('Error updating exercise:', error);
+        },
+      });
+    }
+  }
+}
+
+```
+
+### src\app\exercise\exercise-list\exercise-list.component.html
+```html
+<!--<h2>Exercises</h2>-->
+
+<!--<app-my-button pButton type="button" label="Create New Exercise" (click)="createExercise()" icon="pi pi-create"></app-my-button>-->
+
+<!--<div *ngIf="exercises.length === 0">No exercises found.</div>-->
+
+<!--<ul *ngIf="exercises.length > 0">-->
+<!--  <li *ngFor="let exercise of exercises">-->
+<!--    <a [routerLink]="['/exercises', exercise.id]">{{ exercise.name }}</a>-->
+<!--    <app-my-button pButton type="button" icon="pi pi-pencil" (click)="editExercise(exercise.id)" label="Edit"></app-my-button>-->
+<!--    <app-my-button pButton type="button" icon="pi pi-trash" (click)="deleteExercise(exercise.id)" label="Delete"></app-my-button>-->
+<!--    <app-my-button pButton type="button" icon="pi pi-file" (click)="goToAudioSplitter(exercise.id)" label="View"></app-my-button>-->
+<!--  </li>-->
+<!--</ul>-->
+<h2>Exercises</h2>
+
+<app-my-button pButton type="button" label="Create New Exercise" (click)="createExercise()" icon="pi pi-plus"></app-my-button>
+
+<p-table [value]="(exercises$ | async) || []" [tableStyle]="{ 'min-width': '50rem' }">
+  <ng-template pTemplate="header">
+    <tr>
+      <th>Id</th>
+      <th>Name</th>
+      <th style="width:250px">Actions</th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-exercise>
+    <tr>
+      <td>{{ exercise.id }}</td>
+      <td><a [routerLink]="['/exercises', exercise.id]">{{ exercise.name }}</a></td>
+      <td width="400px">
+        <app-my-button pButton type="button" icon="pi pi-play" class="p-button-text" (click)="gotoLearnPassive(exercise.id!)" label="Learn Passive"></app-my-button>
+        <app-my-button pButton type="button" icon="pi pi-pencil" class="p-button-text" (click)="editExercise(exercise.id!)" label="Edit"></app-my-button>
+        <app-my-button pButton type="button" icon="pi pi-trash" class="p-button-text" (click)="deleteExercise(exercise.id!)" label="Delete"></app-my-button>
+        <app-my-button pButton type="button" icon="pi pi-file" class="p-button-text" (click)="goToAudioSplitter(exercise.id!)" label="View"></app-my-button>
+        <app-my-button pButton type="button" icon="pi pi-play" class="p-button-text" (click)="goToListenAndWrite(exercise.id!)" label="Learn"></app-my-button>
+      </td>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="emptymessage">
+    <tr>
+      <td [attr.colspan]="3">No exercises found.</td>
+    </tr>
+  </ng-template>
+</p-table>
+
+```
+
+### src\app\exercise\exercise-list\exercise-list.component.scss
+```scss
+
+```
+
+### src\app\exercise\exercise-list\exercise-list.component.ts
+```ts
+import { Component, OnInit } from '@angular/core';
+import {Router, RouterModule} from '@angular/router';
+import { ExerciseService } from '../../core/exercise.service';
+import { Exercise } from '../../core/db-schema';
+import { Observable } from 'rxjs';
+import {ReactiveFormsModule} from '@angular/forms';
+import {CommonModule} from '@angular/common';
+import {ButtonModule} from 'primeng/button';
+import {TableModule} from 'primeng/table';
+
+@Component({
+  standalone: true,
+  selector: 'app-exercise-list',
+  templateUrl: './exercise-list.component.html',
+  styleUrls: ['./exercise-list.component.scss'],
+  imports: [ReactiveFormsModule, CommonModule, RouterModule, ButtonModule, TableModule]
+})
+export class ExerciseListComponent implements OnInit {
+  exercises$: Observable<Exercise[]>;
+  cols: any[]; // Define the columns for the table
+
+  constructor(
+    private exerciseService: ExerciseService,
+    private router: Router
+  ) {}
+
+  ngOnInit(): void {
+    this.exercises$ = this.exerciseService.getAllExercises();
+
+    // Define the columns for the table
+    this.cols = [
+      { field: 'id', header: 'ID' },
+      { field: 'name', header: 'Name' },
+      { field: 'actions', header: 'Actions' }, // Column for buttons
+    ];
+  }
+
+  createExercise(): void {
+    this.router.navigate(['/exercises/create']);
+  }
+
+  editExercise(exerciseId: number): void {
+    this.router.navigate(['/exercises', exerciseId, 'edit']);
+  }
+
+  deleteExercise(exerciseId: number): void {
+    this.exerciseService.deleteExercise(exerciseId).subscribe({
+      next: () => {
+        // Refresh the list after deleting
+        this.exercises$ = this.exerciseService.getAllExercises();
+      },
+      error: (error) => {
+        console.error('Error deleting exercise:', error);
+      },
+    });
+  }
+
+  goToAudioSplitter(exerciseId: number): void {
+    this.router.navigate(['/exercises', exerciseId, 'audio-splitter']);
+  }
+
+  goToListenAndWrite(exerciseId: number): void {
+    this.router.navigate(['/exercises', exerciseId, 'listen-write']);
+  }
+
+  gotoLearnPassive(exerciseId: number): void {
+    this.router.navigate(['/exercises', exerciseId, 'passive-listen']);
+  }
+}
+
+```
+
+### src\app\exercise\exercise-passive-listening\exercise-passive-listening.component.html
+```html
+<h2>Customize Your Passive Listening Experience</h2>
+
+<div class="mt-3 flex justify-content-end">
+  <button pButton type="button" label="Export Audio" (click)="generatePassiveListeningAudio()" icon="pi pi-file-export" [disabled]="!isAnySentenceSelected()"></button>
+</div>
+
+<p-table [value]="sentences" [tableStyle]="{ 'min-width': '50rem' }" [paginator]="true" [rows]="50">
+  <ng-template pTemplate="header">
+    <tr>
+      <th style="width: 5rem">
+        <div class="flex">
+          <p-checkbox [(ngModel)]="selectAll" (onChange)="toggleSelectAll()" [binary]="true" inputId="selectAll"></p-checkbox>
+          <label for="selectAll" class="ml-2">Select All</label>
+        </div>
+      </th>
+      <th>Number</th>
+      <th>English Text</th>
+      <th>Vietnamese Translation</th>
+      <th style="width: 12rem">
+        Repetitions
+        <div class="flex">
+          <p-inputNumber id="global-repetitions" [(ngModel)]="globalRepetitions" [min]="1" [max]="100" [showButtons]="true" mode="decimal"></p-inputNumber>
+          <p-button icon="pi pi-check" [rounded]="true" [text]="true" (click)="applyGlobalRepetitions()"></p-button>
+        </div>
+      </th>
+      <th style="width: 12rem">
+        Pause (seconds)
+        <div class="flex">
+          <p-inputNumber id="global-pause" [(ngModel)]="globalPauseDuration" [min]="0" [max]="60" [showButtons]="true" mode="decimal"></p-inputNumber>
+          <p-button icon="pi pi-check" [rounded]="true" [text]="true" (click)="applyGlobalPause()"></p-button>
+        </div>
+      </th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-sentence let-rowIndex="rowIndex">
+    <tr>
+      <td>
+        <p-checkbox [(ngModel)]="sentence.selected" [binary]="true" [inputId]="'select-' + rowIndex"></p-checkbox>
+      </td>
+      <td>{{rowIndex + 1}}</td>
+      <td>{{ sentence.englishText }}</td>
+      <td>{{ sentence.vietnameseText }}</td>
+      <td>
+        <p-inputNumber [(ngModel)]="sentence.repetitionCount" [min]="1" [max]="100" [showButtons]="true" mode="decimal" inputId="repeat-{{rowIndex}}"></p-inputNumber>
+      </td>
+      <td>
+        <p-inputNumber [(ngModel)]="sentence.silentPauseDuration" [min]="0" [max]="60" [showButtons]="true" mode="decimal" inputId="pause-{{rowIndex}}"></p-inputNumber>
+      </td>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="emptymessage">
+    <tr>
+      <td [attr.colspan]="5">No sentences found.</td>
+    </tr>
+  </ng-template>
+</p-table>
+
+```
+
+### src\app\exercise\exercise-passive-listening\exercise-passive-listening.component.scss
+```scss
+.flex {
+  display: flex;
+}
+
+```
+
+### src\app\exercise\exercise-passive-listening\exercise-passive-listening.component.ts
+```ts
+import {Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core';
+import {ActivatedRoute, Router, RouterModule} from '@angular/router';
+import { ExerciseService } from '../../core/exercise.service';
+import {Exercise, Sentence} from '../../core/db-schema';
+import {forkJoin, from, Observable, Subscription, switchMap} from 'rxjs';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {CommonModule} from '@angular/common';
+import {ButtonModule} from 'primeng/button';
+import {TableModule} from 'primeng/table';
+import {SentenceService} from '../../core/setence.service';
+import {DomSanitizer} from '@angular/platform-browser';
+import {MyInputNumberComponent} from '../../ui/my-input-number/my-input-number.component';
+import {CheckboxModule} from 'primeng/checkbox';
+import {TooltipModule} from 'primeng/tooltip';
+import {InputNumberModule} from 'primeng/inputnumber';
+
+@Component({
+  standalone: true,
+  selector: 'app-exercise-passive-listening',
+  templateUrl: './exercise-passive-listening.component.html',
+  styleUrls: ['./exercise-passive-listening.component.scss'],
+  imports: [ReactiveFormsModule, CommonModule, RouterModule, ButtonModule, TableModule, FormsModule, MyInputNumberComponent, CheckboxModule, TooltipModule, InputNumberModule]
+})
+export class ExercisePassiveListeningComponent implements OnInit, OnDestroy {
+  exerciseId: number;
+  exercise: Exercise;
+  sentences: Sentence[] = [];
+  selectAll: boolean = false;
+  globalRepetitions: number = 10; // Default value
+  globalPauseDuration: number = 5; // Default value
+
+  private routeSubscription: Subscription;
+
+  constructor(
+    private route: ActivatedRoute,
+    private exerciseService: ExerciseService,
+    private sentenceService: SentenceService
+  ) {}
+
+  ngOnInit(): void {
+    this.routeSubscription = this.route.params
+      .pipe(
+        switchMap((params) => {
+          this.exerciseId = +params['id'];
+          return from(this.exerciseService.getExercise(this.exerciseId));
+        }),
+        switchMap((exercise: Exercise) => {
+          this.exercise = exercise;
+          const sentenceObservables = exercise.sentences.map((sentence) =>
+            this.sentenceService.getSentence(sentence.id)
+          );
+          return forkJoin(sentenceObservables);
+        })
+      )
+      .subscribe((sentences: Sentence[]) => {
+        this.sentences = sentences.filter((s: Sentence) => s !== undefined)
+          .map(sentence => ({
+            ...sentence,
+            selected: false,        // Initialize selected property
+            repetitionCount: 10,             // Default repeat value: 10
+            silentPauseDuration: 3               // Default pause value: 10
+          }));
+      });
+  }
+
+  ngOnDestroy(): void {
+    if (this.routeSubscription) {
+      this.routeSubscription.unsubscribe();
+    }
+  }
+
+  toggleSelectAll() {
+    this.sentences.forEach(sentence => sentence.selected = this.selectAll);
+  }
+
+  isAnySentenceSelected(): boolean {
+    return this.sentences.some(sentence => sentence.selected);
+  }
+
+  applyGlobalRepetitions() {
+    this.sentences
+      // .filter(sentence => sentence.selected)
+      .forEach(sentence => sentence.repetitionCount = this.globalRepetitions);
+  }
+
+  applyGlobalPause() {
+    this.sentences
+      // .filter(sentence => sentence.selected)
+      .forEach(sentence => sentence.silentPauseDuration = this.globalPauseDuration);
+  }
+
+  async audioBufferToWavBlob(audioBuffer: AudioBuffer): Promise<Blob> {
+    const numberOfChannels = audioBuffer.numberOfChannels;
+    const length = audioBuffer.length * numberOfChannels * 2 + 44; // 44 is the WAV header size
+    const buffer = new ArrayBuffer(length);
+    const view = new DataView(buffer);
+
+    // RIFF chunk descriptor
+    this.writeUTFBytes(view, 0, 'RIFF');
+    view.setUint32(4, length - 8, true); // File size minus RIFF identifier and size fields
+    this.writeUTFBytes(view, 8, 'WAVE');
+
+    // FMT sub-chunk
+    this.writeUTFBytes(view, 12, 'fmt ');
+    view.setUint32(16, 16, true); // Sub-chunk size (16 for PCM)
+    view.setUint16(20, 1, true); // Audio format (1 for PCM)
+    view.setUint16(22, numberOfChannels, true);
+    view.setUint32(24, audioBuffer.sampleRate, true);
+    view.setUint32(28, audioBuffer.sampleRate * 2 * numberOfChannels, true); // Byte rate
+    view.setUint16(32, numberOfChannels * 2, true); // Block align
+    view.setUint16(34, 16, true); // Bits per sample
+
+    // Data sub-chunk
+    this.writeUTFBytes(view, 36, 'data');
+    view.setUint32(40, audioBuffer.length * numberOfChannels * 2, true); // Data size
+
+    // Write PCM data
+    let offset = 44;
+    for (let i = 0; i < audioBuffer.length; i++) {
+      for (let channel = 0; channel < numberOfChannels; channel++) {
+        const sample = audioBuffer.getChannelData(channel)[i];
+        const pcmValue = sample < 0 ? sample * 0x8000 : sample * 0x7FFF;
+        view.setInt16(offset, pcmValue, true);
+        offset += 2;
+      }
+    }
+
+    return new Blob([view], { type: 'audio/wav' });
+  }
+
+  writeUTFBytes(view: DataView, offset: number, string: string) {
+    for (let i = 0; i < string.length; i++) {
+      view.setUint8(offset + i, string.charCodeAt(i));
+    }
+  }
+
+  async generatePassiveListeningAudio() {
+    const selectedSentences = this.sentences.filter(sentence => sentence.selected);
+
+    if (selectedSentences.length === 0) {
+      console.warn('No sentences selected.');
+      return;
+    }
+
+    try {
+      const audioContext = new AudioContext();
+      const sampleRate = audioContext.sampleRate;
+      let totalDuration = 0; // Keep track of the total duration
+
+      // 1. Decode Audio and Create Silence
+      const decodedAudioBuffers: AudioBuffer[] = [];
+      for (const sentence of selectedSentences) {
+        console.log('Processing sentence:', sentence.englishText, 'Repetitions:', sentence.repetitionCount);
+        const audioBlob = sentence.audioBlob;
+
+        // Decode the audio data
+        const audioBuffer = await audioContext.decodeAudioData(await audioBlob.arrayBuffer());
+
+        for (let i = 0; i < sentence.repetitionCount; i++) {
+          decodedAudioBuffers.push(audioBuffer);
+          totalDuration += audioBuffer.duration;
+
+          if (sentence.silentPauseDuration > 0) {
+            // Create a silent audio buffer
+            const silenceBuffer = audioContext.createBuffer(
+              1, // 1 channel for silence
+              sentence.silentPauseDuration * sampleRate,
+              sampleRate
+            );
+            // No need to fill with zeros, it's silent by default
+            decodedAudioBuffers.push(silenceBuffer);
+            totalDuration += sentence.silentPauseDuration;
+          }
+        }
+      }
+
+      // 2. Concatenate using OfflineAudioContext
+      const offlineContext = new OfflineAudioContext(1, totalDuration * sampleRate, sampleRate);
+      let currentTime = 0;
+      for (const buffer of decodedAudioBuffers) {
+        const source = offlineContext.createBufferSource();
+        source.buffer = buffer;
+        source.connect(offlineContext.destination);
+        source.start(currentTime);
+        currentTime += buffer.duration;
+      }
+
+      // Render the combined audio
+      const renderedBuffer = await offlineContext.startRendering();
+
+      // 3. Convert to Blob
+      const audioWavBlob = await this.audioBufferToWavBlob(renderedBuffer);
+
+      console.log('Combined audio blob size:', audioWavBlob.size, 'Type:', audioWavBlob.type);
+      this.downloadBlob(audioWavBlob, `passive-listening-exercise-${this.exerciseId}.wav`);
+
+    } catch (error) {
+      console.error('Error generating passive listening audio:', error);
+    }
+  }
+
+  private downloadBlob(blob: Blob, filename: string): void {
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = filename;
+    document.body.appendChild(a);
+    a.click();
+    URL.revokeObjectURL(url);
+    document.body.removeChild(a);
+  }
+}
+
+```
+
+### src\app\listen-and-write\listen-and-write.component.html
+```html
+<div class="listen-and-write-container">
+  <app-settings-button class="mb-16"></app-settings-button>
+
+  <app-audio-player [audioUrl]="audioUrl" class="mb-16"></app-audio-player>
+
+  <app-feedback
+    [vietnameseText]="currentSentence?.vietnameseText"
+    [englishText]="currentSentence?.englishText"></app-feedback>
+
+  <app-navigation-bar
+    [current]="currentSentenceIndex + 1"
+    [total]="sentences.length"
+    (previous)="onPrevSentence()"
+    (next)="onNextSentence()"
+    (move)="onMoveSentence($event)"></app-navigation-bar>
+</div>
+
+```
+
+### src\app\listen-and-write\listen-and-write.component.scss
+```scss
+.listen-and-write-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 600px;
+  max-width: 100%; //(mobile)
+  margin: 20px auto;
+  border: 1px solid #ccc;
+  padding: 20px;
+}
+
+.navigation-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+.audio-player {
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.text-input-container {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+.text-input-container textarea {
+  flex-grow: 1;
+  padding: 10px;
+  border: 1px solid #ccc;
+  resize: none; /* Prevent resizing */
+}
+
+.text-input-container .fa-microphone {
+  margin-left: 10px;
+  cursor: pointer; /* Make it look clickable */
+}
+
+.action-buttons {
+  display: flex;
+  gap: 10px;
+}
+
+.check-button {
+  background-color: #4caf50; /* Green */
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+}
+
+.skip-button {
+  background-color: #f44336; /* Red */
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+}
+
+```
+
+### src\app\listen-and-write\listen-and-write.component.ts
+```ts
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { Exercise, Sentence } from '../core/db-schema';
+import { Subscription, from, switchMap, forkJoin } from 'rxjs';
+import { ExerciseService } from '../core/exercise.service';
+import {
+  Setting,
+  SettingsButtonComponent,
+} from '../ui/settings-button/settings-button.component';
+import { ActionButtonsComponent } from '../ui/action-buttons/action-buttons.component';
+import { FormsModule } from '@angular/forms';
+import { TextInputComponent } from '../ui/text-input/text-input.component';
+import { AudioPlayerComponent } from '../ui/audio-player/audio-player.component';
+import { NavigationBarComponent } from '../ui/navigation-bar/navigation-bar.component';
+import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
+import { FeedbackComponent } from '../ui/feedback/feedback.component';
+import {SentenceService} from '../core/setence.service';
+
+@Component({
+  standalone: true,
+  selector: 'app-listen-and-write',
+  templateUrl: './listen-and-write.component.html',
+  styleUrls: ['./listen-and-write.component.scss'],
+  imports: [
+    SettingsButtonComponent,
+    ActionButtonsComponent,
+    FormsModule,
+    TextInputComponent,
+    AudioPlayerComponent,
+    NavigationBarComponent,
+    FeedbackComponent,
+  ],
+})
+export class ListenAndWriteComponent implements OnInit, OnDestroy {
+  exerciseId: number;
+  exercise: Exercise;
+  sentences: Sentence[] = [];
+  currentSentence: Sentence;
+  currentSentenceIndex: number = 0;
+  userInput: string = '';
+  audioUrl: string = '';
+  audioBlob: Blob;
+
+  isCorrect: boolean = false;
+
+  private routeSubscription: Subscription;
+
+  constructor(
+    private route: ActivatedRoute,
+    private exerciseService: ExerciseService,
+    private sentenceService: SentenceService,
+    private sanitizer: DomSanitizer
+  ) {}
+
+  ngOnInit(): void {
+    this.routeSubscription = this.route.params
+      .pipe(
+        switchMap((params) => {
+          this.exerciseId = +params['id'];
+          return from(this.exerciseService.getExercise(this.exerciseId));
+        }),
+        switchMap((exercise: Exercise) => {
+          this.exercise = exercise;
+          const sentenceObservables = exercise.sentences.map((sentence) =>
+            this.sentenceService.getSentence(sentence.id)
+          );
+          return forkJoin(sentenceObservables);
+        })
+      )
+      .subscribe((sentences: Sentence[]) => {
+        this.sentences = sentences.filter((s: Sentence) => s !== undefined);
+        this.startExercise();
+      });
+  }
+
+  ngOnDestroy(): void {
+    this.routeSubscription?.unsubscribe();
+  }
+
+  async startExercise(): Promise<void> {
+    if (this.sentences.length > 0) {
+      this.currentSentenceIndex = 0;
+      this.currentSentence = this.sentences[this.currentSentenceIndex];
+      this.audioUrl = this.createAudioUrl(this.currentSentence.audioBlob);
+    }
+  }
+
+  createAudioUrl(blob: Blob): string {
+    const url = URL.createObjectURL(blob);
+    return url;
+  }
+
+  onPrevSentence(): void {
+    this.updateCurrentSentence(this.currentSentenceIndex - 1);
+  }
+
+  onNextSentence(): void {
+    this.updateCurrentSentence(this.currentSentenceIndex + 1);
+  }
+
+  onMoveSentence(moveIndex: number): void {
+    this.updateCurrentSentence(moveIndex);
+  }
+
+  // Helper function for text normalization
+  normalizeText(text: string): string {
+    return text.toLowerCase().replace(/[.,!]/g, '').trim();
+  }
+
+  private updateCurrentSentence(newIndex: number): void {
+    if (newIndex >= 0 && newIndex < this.sentences.length) {
+      this.currentSentenceIndex = newIndex;
+      this.currentSentence = this.sentences[this.currentSentenceIndex];
+      this.userInput = '';
+      this.isCorrect = null;
+      this.audioUrl = this.createAudioUrl(this.currentSentence.audioBlob);
+      this.audioBlob = this.currentSentence.audioBlob;
+    }
+  }
+}
+
+```
+
+### src\app\ui\action-buttons\action-buttons.component.ts
+```ts
+import { Component, Output, EventEmitter } from '@angular/core';
+import {MyButtonComponent} from '../my-button/my-button.component'; // Import PrimeNG ButtonModule
+
+@Component({
+  standalone: true,
+  selector: 'app-action-buttons',
+  template: `
+    <div class="action-buttons">
+      <app-my-button label="Check" styleClass="p-button-success" (click)="check.emit()"></app-my-button>
+      <app-my-button label="Skip" styleClass="p-button-secondary" (click)="skip.emit()"></app-my-button>
+    </div>
+  `,
+  imports: [MyButtonComponent], // Add ButtonModule to imports
+  styles: [
+    `
+      .action-buttons {
+        display: flex;
+        gap: 10px; /* Add spacing between buttons */
+      }
+    `,
+  ],
+})
+export class ActionButtonsComponent {
+  @Output() check = new EventEmitter<void>();
+  @Output() skip = new EventEmitter<void>();
+}
+
+```
+
+### src\app\ui\audio-player\audio-player.component.ts
+```ts
+import {
+  Component,
+  Input,
+  ViewChild,
+  ElementRef,
+  AfterViewInit,
+  OnChanges,
+  SimpleChanges,
+  OnDestroy,
+  ChangeDetectorRef, HostListener
+} from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import {SliderChangeEvent, SliderModule} from 'primeng/slider';
+import { DropdownModule } from 'primeng/dropdown';
+import { MyButtonComponent } from '../my-button/my-button.component';
+import WaveSurfer from 'wavesurfer.js';
+import {Setting} from '../settings-button/settings-button.component';
+
+@Component({
+  selector: 'app-audio-player',
+  template: `
+    <div class="audio-player">
+      <div #waveform class="waveform"></div>
+
+      <div class="audio-controls">
+        <app-my-button
+          icon="pi pi-play"
+          styleClass="p-button-rounded p-button-text"
+          (onClick)="playAudio()"
+          [disabled]="!audioUrl"
+        ></app-my-button>
+        <app-my-button
+          icon="pi pi-pause"
+          styleClass="p-button-rounded p-button-text"
+          (onClick)="pauseAudio()"
+          [disabled]="!audioUrl"
+        ></app-my-button>
+
+        <p-slider
+          [(ngModel)]="volume"
+          [min]="0"
+          [max]="100"
+          [step]="1"
+          (onChange)="onVolumeChange($event)"
+          styleClass="volume-slider"
+        ></p-slider>
+
+        <p-dropdown
+          [options]="speedOptions"
+          [(ngModel)]="playbackSpeed"
+          (onChange)="setPlaybackSpeed()"
+          styleClass="speed-dropdown"
+        ></p-dropdown>
+      </div>
+
+      <div class="progress-bar mb-16">
+        <p-slider
+          [ngModel]="audioCurrentTime"
+          [max]="audioDuration"
+          [disabled]="!audioUrl"
+          (onChange)="onSeek($event)"
+          styleClass="progress-slider"
+        ></p-slider>
+        <span class="time-label">{{ formatTime(audioCurrentTime) }}</span>
+        <span class="time-label">/</span>
+        <span class="time-label">{{ formatTime(audioDuration) }}</span>
+      </div>
+      <div class="zoom-controls">
+        <p-slider
+          [(ngModel)]="zoomLevel"
+          [min]=""
+          [max]="3000"
+          [step]="200"
+          (onChange)="onZoomChange($event)"
+          styleClass="zoom-slider"
+        ></p-slider>
+        <div class="mt-16">Zoom Audio Wave</div>
+      </div>
+    </div>
+  `,
+  standalone: true,
+  imports: [
+    FormsModule,
+    SliderModule,
+    DropdownModule,
+    MyButtonComponent,
+  ],
+  styles: [
+    `
+      .audio-player {
+        width: 400px; /* Adjust width as needed */
+        padding: 15px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        background-color: #f8f8f8;
+      }
+
+      .audio-controls {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 10px;
+      }
+
+      .progress-bar {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .volume-slider,
+      .progress-slider,
+      .zoom-slider {
+        flex-grow: 1; /* Allow sliders to take available space */
+      }
+
+      .time-label {
+        font-size: 0.8em;
+        color: #555;
+      }
+
+      /* Customize PrimeNG components */
+      .p-slider .p-slider-handle {
+        background-color: #4caf50; /* Example: Change slider handle color */
+      }
+
+      .waveform {
+        width: 100%;
+        height: 100px; /* Adjust height as needed */
+        margin-bottom: 10px;
+      }
+    `,
+  ],
+})
+export class AudioPlayerComponent implements AfterViewInit, OnChanges, OnDestroy {
+  @Input() audioUrl: string | null = null;
+  @ViewChild('waveform') waveformRef: ElementRef;
+
+  private wavesurfer: WaveSurfer | null = null;
+  volume = 100; // Initial volume (0-100 scale)
+  playbackSpeed = 1;
+  audioCurrentTime = 0;
+  audioDuration = 0;
+  zoomLevel: number = 1;
+  userSettings: Setting[];
+
+  speedOptions = [
+    { label: '0.2x', value: 0.2 },
+    { label: '0.3x', value: 0.3 },
+    { label: '0.4x', value: 0.4 },
+    { label: '0.5x', value: 0.5 },
+    { label: '0.6x', value: 0.6 },
+    { label: '0.7x', value: 0.7 },
+    { label: '0.8x', value: 0.8 },
+    { label: '1.0x', value: 1.0 }
+  ];
+
+  private audioBlob: Blob;
+
+  constructor(
+    private cdr: ChangeDetectorRef
+  ) {}
+
+  ngAfterViewInit() {
+    const storedSettings = localStorage.getItem('userSettings');
+    if (storedSettings) {
+      this.userSettings = JSON.parse(storedSettings);
+    }
+
+    this.wavesurfer = WaveSurfer.create({
+      container: this.waveformRef.nativeElement,
+      waveColor: '#D9DCFF',
+      progressColor: '#4353FF',
+      cursorColor: '#4353FF',
+      barWidth: 3,
+      barRadius: 3,
+      cursorWidth: 1,
+      height: 100,
+      barGap: 3,
+      dragToSeek: true,
+    });
+
+    this.wavesurfer.on('ready', () => {
+      this.audioDuration = this.wavesurfer.getDuration();
+      this.wavesurfer.setVolume(this.volume / 100);
+      if (isNaN(this.audioDuration) || !isFinite(this.audioDuration)) {
+        this.audioDuration = 0;
+        console.warn('Invalid audio duration. Setting to 0.');
+      }
+    });
+
+    this.wavesurfer.on('error', (error) => {
+      console.error('Wavesurfer error:', error);
+    });
+
+    this.wavesurfer.on('audioprocess', () => {
+      this.audioCurrentTime = this.wavesurfer.getCurrentTime();
+    });
+
+    this.wavesurfer.on('interaction', () => {
+      this.wavesurfer.play();
+    })
+
+    this.wavesurfer.on('zoom', (level) => {
+      this.zoomLevel = level;
+    });
+
+    this.wavesurfer.on('finish', () => {
+      const delay = (ms: number) => new Promise(res => setTimeout(res, ms));
+      const autoReplay = this.userSettings.find(setting => setting.label === 'Auto Replay')?.selected.value;
+      const replayDelaySetting = this.userSettings.find(setting => setting.label === 'Time between replays')?.selected.value;
+      if (autoReplay) {
+        delay(replayDelaySetting * 1000).then(() => {
+          this.playAudio();
+        });
+      }
+    });
+
+    // this.wavesurfer.once('decode', () => {
+    //   this.wavesurfer.zoom()
+    // })
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['audioUrl'] && this.audioUrl) {
+      console.log('audioUrl changed:', this.audioUrl);
+      if (this.wavesurfer) {
+        this.wavesurfer.load(this.audioUrl);
+      }
+    }
+  }
+
+  onSeek(event: SliderChangeEvent) {
+    const newTime = event.value as number;
+    if (isFinite(newTime) && isFinite(this.audioDuration)) {
+      const progress = newTime / this.audioDuration;
+      this.wavesurfer.seekTo(progress);
+    } else {
+      console.warn('Cannot seek: Invalid time or duration.');
+    }
+  }
+
+  onVolumeChange(event: SliderChangeEvent) {
+    this.volume = event.value as number;
+    this.wavesurfer.setVolume(this.volume / 100);
+  }
+
+  setPlaybackSpeed() {
+    this.wavesurfer.setPlaybackRate(this.playbackSpeed);
+  }
+
+  playAudio() {
+    this.wavesurfer.play();
+  }
+
+  pauseAudio() {
+    this.wavesurfer.pause();
+  }
+
+  formatTime(seconds: number): string {
+    const minutes = Math.floor(seconds / 60);
+    const remainingSeconds = Math.floor(seconds % 60);
+    const formattedTime = `${minutes}:${
+      remainingSeconds < 10 ? '0' : ''
+    }${remainingSeconds}`;
+    return formattedTime;
+  }
+
+  onZoomChange(event: SliderChangeEvent): void {
+    this.zoomLevel = event.value as number;
+    this.wavesurfer.zoom(this.zoomLevel);
+    this.cdr.detectChanges();
+  }
+
+  ngOnDestroy() {
+    if (this.wavesurfer) {
+      this.wavesurfer.destroy();
+    }
+    if (this.audioBlob) {
+      URL.revokeObjectURL(URL.createObjectURL(this.audioBlob));
+    }
+  }
+
+  @HostListener('window:keydown', ['$event'])
+  handleKeyDown(event: KeyboardEvent) {
+    const replayKey = this.userSettings.find(setting => setting.label === 'Replay Key')?.selected.value;
+    if ((replayKey === 'ctrl' && event.ctrlKey) || (replayKey === 'shift' && event.shiftKey) || (replayKey === 'alt' && event.altKey)){
+      this.playAudio();
+    }
+  }
+}
+
+```
+
+### src\app\ui\feedback\feedback.component.html
+```html
+<div class="mb-16">
+  <app-text-input
+    [(userInput)]="userInput"
+    (checkAnswer)="onCheckAnswer()"></app-text-input>
+</div>
+
+<app-my-button label="Check" icon="pi pi-check" (click)="onCheckAnswer()"></app-my-button>
+
+<div class="feedback-area">
+  <app-my-button
+    class="toggle-answer"
+    styleClass="p-button-text"
+    (onClick)="toggleShowAnswer()"
+    [icon]="showFullAnswer ? 'pi pi-eye-slash' : 'pi pi-eye'"></app-my-button>
+
+  <div *ngIf="isCorrect === false" class="incorrect">
+    <span class="warning-icon">⚠️</span> Incorrect
+  </div>
+  <div *ngIf="isCorrect === true" class="correct">
+    <span class="check-icon">✅</span> Correct!
+  </div>
+
+  <div class="answer-area">
+    <div class="user-input-text" *ngIf="!showFullAnswer">
+      {{ maskedText }}
+    </div>
+
+    <div class="full-answer" *ngIf="showFullAnswer">
+      <p><strong>English:</strong> {{ englishText }}</p>
+      <p><strong>Vietnamese:</strong> {{ vietnameseText }}</p>
+    </div>
+  </div>
+</div>
+
+
+```
+
+### src\app\ui\feedback\feedback.component.scss
+```scss
+.feedback-area {
+  margin-top: 10px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  min-width: 400px;
+
+  .incorrect {
+    color: red;
+    .warning-icon {
+      margin-right: 5px;
+    }
+  }
+
+  .correct {
+    color: green;
+    .check-icon {
+      margin-right: 5px;
+    }
+  }
+
+  .answer-area {
+    margin-top: 10px;
+    .user-input-text {
+      margin-bottom: 5px;
+    }
+    .toggle-answer {
+      background: none;
+      border: none;
+      cursor: pointer;
+      .fa-eye,
+      .fa-eye-slash {
+        font-size: 1.2em;
+        color: #555;
+      }
+    }
+  }
+
+  .full-answer {
+    margin-top: 10px;
+  }
+}
+
+```
+
+### src\app\ui\feedback\feedback.component.ts
+```ts
+import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { ButtonModule } from 'primeng/button';
+import {MyButtonComponent} from '../my-button/my-button.component';
+import {TextInputComponent} from '../text-input/text-input.component';
+
+@Component({
+  selector: 'app-feedback',
+  standalone: true,
+  imports: [CommonModule, FormsModule, ButtonModule, MyButtonComponent,TextInputComponent],
+  templateUrl: './feedback.component.html',
+  styleUrls: ['./feedback.component.scss'],
+})
+export class FeedbackComponent implements OnInit {
+  @Input() vietnameseText: string = '';
+  @Input() englishText: string = '';
+
+  userInput: string = '';
+  showFullAnswer: boolean = false;
+  maskedText: string = '';
+  isCorrect: boolean | null = null;
+
+  constructor() {}
+
+  ngOnInit(): void {
+  }
+
+  toggleShowAnswer(): void {
+    this.showFullAnswer = !this.showFullAnswer;
+    if (this.showFullAnswer) {
+      this.maskedText = this.englishText;
+    } else {
+      this.updateMaskedText();
+    }
+  }
+
+  updateMaskedText(): void {
+    if (this.isCorrect === false) {
+      const normalizedUserInput = this.normalizeText(this.userInput);
+      const normalizedEnglishText = this.normalizeText(this.englishText);
+
+      const userInputWords = normalizedUserInput.split(' ');
+      const englishWords = normalizedEnglishText.split(' ');
+      const result = [];
+
+      for (let i = 0; i < englishWords.length; i++) {
+        if (userInputWords[i] !== englishWords[i]){
+          result.push(englishWords[i]);
+          break;
+        }
+        result.push(englishWords[i]);
+      }
+
+      for (let i = result.length; i < englishWords.length; i++) {
+        result[i] = '*'.repeat(englishWords.length)
+      }
+
+      this.maskedText = result.join(' ');
+    } else if (this.isCorrect === true) {
+      this.maskedText = this.englishText;
+    }
+  }
+
+  // Helper function for text normalization
+  normalizeText(text: string): string {
+    return text.toLowerCase().replace(/[.,!]/g, '').trim();
+  }
+
+  isNullUndefinedOrWhitespace(str: string | null | undefined): boolean {
+    return str?.trim() === "" || str === null || str === undefined;
+  }
+
+  onCheckAnswer(): void {
+    const normalizedUserInput = this.normalizeText(this.userInput);
+    const normalizedSentenceText = this.normalizeText(
+      this.englishText
+    );
+
+    this.isCorrect = normalizedUserInput === normalizedSentenceText;
+
+    if (this.isCorrect === true) {
+      this.showFullAnswer = true;
+      this.maskedText = this.englishText;
+    } else if (this.isCorrect === false) {
+      this.updateMaskedText();
+    }
+  }
+}
+
+```
+
+### src\app\ui\menu\menu.component.html
+```html
+<nav>
+  <ul>
+    <li>
+      <div>
+        <a routerLink="/audio-splitter">Audio Splitter</a>
+        <a routerLink="/listen-and-write">Listen and Write</a>
+      </div>
+    </li>
+  </ul>
+</nav>
+
+```
+
+### src\app\ui\menu\menu.component.ts
+```ts
+import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
+
+@Component({
+  selector: 'app-menu',
+  standalone: true,
+  imports: [CommonModule, RouterModule],
+  templateUrl: './menu.component.html',
+  // styleUrls: ['./menu.component.css'],
+})
+export class MenuComponent {}
+
+```
+
+### src\app\ui\my-button\my-button.component.ts
+```ts
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { ButtonModule } from 'primeng/button';
+
+@Component({
+  selector: 'app-my-button',
+  standalone: true,
+  imports: [CommonModule, ButtonModule],
+  template: `
+    <p-button
+      [rounded]="true"
+      [raised]="raised"
+      (click)="onClick.emit($event)"
+      [label]="label"
+      [disabled]="disabled"
+      [styleClass]="styleClass"
+      [icon]="icon"
+    ></p-button>
+  `,
+})
+export class MyButtonComponent {
+  @Input() label: string;
+  @Input() disabled: boolean;
+  @Input() styleClass: string;
+  @Input() icon: string;
+  @Input() raised: boolean = true;
+  @Output() onClick = new EventEmitter<any>();
+}
+
+```
+
+### src\app\ui\my-file-uploader\my-file-uploader.component.html
+```html
+<div class="file-uploader-container">
+  <label [attr.for]="inputId">{{ label }}</label>
+  <p-fileUpload
+    [id]="inputId"
+    [accept]="accept"
+    [multiple]="multiple"
+    [customUpload]="customUpload"
+    (onSelect)="onFileSelected($event, fileUpload)"
+    (onUpload)="onUploadHandler($event)"
+    (onError)="onError($event)"
+    #fileUpload
+    mode="basic"
+    [auto]="true"
+    chooseLabel="Browse"
+    url="./upload"
+  >
+  </p-fileUpload>
+  <p-messages [(value)]="messages"></p-messages>
+</div>
+
+```
+
+### src\app\ui\my-file-uploader\my-file-uploader.component.scss
+```scss
+.file-uploader-container {
+  // Add any custom styles for your component here
+  margin-bottom: 1rem;
+}
+
+```
+
+### src\app\ui\my-file-uploader\my-file-uploader.component.ts
+```ts
+import {Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core';
+import {MessageService} from 'primeng/api';
+import {FileSelectEvent, FileUpload, FileUploadModule} from 'primeng/fileupload';
+import {MessagesModule} from 'primeng/messages';
+
+@Component({
+  selector: 'app-my-file-uploader',
+  standalone: true,
+  imports: [MessagesModule, FileUploadModule],
+  templateUrl: './my-file-uploader.component.html',
+  styleUrl: './my-file-uploader.component.scss',
+  providers: [MessageService],
+})
+export class MyFileUploadComponent implements OnInit, OnDestroy {
+  @Input() accept: string = '';
+  @Input() label: string = 'Choose File';
+  @Input() multiple: boolean = false;
+  @Input() customUpload: boolean = false;
+
+  @Output() fileSelect: EventEmitter<File | File[]> = new EventEmitter<
+    File | File[]
+    >();
+  @Output() uploadComplete: EventEmitter<any> = new EventEmitter<any>();
+
+  messages: any[] = [];
+  inputId: string = '';
+
+  private static nextId: number = 0;
+  private uniqueId: string = `my-file-upload-${MyFileUploadComponent.nextId++}`;
+
+  constructor(private messageService: MessageService) {}
+
+  ngOnInit() {
+    this.inputId = this.uniqueId;
+  }
+
+  onFileSelected(event: FileSelectEvent, fileUpload: FileUpload) {
+    if (this.multiple) {
+      this.fileSelect.emit(event.files);
+    } else {
+      this.fileSelect.emit(event.files[0]);
+    }
+
+    if (!this.customUpload) {
+      this.messageService.add({
+        severity: 'info',
+        summary: 'File Selected',
+        detail: `File uploaded.`,
+      });
+    }
+    fileUpload.clear();
+  }
+
+  onUploadHandler(event: any) {
+    this.uploadComplete.emit(event.originalEvent.body);
+    this.messageService.add({
+      severity: 'info',
+      summary: 'File Uploaded',
+      detail: '',
+    });
+  }
+
+  onError(event: any) {
+    this.messageService.add({
+      severity: 'error',
+      summary: 'Error',
+      detail: 'File upload failed.',
+    });
+  }
+
+  ngOnDestroy() {
+    MyFileUploadComponent.nextId--;
+  }
+}
+
+```
+
+### src\app\ui\my-input-number\my-input-number.component.ts
+```ts
+import { Component, forwardRef, Input } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR, FormsModule } from '@angular/forms';
+import { InputNumberModule } from 'primeng/inputnumber';
+
+@Component({
+  selector: 'app-my-input-number',
+  standalone: true,
+  imports: [CommonModule, FormsModule, InputNumberModule],
+  template: `
+    <p-inputNumber
+      [ngModel]="value"
+      (ngModelChange)="onChange($event)"
+      [disabled]="disabled"
+      [min]="min"
+      [max]="max"
+      [mode]="mode"
+      [step]="step"
+    ></p-inputNumber>
+  `,
+  providers: [
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => MyInputNumberComponent),
+      multi: true,
+    },
+  ],
+})
+export class MyInputNumberComponent implements ControlValueAccessor {
+  @Input() min: number;
+  @Input() max: number;
+  @Input() mode: string = 'decimal';
+  @Input() step: number = 1;
+
+  value: number;
+  disabled: boolean;
+
+  onChange: any = () => {};
+  onTouched: any = () => {};
+
+  writeValue(value: number): void {
+    this.value = value;
+  }
+
+  registerOnChange(fn: any): void {
+    this.onChange = fn;
+  }
+
+  registerOnTouched(fn: any): void {
+    this.onTouched = fn;
+  }
+
+  setDisabledState?(isDisabled: boolean): void {
+    this.disabled = isDisabled;
+  }
+}
+
+```
+
+### src\app\ui\my-slider\my-slider.component.ts
+```ts
+import { Component, forwardRef, Input } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { SliderModule } from 'primeng/slider';
+
+@Component({
+  selector: 'app-my-slider',
+  standalone: true,
+  imports: [CommonModule, FormsModule, SliderModule],
+  template: `
+    <p-slider
+      [ngModel]="value"
+      (ngModelChange)="onChange($event)"
+      [disabled]="disabled"
+      [min]="min"
+      [max]="max"
+      [step]="step"
+      [style]="style"
+    ></p-slider>
+  `,
+  providers: [
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => MySliderComponent),
+      multi: true,
+    },
+  ],
+})
+export class MySliderComponent implements ControlValueAccessor {
+  @Input() min: number;
+  @Input() max: number;
+  @Input() step: number = 1;
+  @Input() style: any;
+
+  value: number;
+  disabled: boolean;
+
+  onChange: any = () => {};
+  onTouched: any = () => {};
+
+  writeValue(value: number): void {
+    this.value = value;
+  }
+
+  registerOnChange(fn: any): void {
+    this.onChange = fn;
+  }
+
+  registerOnTouched(fn: any): void {
+    this.onTouched = fn;
+  }
+
+  setDisabledState?(isDisabled: boolean): void {
+    this.disabled = isDisabled;
+  }
+}
+
+```
+
+### src\app\ui\navigation-bar\navigation-bar.component.ts
+```ts
+import { Component, Input, Output, EventEmitter } from '@angular/core';
+import {MyButtonComponent} from '../my-button/my-button.component';
+import {InputNumberModule} from 'primeng/inputnumber';
+import {MyInputNumberComponent} from '../my-input-number/my-input-number.component';
+import {CheckboxModule} from 'primeng/checkbox';
+import {TooltipModule} from 'primeng/tooltip';
+import {FormsModule} from '@angular/forms';
+
+@Component({
+  selector: 'app-navigation-bar',
+  template: `
+    <div>
+      <div class="navigation-bar">
+        <app-my-button
+          icon="pi pi-angle-left"
+          styleClass="p-button-rounded p-button-text"
+          [disabled]="current === 1"
+          (click)="previous.emit()"
+        ></app-my-button>
+        <span class="page-info">{{ current }} / {{ total }}</span>
+        <app-my-button
+          icon="pi pi-angle-right"
+          styleClass="p-button-rounded p-button-text"
+          [disabled]="current === total"
+          (click)="next.emit()"
+        ></app-my-button>
+      </div>
+      <div>
+        <p-inputNumber [(ngModel)]="current" [min]="1" [showButtons]="true" mode="decimal"></p-inputNumber>
+        <app-my-button
+          icon="pi pi-play"
+          styleClass="p-button-text"
+          [raised]="false"
+          (click)="move.emit(current)"
+        ></app-my-button>
+      </div>
+    </div>
+  `,
+  standalone: true,
+  imports: [MyButtonComponent, InputNumberModule, MyInputNumberComponent, FormsModule],
+  styles: [
+    `
+      .navigation-bar {
+        display: flex;
+        align-items: center;
+        gap: 10px; /* Spacing between elements */
+        padding: 10px;
+        /*background-color: #f8f9fa; !* Light background *!*/
+        /*border: 1px solid #ddd;*/
+        border-radius: 5px;
+      }
+
+      .page-info {
+        font-weight: bold;
+      }
+    `,
+  ],
+})
+export class NavigationBarComponent {
+  @Input() current: number;
+  @Input() total: number;
+  @Output() previous = new EventEmitter<void>();
+  @Output() next = new EventEmitter<void>();
+  @Output() move = new EventEmitter<number>();
+}
+
+```
+
+### src\app\ui\settings-button\settings-button.component.scss
+```scss
+/* settings-button.component.css */
+.settings-dialog .p-datatable .p-datatable-tbody > tr > td {
+  border: none; /* Remove cell borders if you don't want them */
+}
+.p-dropdown-panel {
+  z-index: 1001; /* Adjust this value as needed, must be higher than the table's z-index */
+}
+
+```
+
+### src\app\ui\settings-button\settings-button.component.ts
+```ts
+import {Component, Input, Output, EventEmitter, OnInit} from '@angular/core';
+import { DialogModule } from 'primeng/dialog';
+import { TableModule } from 'primeng/table';
+import { DropdownModule } from 'primeng/dropdown';
+import { FormsModule } from '@angular/forms';
+import { MyButtonComponent } from '../my-button/my-button.component';
+import { CommonModule } from '@angular/common';
+
+export interface SettingOption {
+  label: string;
+  value: any;
+}
+
+export interface Setting {
+  label: string;
+  options: SettingOption[];
+  selected: any;
+}
+
+@Component({
+  selector: 'app-settings-button',
+  standalone: true,
+  imports: [
+    DialogModule,
+    DropdownModule,
+    FormsModule,
+    CommonModule,
+    TableModule,
+    MyButtonComponent, // Add MyButtonComponent to imports
+  ],
+  template: `
+    <app-my-button
+      icon="pi pi-cog"
+      label="Settings"
+      (onClick)="showSettings = true"
+      styleClass="p-button-text"
+    ></app-my-button>
+
+    <p-dialog
+      header="Settings"
+      [(visible)]="showSettings"
+      [modal]="true"
+      styleClass="settings-dialog"
+      [style]="{ width: '550px' }"
+      [baseZIndex]="10000"
+      [draggable]="false"
+      [resizable]="false"
+    >
+      <ng-container *ngIf="settings">
+        <p-table [value]="settings" [tableStyle]="{ 'min-width': '200px' }">
+          <ng-template pTemplate="header">
+            <tr>
+              <th>Label</th>
+              <th>Value</th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-setting>
+            <tr>
+              <td>{{ setting.label }}</td>
+              <td>
+                <p-dropdown
+                  [options]="setting.options"
+                  [(ngModel)]="setting.selected"
+                  (onChange)="onSettingChange(setting)"
+                  optionLabel="label"
+                  [filter]="false"
+                  [showClear]="false"
+                  appendTo="body"
+                ></p-dropdown>
+              </td>
+            </tr>
+          </ng-template>
+        </p-table>
+      </ng-container>
+
+      <ng-template pTemplate="footer">
+        <app-my-button
+          icon="pi pi-check"
+          label="Save"
+          (onClick)="onSaveSettings(settings); showSettings = false"
+          styleClass="p-button-success"
+        ></app-my-button>
+        <app-my-button
+          label="Close"
+          (onClick)="showSettings = false"
+          styleClass="p-button-text"
+        ></app-my-button>
+      </ng-template>
+    </p-dialog>
+  `,
+  styleUrls: ['./settings-button.component.scss'],
+})
+export class SettingsButtonComponent implements OnInit {
+  settings: Setting[] = [
+    {
+      label: 'Replay Key',
+      options: [
+        { label: 'Ctrl', value: 'ctrl' },
+        { label: 'Shift', value: 'shift' },
+        { label: 'Alt', value: 'alt' },
+      ],
+      selected: { label: 'Ctrl', value: 'ctrl' },
+    },
+    {
+      label: 'Auto Replay',
+      options: [
+        { label: 'Yes', value: true },
+        { label: 'No', value: false },
+      ],
+      selected: { label: 'No', value: false },
+    },
+    {
+      label: 'Time between replays',
+      options: [
+        { label: '0.5 seconds', value: 0.5 },
+        { label: '1 second', value: 1 },
+        { label: '2 seconds', value: 2 },
+        { label: '3 seconds', value: 3 },
+        { label: '4 seconds', value: 4 },
+        { label: '5 seconds', value: 5 },
+        { label: '10 seconds', value: 10 },
+        { label: '20 seconds', value: 20 },
+      ],
+      selected: { label: '0.5 seconds', value: 0.5 },
+    },
+  ];
+  showSettings = false; // Controls the visibility of the settings dialog
+
+  ngOnInit(): void {
+    const storedSettings = localStorage.getItem('userSettings');
+    if (storedSettings) {
+      this.settings = JSON.parse(storedSettings);
+    }
+  }
+
+  onSettingChange(setting: Setting) {
+    console.log(`${setting.label} changed to:`, setting.selected);
+  }
+
+  onSaveSettings(updatedSettings: Setting[]) {
+    console.log('Saving settings:', updatedSettings);
+    // this.userSettings = updatedSettings;
+    localStorage.setItem('userSettings', JSON.stringify(this.settings));
+  }
+}
+
+```
+
+### src\app\ui\text-input\text-input.component.ts
+```ts
+import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { TextareaModule } from 'primeng/textarea'; // If using PrimeNG
+import { TooltipModule } from 'primeng/tooltip'; // For tooltip (optional)
+
+@Component({
+  selector: 'app-text-input',
+  template: `
+    <div class="text-input-container">
+        <textarea
+          pInputTextarea
+          [(ngModel)]="userInput"
+          (ngModelChange)="userInputChange.emit(userInput)"
+          placeholder="Type what you hear..."
+          (keyup.enter)="checkAnswer.emit()"
+          (keydown.enter)="preventInput($event)"
+          [rows]="2"
+          [cols]="40"
+        ></textarea>
+    </div>
+  `,
+  standalone: true,
+  imports: [FormsModule, TextareaModule, TooltipModule], // Import PrimeNG modules
+  styles: [
+    `
+      .text-input-container {
+        display: flex;
+        align-items: center;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        padding: 5px;
+        width: fit-content;
+      }
+
+      textarea {
+        flex-grow: 1;
+        border: none;
+        padding: 10px;
+        font-size: 16px;
+        resize: vertical; /* Allow vertical resizing */
+      }
+      textarea:focus {
+        outline: none;
+      }
+
+      .fa-microphone {
+        color: #666;
+        cursor: pointer;
+        padding: 10px;
+        transition: color 0.2s; /* Add a transition for a smooth effect */
+      }
+
+      .fa-microphone:hover {
+        color: #333; /* Darken color on hover */
+      }
+
+      .fa-microphone.active {
+        color: #ff0000; /* Red when active */
+      }
+
+      /* PrimeNG Specific Styles */
+      .p-inputtextarea {
+        flex-grow: 1;
+        width: auto;
+      }
+    `,
+  ],
+})
+export class TextInputComponent {
+  @Input() userInput: string;
+  @Output() userInputChange = new EventEmitter<string>();
+  @Output() checkAnswer = new EventEmitter<void>();
+
+  usePrimeNG = true; // Set to false to use regular textarea
+  isMicrophoneActive = false; // Track microphone state
+
+  preventInput(event: Event) {
+    event.preventDefault();
+  }
+}
+
+```
+
+### src\types\pcm-util.d.ts
+```ts
+// src/types/pcm-util.d.ts
+declare module 'pcm-util' {
+  export type Format = {
+    sampleRate: number;
+    channels: number;
+    interleaved: boolean;
+    float: boolean;
+    bitDepth: number;
+    signed: boolean;
+    byteOrder: 'BE' | 'LE';
+  };
+
+  export function format(audioBuffer: AudioBuffer): Format;
+  export function toArrayBuffer(audioBuffer: AudioBuffer | any): ArrayBuffer;
+  export function toAudioBuffer(
+    audioData: ArrayBuffer,
+    format: Format,
+  ): AudioBuffer;
+  export function toBuffer(
+    audioData: ArrayBuffer,
+    format: Format,
+  ): AudioBuffer;
+  export function isPCM(data: any): boolean;
+  export function isAudioBuffer(data: any): boolean;
+  export function isBuffer(data: any): boolean;
+}
+
+```

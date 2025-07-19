@@ -64,7 +64,7 @@ export class FeedbackComponent implements OnInit {
 
   // Helper function for text normalization
   normalizeText(text: string): string {
-    return text.toLowerCase().replace(/[.,!]/g, '').trim();
+    return text?.toLowerCase().replace(/[.,!]/g, '').trim() || '';
   }
 
   isNullUndefinedOrWhitespace(str: string | null | undefined): boolean {

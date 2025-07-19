@@ -142,7 +142,7 @@ export class AudioPlayerComponent implements AfterViewInit, OnChanges, OnDestroy
   audioCurrentTime = 0;
   audioDuration = 0;
   zoomLevel: number = 1;
-  userSettings: Setting[];
+  userSettings: Setting[] = [];
 
   speedOptions = [
     { label: '0.2x', value: 0.2 },

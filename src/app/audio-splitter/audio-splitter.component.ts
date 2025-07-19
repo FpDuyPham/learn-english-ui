@@ -21,7 +21,7 @@ import { Exercise, Sentence, AppDBSchema } from '../core/db-schema';
 import { ExerciseService } from '../core/exercise.service';
 import { AppDB, db } from '../core/database.service';
 
-interface SegmentData {
+export interface SegmentData {
   id?: number;
   englishText: string;
   vietnameseText: string;

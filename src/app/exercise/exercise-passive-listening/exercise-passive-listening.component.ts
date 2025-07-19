@@ -13,6 +13,7 @@ import {MyInputNumberComponent} from '../../ui/my-input-number/my-input-number.c
 import {CheckboxModule} from 'primeng/checkbox';
 import {TooltipModule} from 'primeng/tooltip';
 import {InputNumberModule} from 'primeng/inputnumber';
+import {SegmentData} from '../../audio-splitter/audio-splitter.component';
 
 @Component({
   standalone: true,
@@ -30,6 +31,7 @@ export class ExercisePassiveListeningComponent implements OnInit, OnDestroy {
   globalPauseDuration: number = 5; // Default value
 
   private routeSubscription: Subscription;
+  private audioContext: AudioContext;
 
   constructor(
     private route: ActivatedRoute,
@@ -197,6 +199,16 @@ export class ExercisePassiveListeningComponent implements OnInit, OnDestroy {
     } catch (error) {
       console.error('Error generating passive listening audio:', error);
     }
+  }
+
+  playSegment(audioBlob: Blob) {
+    const url = URL.createObjectURL(audioBlob);
+    const audio = new Audio(url);
+    audio.addEventListener('ended', () => {
+      URL.revokeObjectURL(url);
+    });
+
+    audio.play().catch(e => console.error("Error playing audio:", e));
   }
 
   private downloadBlob(blob: Blob, filename: string): void {
