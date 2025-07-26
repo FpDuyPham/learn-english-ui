@@ -82,6 +82,7 @@ export class FeedbackComponent implements OnInit {
     if (this.isCorrect === true) {
       this.showFullAnswer = true;
       this.maskedText = this.englishText;
+      this.userInput = '';
     } else if (this.isCorrect === false) {
       this.updateMaskedText();
     }
