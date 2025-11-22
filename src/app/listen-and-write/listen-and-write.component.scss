@@ -1,63 +1,23 @@
-.listen-and-write-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 600px;
-  max-width: 100%; //(mobile)
-  margin: 20px auto;
-  border: 1px solid #ccc;
-  padding: 20px;
-}
-
-.navigation-bar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+:host {
+  display: block;
   width: 100%;
-  margin-bottom: 10px;
 }
 
-.audio-player {
-  width: 100%;
-  margin-bottom: 20px;
-}
+/* Add smooth transitions */
+:host ::ng-deep {
+  .feedback-area {
+    animation: fadeInUp 0.3s ease-out;
+  }
 
-.text-input-container {
-  display: flex;
-  align-items: center;
-  width: 100%;
-  margin-bottom: 10px;
-}
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
 
-.text-input-container textarea {
-  flex-grow: 1;
-  padding: 10px;
-  border: 1px solid #ccc;
-  resize: none; /* Prevent resizing */
-}
-
-.text-input-container .fa-microphone {
-  margin-left: 10px;
-  cursor: pointer; /* Make it look clickable */
-}
-
-.action-buttons {
-  display: flex;
-  gap: 10px;
-}
-
-.check-button {
-  background-color: #4caf50; /* Green */
-  color: white;
-  padding: 10px 20px;
-  border: none;
-  cursor: pointer;
-}
-
-.skip-button {
-  background-color: #f44336; /* Red */
-  color: white;
-  padding: 10px 20px;
-  border: none;
-  cursor: pointer;
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
 }

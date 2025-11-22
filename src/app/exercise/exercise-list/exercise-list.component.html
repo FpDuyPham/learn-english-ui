@@ -1,45 +1,88 @@
-<!--<h2>Exercises</h2>-->
+<div class="p-4 md:p-5 min-h-screen surface-ground">
+  <div class="max-w-screen-xl mx-auto">
+    <!-- Header Section -->
+    <div
+      class="flex flex-column md:flex-row justify-content-between align-items-start md:align-items-center gap-4 mb-5 p-4 surface-card border-round-xl shadow-2">
+      <div>
+        <h1 class="text-5xl font-bold m-0 mb-2 text-900">Exercises</h1>
+        <p class="text-lg text-600 m-0">Manage and practice your English exercises</p>
+      </div>
+      <app-my-button pButton type="button" label="Create New Exercise" (click)="createExercise()" icon="pi pi-plus"
+        severity="primary" [raised]="true" size="large" styleClass="white-space-nowrap shadow-3"></app-my-button>
+    </div>
 
-<!--<app-my-button pButton type="button" label="Create New Exercise" (click)="createExercise()" icon="pi pi-create"></app-my-button>-->
+    <!-- Table -->
+    <p-table [value]="(exercises$ | async) || []" responsiveLayout="stack" [breakpoint]="'960px'"
+      styleClass="shadow-4 border-round-xl overflow-hidden" [paginator]="true" [rows]="10"
+      [showCurrentPageReport]="true" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} exercises">
 
-<!--<div *ngIf="exercises.length === 0">No exercises found.</div>-->
+      <ng-template pTemplate="header">
+        <tr class="bg-primary">
+          <th class="text-white font-bold text-lg">ID</th>
+          <th class="text-white font-bold text-lg">Name</th>
+          <th class="text-white font-bold text-lg">Actions</th>
+        </tr>
+      </ng-template>
 
-<!--<ul *ngIf="exercises.length > 0">-->
-<!--  <li *ngFor="let exercise of exercises">-->
-<!--    <a [routerLink]="['/exercises', exercise.id]">{{ exercise.name }}</a>-->
-<!--    <app-my-button pButton type="button" icon="pi pi-pencil" (click)="editExercise(exercise.id)" label="Edit"></app-my-button>-->
-<!--    <app-my-button pButton type="button" icon="pi pi-trash" (click)="deleteExercise(exercise.id)" label="Delete"></app-my-button>-->
-<!--    <app-my-button pButton type="button" icon="pi pi-file" (click)="goToAudioSplitter(exercise.id)" label="View"></app-my-button>-->
-<!--  </li>-->
-<!--</ul>-->
-<h2>Exercises</h2>
+      <ng-template pTemplate="body" let-exercise>
+        <tr class="surface-card hover:bg-primary-50 transition-duration-150">
+          <td>
+            <span class="p-column-title font-semibold text-900">ID</span>
+            <span class="font-medium text-primary">{{ exercise.id }}</span>
+          </td>
+          <td>
+            <span class="p-column-title font-semibold text-900">Name</span>
+            <a [routerLink]="['/exercises', exercise.id]"
+              class="text-900 hover:text-primary font-semibold text-lg no-underline transition-colors transition-duration-150">
+              {{ exercise.name }}
+            </a>
+          </td>
+          <td>
+            <span class="p-column-title font-semibold text-900">Actions</span>
+            <div class="flex flex-wrap gap-2">
+              <app-my-button pButton type="button" icon="pi pi-play" class="hidden md:inline-flex"
+                (click)="gotoLearnPassive(exercise.id!)" label="Learn Passive" severity="success" [outlined]="true"
+                size="small"></app-my-button>
+              <app-my-button pButton type="button" icon="pi pi-play" class="md:hidden"
+                (click)="gotoLearnPassive(exercise.id!)" pTooltip="Learn Passive" severity="success" [outlined]="true"
+                size="small"></app-my-button>
 
-<app-my-button pButton type="button" label="Create New Exercise" (click)="createExercise()" icon="pi pi-plus"></app-my-button>
+              <app-my-button pButton type="button" icon="pi pi-pencil" class="hidden md:inline-flex"
+                (click)="editExercise(exercise.id!)" label="Edit" severity="info" [outlined]="true"
+                size="small"></app-my-button>
+              <app-my-button pButton type="button" icon="pi pi-pencil" class="md:hidden"
+                (click)="editExercise(exercise.id!)" pTooltip="Edit" severity="info" [outlined]="true"
+                size="small"></app-my-button>
 
-<p-table [value]="(exercises$ | async) || []" [tableStyle]="{ 'min-width': '50rem' }">
-  <ng-template pTemplate="header">
-    <tr>
-      <th>Id</th>
-      <th>Name</th>
-      <th style="width:250px">Actions</th>
-    </tr>
-  </ng-template>
-  <ng-template pTemplate="body" let-exercise>
-    <tr>
-      <td>{{ exercise.id }}</td>
-      <td><a [routerLink]="['/exercises', exercise.id]">{{ exercise.name }}</a></td>
-      <td width="400px">
-        <app-my-button pButton type="button" icon="pi pi-play" class="p-button-text" (click)="gotoLearnPassive(exercise.id!)" label="Learn Passive"></app-my-button>
-        <app-my-button pButton type="button" icon="pi pi-pencil" class="p-button-text" (click)="editExercise(exercise.id!)" label="Edit"></app-my-button>
-        <app-my-button pButton type="button" icon="pi pi-trash" class="p-button-text" (click)="deleteExercise(exercise.id!)" label="Delete"></app-my-button>
-        <app-my-button pButton type="button" icon="pi pi-file" class="p-button-text" (click)="goToAudioSplitter(exercise.id!)" label="View"></app-my-button>
-        <app-my-button pButton type="button" icon="pi pi-play" class="p-button-text" (click)="goToListenAndWrite(exercise.id!)" label="Learn"></app-my-button>
-      </td>
-    </tr>
-  </ng-template>
-  <ng-template pTemplate="emptymessage">
-    <tr>
-      <td [attr.colspan]="3">No exercises found.</td>
-    </tr>
-  </ng-template>
-</p-table>
+              <app-my-button pButton type="button" icon="pi pi-trash" class="hidden md:inline-flex"
+                (click)="deleteExercise(exercise.id!)" label="Delete" severity="danger" [outlined]="true"
+                size="small"></app-my-button>
+              <app-my-button pButton type="button" icon="pi pi-trash" class="md:hidden"
+                (click)="deleteExercise(exercise.id!)" pTooltip="Delete" severity="danger" [outlined]="true"
+                size="small"></app-my-button>
+
+              <app-my-button pButton type="button" icon="pi pi-book" class="hidden md:inline-flex"
+                (click)="goToListenAndWrite(exercise.id!)" label="Learn" severity="primary" [raised]="true"
+                size="small"></app-my-button>
+              <app-my-button pButton type="button" icon="pi pi-book" class="md:hidden"
+                (click)="goToListenAndWrite(exercise.id!)" pTooltip="Learn" severity="primary" [raised]="true"
+                size="small"></app-my-button>
+            </div>
+          </td>
+        </tr>
+      </ng-template>
+
+      <ng-template pTemplate="emptymessage">
+        <tr>
+          <td [attr.colspan]="3" class="text-center p-5">
+            <div class="flex flex-column align-items-center gap-3">
+              <i class="pi pi-inbox text-6xl text-400"></i>
+              <h3 class="text-2xl font-semibold text-600 m-0">No exercises found</h3>
+              <p class="text-lg text-500 m-0">Create your first exercise to get started!</p>
+            </div>
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+</div>

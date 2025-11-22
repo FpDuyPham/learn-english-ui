@@ -1,10 +1,14 @@
-<nav>
-  <ul>
-    <li>
-      <div>
-        <a routerLink="/audio-splitter">Audio Splitter</a>
-        <a routerLink="/listen-and-write">Listen and Write</a>
+<div class="card">
+  <p-menubar [model]="items" styleClass="shadow-3 border-round-lg">
+    <ng-template pTemplate="start">
+      <div class="flex align-items-center gap-2 mr-4">
+        <i class="pi pi-book text-primary text-3xl"></i>
+        <span class="font-bold text-2xl text-primary hidden md:inline">Learn English</span>
       </div>
-    </li>
-  </ul>
-</nav>
+    </ng-template>
+    <ng-template pTemplate="end">
+      <p-button [icon]="isDarkMode ? 'pi pi-moon' : 'pi pi-sun'" (onClick)="toggleDarkMode()" [rounded]="true"
+        [text]="true" severity="secondary" pTooltip="Toggle dark mode" tooltipPosition="bottom"></p-button>
+    </ng-template>
+  </p-menubar>
+</div>

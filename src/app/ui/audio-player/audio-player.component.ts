@@ -10,71 +10,100 @@ import {
   ChangeDetectorRef, HostListener
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import {SliderChangeEvent, SliderModule} from 'primeng/slider';
+import { SliderChangeEvent, SliderModule } from 'primeng/slider';
 import { DropdownModule } from 'primeng/dropdown';
-import { MyButtonComponent } from '../my-button/my-button.component';
+import { ButtonModule } from 'primeng/button';
+import { TooltipModule } from 'primeng/tooltip';
+import { CommonModule } from '@angular/common';
 import WaveSurfer from 'wavesurfer.js';
-import {Setting} from '../settings-button/settings-button.component';
+import { Setting } from '../settings-button/settings-button.component';
 
 @Component({
   selector: 'app-audio-player',
   template: `
-    <div class="audio-player">
-      <div #waveform class="waveform"></div>
+    <div class="audio-player-container surface-card p-3 border-round shadow-2">
+      <div #waveform class="waveform mb-3 border-round overflow-hidden bg-blue-50"></div>
 
-      <div class="audio-controls">
-        <app-my-button
-          icon="pi pi-play"
-          styleClass="p-button-rounded p-button-text"
-          (onClick)="playAudio()"
-          [disabled]="!audioUrl"
-        ></app-my-button>
-        <app-my-button
-          icon="pi pi-pause"
-          styleClass="p-button-rounded p-button-text"
-          (onClick)="pauseAudio()"
-          [disabled]="!audioUrl"
-        ></app-my-button>
+      <div class="flex flex-column gap-3">
+        <!-- Controls Row -->
+        <div class="flex justify-content-center align-items-center gap-3">
+            <p-button 
+                icon="pi pi-replay" 
+                (onClick)="skip(-5)" 
+                [rounded]="true" 
+                [text]="true" 
+                severity="secondary" 
+                pTooltip="-5s">
+            </p-button>
 
-        <p-slider
-          [(ngModel)]="volume"
-          [min]="0"
-          [max]="100"
-          [step]="1"
-          (onChange)="onVolumeChange($event)"
-          styleClass="volume-slider"
-        ></p-slider>
+            <p-button 
+                [icon]="isPlaying ? 'pi pi-pause' : 'pi pi-play'" 
+                (onClick)="togglePlay()" 
+                [rounded]="true" 
+                size="large"
+                [disabled]="!audioUrl"
+                styleClass="play-button w-4rem h-4rem text-2xl">
+            </p-button>
 
-        <p-dropdown
-          [options]="speedOptions"
-          [(ngModel)]="playbackSpeed"
-          (onChange)="setPlaybackSpeed()"
-          styleClass="speed-dropdown"
-        ></p-dropdown>
-      </div>
+            <p-button 
+                icon="pi pi-forward" 
+                (onClick)="skip(5)" 
+                [rounded]="true" 
+                [text]="true" 
+                severity="secondary" 
+                pTooltip="+5s">
+            </p-button>
+        </div>
 
-      <div class="progress-bar mb-16">
-        <p-slider
-          [ngModel]="audioCurrentTime"
-          [max]="audioDuration"
-          [disabled]="!audioUrl"
-          (onChange)="onSeek($event)"
-          styleClass="progress-slider"
-        ></p-slider>
-        <span class="time-label">{{ formatTime(audioCurrentTime) }}</span>
-        <span class="time-label">/</span>
-        <span class="time-label">{{ formatTime(audioDuration) }}</span>
-      </div>
-      <div class="zoom-controls">
-        <p-slider
-          [(ngModel)]="zoomLevel"
-          [min]=""
-          [max]="3000"
-          [step]="200"
-          (onChange)="onZoomChange($event)"
-          styleClass="zoom-slider"
-        ></p-slider>
-        <div class="mt-16">Zoom Audio Wave</div>
+        <!-- Progress Row -->
+        <div class="flex align-items-center gap-3">
+            <span class="text-sm font-medium text-600 w-3rem text-right">{{ formatTime(audioCurrentTime) }}</span>
+            <div class="flex-grow-1">
+                <p-slider 
+                    [ngModel]="audioCurrentTime" 
+                    [max]="audioDuration" 
+                    [disabled]="!audioUrl" 
+                    (onChange)="onSeek($event)"
+                    styleClass="w-full">
+                </p-slider>
+            </div>
+            <span class="text-sm font-medium text-600 w-3rem">{{ formatTime(audioDuration) }}</span>
+        </div>
+
+        <!-- Settings Row (Volume, Speed, Zoom) -->
+        <div class="flex flex-wrap justify-content-between align-items-center gap-3 surface-ground p-2 border-round">
+            <div class="flex align-items-center gap-2">
+                <i class="pi pi-volume-up text-600"></i>
+                <p-slider 
+                    [(ngModel)]="volume" 
+                    (onChange)="onVolumeChange($event)" 
+                    [style]="{'width': '100px'}"
+                    styleClass="volume-slider">
+                </p-slider>
+            </div>
+
+            <div class="flex align-items-center gap-2">
+                <span class="text-sm font-medium text-600">Speed:</span>
+                <p-dropdown 
+                    [options]="speedOptions" 
+                    [(ngModel)]="playbackSpeed" 
+                    (onChange)="setPlaybackSpeed()" 
+                    [style]="{'minWidth': '80px'}"
+                    size="small">
+                </p-dropdown>
+            </div>
+            
+             <div class="flex align-items-center gap-2">
+                <span class="text-sm font-medium text-600">Zoom:</span>
+                <p-slider 
+                    [(ngModel)]="zoomLevel" 
+                    [min]="1" 
+                    [max]="1000" 
+                    (onChange)="onZoomChange($event)"
+                    [style]="{'width': '80px'}">
+                </p-slider>
+            </div>
+        </div>
       </div>
     </div>
   `,
@@ -83,51 +112,30 @@ import {Setting} from '../settings-button/settings-button.component';
     FormsModule,
     SliderModule,
     DropdownModule,
-    MyButtonComponent,
+    ButtonModule,
+    TooltipModule,
+    CommonModule
   ],
   styles: [
     `
-      .audio-player {
-        width: 400px; /* Adjust width as needed */
-        padding: 15px;
-        border: 1px solid #ccc;
-        border-radius: 5px;
-        background-color: #f8f8f8;
-      }
-
-      .audio-controls {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        margin-bottom: 10px;
-      }
-
-      .progress-bar {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-      }
-
-      .volume-slider,
-      .progress-slider,
-      .zoom-slider {
-        flex-grow: 1; /* Allow sliders to take available space */
-      }
-
-      .time-label {
-        font-size: 0.8em;
-        color: #555;
-      }
-
-      /* Customize PrimeNG components */
-      .p-slider .p-slider-handle {
-        background-color: #4caf50; /* Example: Change slider handle color */
-      }
-
-      .waveform {
+      .audio-player-container {
         width: 100%;
-        height: 100px; /* Adjust height as needed */
-        margin-bottom: 10px;
+      }
+      
+      .waveform {
+        height: 120px;
+        width: 100%;
+      }
+
+      :host ::ng-deep .play-button {
+        background: var(--primary-color);
+        border: none;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        transition: transform 0.1s;
+      }
+
+      :host ::ng-deep .play-button:active {
+        transform: scale(0.95);
       }
     `,
   ],
@@ -143,6 +151,7 @@ export class AudioPlayerComponent implements AfterViewInit, OnChanges, OnDestroy
   audioDuration = 0;
   zoomLevel: number = 1;
   userSettings: Setting[] = [];
+  isPlaying = false;
 
   speedOptions = [
     { label: '0.2x', value: 0.2 },
@@ -159,7 +168,7 @@ export class AudioPlayerComponent implements AfterViewInit, OnChanges, OnDestroy
 
   constructor(
     private cdr: ChangeDetectorRef
-  ) {}
+  ) { }
 
   ngAfterViewInit() {
     const storedSettings = localStorage.getItem('userSettings');
@@ -198,14 +207,23 @@ export class AudioPlayerComponent implements AfterViewInit, OnChanges, OnDestroy
     });
 
     this.wavesurfer.on('interaction', () => {
-      this.wavesurfer.play();
-    })
+      this.playAudio();
+    });
+
+    this.wavesurfer.on('play', () => {
+      this.isPlaying = true;
+    });
+
+    this.wavesurfer.on('pause', () => {
+      this.isPlaying = false;
+    });
 
     this.wavesurfer.on('zoom', (level) => {
       this.zoomLevel = level;
     });
 
     this.wavesurfer.on('finish', () => {
+      this.isPlaying = false;
       const delay = (ms: number) => new Promise(res => setTimeout(res, ms));
       const autoReplay = this.userSettings.find(setting => setting.label === 'Auto Replay')?.selected.value;
       const replayDelaySetting = this.userSettings.find(setting => setting.label === 'Time between replays')?.selected.value;
@@ -215,10 +233,6 @@ export class AudioPlayerComponent implements AfterViewInit, OnChanges, OnDestroy
         });
       }
     });
-
-    // this.wavesurfer.once('decode', () => {
-    //   this.wavesurfer.zoom()
-    // })
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -257,12 +271,23 @@ export class AudioPlayerComponent implements AfterViewInit, OnChanges, OnDestroy
     this.wavesurfer.pause();
   }
 
+  togglePlay() {
+    if (this.isPlaying) {
+      this.pauseAudio();
+    } else {
+      this.playAudio();
+    }
+  }
+
+  skip(seconds: number) {
+    this.wavesurfer.skip(seconds);
+  }
+
   formatTime(seconds: number): string {
     const minutes = Math.floor(seconds / 60);
     const remainingSeconds = Math.floor(seconds % 60);
-    const formattedTime = `${minutes}:${
-      remainingSeconds < 10 ? '0' : ''
-    }${remainingSeconds}`;
+    const formattedTime = `${minutes}:${remainingSeconds < 10 ? '0' : ''
+      }${remainingSeconds}`;
     return formattedTime;
   }
 
@@ -284,8 +309,8 @@ export class AudioPlayerComponent implements AfterViewInit, OnChanges, OnDestroy
   @HostListener('window:keydown', ['$event'])
   handleKeyDown(event: KeyboardEvent) {
     const replayKey = this.userSettings.find(setting => setting.label === 'Replay Key')?.selected.value;
-    if ((replayKey === 'ctrl' && event.ctrlKey) || (replayKey === 'shift' && event.shiftKey) || (replayKey === 'alt' && event.altKey)){
-      this.playAudio();
+    if ((replayKey === 'ctrl' && event.ctrlKey) || (replayKey === 'shift' && event.shiftKey) || (replayKey === 'alt' && event.altKey)) {
+      this.togglePlay();
     }
   }
 }

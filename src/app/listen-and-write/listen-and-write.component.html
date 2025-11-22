@@ -1,16 +1,238 @@
-<div class="listen-and-write-container">
-  <app-settings-button class="mb-16"></app-settings-button>
+<div class="min-h-screen surface-ground fadein animation-duration-500">
+  <!-- ========== MOBILE LAYOUT (< 1024px) ========== -->
+  <div class="lg:hidden">
+    <div class="flex justify-content-center p-3">
+      <p-card styleClass="w-full shadow-6 border-round-2xl" [style]="{'border': 'none', 'max-width': '600px'}">
+        <!-- Mobile Header -->
+        <div class="flex justify-content-between align-items-center mb-4 p-3 border-round-xl bg-primary">
+          <div class="flex align-items-center gap-2">
+            <i class="pi pi-headphones text-white text-3xl"></i>
+            <h1 class="m-0 text-white font-bold text-2xl">Listen & Write</h1>
+          </div>
+          <app-settings-button></app-settings-button>
+        </div>
 
-  <app-audio-player [audioUrl]="audioUrl" class="mb-16"></app-audio-player>
+        <!-- Audio Player -->
+        <div class="mb-4 p-3 border-round-xl surface-50 shadow-1">
+          <app-audio-player [audioUrl]="audioUrl"></app-audio-player>
+        </div>
 
-  <app-feedback
-    [vietnameseText]="currentSentence?.vietnameseText"
-    [englishText]="currentSentence?.englishText"></app-feedback>
+        <!-- Input -->
+        <div class="mb-4">
+          <label class="block text-900 font-semibold mb-2 text-lg">
+            <i class="pi pi-pencil text-primary mr-2"></i>Your Answer
+          </label>
+          <app-text-input [(userInput)]="userInput" (checkAnswer)="checkAnswer()" class="w-full block">
+          </app-text-input>
+        </div>
 
-  <app-navigation-bar
-    [current]="currentSentenceIndex + 1"
-    [total]="sentences.length"
-    (previous)="onPrevSentence()"
-    (next)="onNextSentence()"
-    (move)="onMoveSentence($event)"></app-navigation-bar>
+        <!-- Actions -->
+        <div class="flex flex-column gap-2 mb-4">
+          <p-button label="Check Answer" icon="pi pi-check" (onClick)="checkAnswer()" severity="success" size="large"
+            styleClass="w-full font-bold" [raised]="true">
+          </p-button>
+          <p-button label="Skip" icon="pi pi-forward" (onClick)="skipSentence()" severity="secondary" size="large"
+            [outlined]="true" styleClass="w-full">
+          </p-button>
+        </div>
+
+        <!-- Feedback -->
+        <div *ngIf="isCorrect !== null" [@feedbackAnimation] class="mb-4 p-4 border-round-xl"
+          [ngClass]="{'bg-green-50 border-2 border-green-300': isCorrect, 'bg-red-50 border-2 border-red-300': !isCorrect}">
+
+          <div class="flex align-items-center mb-3">
+            <i class="pi text-3xl mr-2"
+              [ngClass]="{'pi-check-circle text-green-600': isCorrect, 'pi-times-circle text-red-600': !isCorrect}"></i>
+            <span class="font-bold text-xl" [ngClass]="{'text-green-700': isCorrect, 'text-red-700': !isCorrect}">
+              {{ isCorrect ? 'Excellent! 🎉' : 'Try again! 💪' }}
+            </span>
+          </div>
+
+          <div class="text-xl font-medium text-900 mb-3 p-3 surface-0 border-round">
+            {{ maskedText }}
+          </div>
+
+          <div *ngIf="showFullAnswer" class="fadein animation-duration-300 border-top-1 surface-border pt-3">
+            <div class="mb-2 p-2 border-round surface-100">
+              <p class="m-0 text-sm"><strong class="text-primary">EN:</strong> {{ currentSentence?.englishText }}</p>
+            </div>
+            <div class="p-2 border-round surface-100">
+              <p class="m-0 text-sm"><strong class="text-primary">VI:</strong> {{ currentSentence?.vietnameseText }}</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Progress -->
+        <div class="mb-3 p-3 border-round-lg surface-100">
+          <div class="flex justify-content-between mb-2">
+            <span class="font-semibold text-900">Progress</span>
+            <span class="font-bold text-primary">{{ currentSentenceIndex + 1 }}/{{ sentences.length }}</span>
+          </div>
+          <p-progressBar [value]="((currentSentenceIndex + 1) / sentences.length) * 100" [showValue]="false"
+            styleClass="h-1rem">
+          </p-progressBar>
+        </div>
+
+        <!-- Navigation -->
+        <div class="pt-3 border-top-1 surface-border">
+          <app-navigation-bar [current]="currentSentenceIndex + 1" [total]="sentences.length"
+            (previous)="onPrevSentence()" (next)="onNextSentence()" (move)="onMoveSentence($event)">
+          </app-navigation-bar>
+        </div>
+      </p-card>
+    </div>
+  </div>
+
+  <!-- ========== DESKTOP LAYOUT (>= 1024px) ========== -->
+  <div class="hidden lg:block p-5">
+    <div class="max-w-screen-xl mx-auto">
+      <!-- Desktop Header Bar -->
+      <div class="flex justify-content-between align-items-center mb-4 p-4 surface-card border-round-xl shadow-3">
+        <div class="flex align-items-center gap-3">
+          <div class="w-4rem h-4rem border-circle bg-primary flex align-items-center justify-content-center">
+            <i class="pi pi-headphones text-white text-3xl"></i>
+          </div>
+          <div>
+            <h1 class="m-0 text-900 font-bold text-4xl">Listen & Write</h1>
+            <p class="m-0 mt-1 text-600 text-lg">Exercise {{ currentSentenceIndex + 1 }} of {{ sentences.length }}</p>
+          </div>
+        </div>
+        <div class="flex align-items-center gap-4">
+          <div class="flex flex-column align-items-center">
+            <div class="relative">
+              <p-progressBar [value]="((currentSentenceIndex + 1) / sentences.length) * 100" [showValue]="false"
+                styleClass="w-10rem h-1rem border-round-3xl">
+              </p-progressBar>
+              <span class="absolute top-50 left-50 font-bold text-primary"
+                [style]="{'transform': 'translate(-50%, -50%)'}">
+                {{ ((currentSentenceIndex + 1) / sentences.length * 100).toFixed(0) }}%
+              </span>
+            </div>
+            <span class="text-sm text-600 mt-1">Completion</span>
+          </div>
+          <app-settings-button></app-settings-button>
+        </div>
+      </div>
+
+      <!-- Main Content Area -->
+      <div class="grid">
+        <!-- Left Column: Audio & Navigation -->
+        <div class="col-12 lg:col-4">
+          <!-- Audio Player Card -->
+          <p-card styleClass="mb-4 shadow-4 border-round-2xl h-full" [style]="{'border': 'none'}">
+            <ng-template pTemplate="header">
+              <div class="p-4 bg-primary border-round-top-2xl">
+                <h3 class="text-white font-bold text-xl m-0 flex align-items-center gap-2">
+                  <i class="pi pi-volume-up"></i>
+                  Audio Player
+                </h3>
+              </div>
+            </ng-template>
+            <div class="p-3">
+              <app-audio-player [audioUrl]="audioUrl"></app-audio-player>
+            </div>
+          </p-card>
+
+          <!-- Navigation Card -->
+          <p-card styleClass="shadow-4 border-round-2xl" [style]="{'border': 'none'}">
+            <ng-template pTemplate="header">
+              <div class="p-4 surface-100">
+                <h3 class="text-900 font-bold text-xl m-0 flex align-items-center gap-2">
+                  <i class="pi pi-compass text-primary"></i>
+                  Navigation
+                </h3>
+              </div>
+            </ng-template>
+            <div class="p-3">
+              <app-navigation-bar [current]="currentSentenceIndex + 1" [total]="sentences.length"
+                (previous)="onPrevSentence()" (next)="onNextSentence()" (move)="onMoveSentence($event)">
+              </app-navigation-bar>
+            </div>
+          </p-card>
+        </div>
+
+        <!-- Right Column: Input & Feedback -->
+        <div class="col-12 lg:col-8">
+          <!-- Input Card -->
+          <p-card styleClass="mb-4 shadow-4 border-round-2xl" [style]="{'border': 'none'}">
+            <ng-template pTemplate="header">
+              <div class="p-4 surface-100">
+                <h3 class="text-900 font-bold text-xl m-0 flex align-items-center gap-2">
+                  <i class="pi pi-pencil text-primary"></i>
+                  Your Answer
+                </h3>
+              </div>
+            </ng-template>
+            <div class="p-4">
+              <app-text-input [(userInput)]="userInput" (checkAnswer)="checkAnswer()" class="w-full block mb-4">
+              </app-text-input>
+
+              <!-- Action Buttons -->
+              <div class="flex gap-3">
+                <p-button label="Check Answer" icon="pi pi-check" (onClick)="checkAnswer()" severity="success"
+                  size="large" styleClass="flex-1 font-bold shadow-2" [raised]="true">
+                </p-button>
+                <p-button label="Skip" icon="pi pi-forward" (onClick)="skipSentence()" severity="secondary" size="large"
+                  [outlined]="true" styleClass="font-medium" [style]="{'min-width': '120px'}">
+                </p-button>
+              </div>
+            </div>
+          </p-card>
+
+          <!-- Feedback Card -->
+          <p-card *ngIf="isCorrect !== null" [@feedbackAnimation] styleClass="shadow-4 border-round-2xl"
+            [style]="{'border': 'none'}"
+            [ngClass]="{'border-2 border-green-400': isCorrect, 'border-2 border-red-400': !isCorrect}">
+            <ng-template pTemplate="header">
+              <div class="p-4" [ngClass]="{'bg-green-50': isCorrect, 'bg-red-50': !isCorrect}">
+                <div class="flex align-items-center gap-3">
+                  <div class="w-3rem h-3rem border-circle flex align-items-center justify-content-center"
+                    [ngClass]="{'bg-green-100': isCorrect, 'bg-red-100': !isCorrect}">
+                    <i class="pi text-2xl"
+                      [ngClass]="{'pi-check-circle text-green-600': isCorrect, 'pi-times-circle text-red-600': !isCorrect}"></i>
+                  </div>
+                  <h3 class="m-0 font-bold text-2xl"
+                    [ngClass]="{'text-green-700': isCorrect, 'text-red-700': !isCorrect}">
+                    {{ isCorrect ? 'Excellent Work! 🎉' : 'Not quite right, keep trying! 💪' }}
+                  </h3>
+                </div>
+              </div>
+            </ng-template>
+
+            <div class="p-4">
+              <!-- Masked Text -->
+              <div
+                class="text-2xl font-medium text-900 line-height-3 mb-4 p-4 surface-50 border-round-xl border-2 surface-border">
+                {{ maskedText }}
+              </div>
+
+              <!-- Answer Reveal -->
+              <div *ngIf="showFullAnswer" class="fadein animation-duration-300">
+                <div class="grid">
+                  <div class="col-12 md:col-6">
+                    <div class="p-4 border-round-xl surface-100 h-full border-2 border-primary-200">
+                      <div class="flex align-items-center gap-2 mb-2">
+                        <i class="pi pi-flag text-primary text-xl"></i>
+                        <strong class="text-primary text-lg">English</strong>
+                      </div>
+                      <p class="m-0 text-900 text-xl line-height-3">{{ currentSentence?.englishText }}</p>
+                    </div>
+                  </div>
+                  <div class="col-12 md:col-6">
+                    <div class="p-4 border-round-xl surface-100 h-full border-2 border-primary-200">
+                      <div class="flex align-items-center gap-2 mb-2">
+                        <i class="pi pi-globe text-primary text-xl"></i>
+                        <strong class="text-primary text-lg">Vietnamese</strong>
+                      </div>
+                      <p class="m-0 text-900 text-xl line-height-3">{{ currentSentence?.vietnameseText }}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </p-card>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

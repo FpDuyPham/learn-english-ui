@@ -25,6 +25,7 @@
     "idb": "^8.0.1",
     "music-metadata-browser": "^2.5.11",
     "pcm-util": "^3.0.0",
+    "primeflex": "^4.0.0",
     "primeicons": "^7.0.0",
     "primeng": "^18.0.0",
     "rxjs": "~7.8.0",

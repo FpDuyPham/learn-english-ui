@@ -1,60 +1,71 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
-import {MyButtonComponent} from '../my-button/my-button.component';
-import {InputNumberModule} from 'primeng/inputnumber';
-import {MyInputNumberComponent} from '../my-input-number/my-input-number.component';
-import {CheckboxModule} from 'primeng/checkbox';
-import {TooltipModule} from 'primeng/tooltip';
-import {FormsModule} from '@angular/forms';
+import { InputNumberModule } from 'primeng/inputnumber';
+import { FormsModule } from '@angular/forms';
+import { ButtonModule } from 'primeng/button';
+import { ProgressBarModule } from 'primeng/progressbar';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-navigation-bar',
+  standalone: true,
+  imports: [CommonModule, ButtonModule, InputNumberModule, ProgressBarModule, FormsModule],
   template: `
-    <div>
-      <div class="navigation-bar">
-        <app-my-button
-          icon="pi pi-angle-left"
-          styleClass="p-button-rounded p-button-text"
-          [disabled]="current === 1"
-          (click)="previous.emit()"
-        ></app-my-button>
-        <span class="page-info">{{ current }} / {{ total }}</span>
-        <app-my-button
-          icon="pi pi-angle-right"
-          styleClass="p-button-rounded p-button-text"
-          [disabled]="current === total"
-          (click)="next.emit()"
-        ></app-my-button>
+    <div class="flex flex-column gap-3 w-full">
+      <!-- Progress Bar -->
+      <div class="w-full">
+        <div class="flex justify-content-between mb-1">
+            <span class="text-sm text-600 font-medium">Progress</span>
+            <span class="text-sm font-bold text-900">{{ current }} / {{ total }}</span>
+        </div>
+        <p-progressBar [value]="(current / total) * 100" [showValue]="false" styleClass="h-1rem"></p-progressBar>
       </div>
-      <div>
-        <p-inputNumber [(ngModel)]="current" [min]="1" [showButtons]="true" mode="decimal"></p-inputNumber>
-        <app-my-button
-          icon="pi pi-play"
-          styleClass="p-button-text"
-          [raised]="false"
-          (click)="move.emit(current)"
-        ></app-my-button>
+
+      <!-- Navigation Controls -->
+      <div class="flex justify-content-between align-items-center surface-card p-2 border-round shadow-1">
+        <p-button 
+            icon="pi pi-arrow-left" 
+            (onClick)="previous.emit()" 
+            [disabled]="current === 1" 
+            [rounded]="true" 
+            [text]="true" 
+            label="Prev">
+        </p-button>
+
+        <div class="flex align-items-center gap-2">
+            <span class="text-sm font-medium hidden sm:inline">Go to:</span>
+            <p-inputNumber 
+                [(ngModel)]="current" 
+                [min]="1" 
+                [max]="total" 
+                [showButtons]="true" 
+                buttonLayout="horizontal" 
+                inputStyleClass="w-3rem text-center p-0"
+                decrementButtonClass="p-button-secondary p-button-text"
+                incrementButtonClass="p-button-secondary p-button-text"
+                incrementButtonIcon="pi pi-plus"
+                decrementButtonIcon="pi pi-minus">
+            </p-inputNumber>
+            <p-button 
+                icon="pi pi-arrow-right" 
+                (onClick)="move.emit(current)" 
+                [rounded]="true" 
+                [text]="true"
+                pTooltip="Go">
+            </p-button>
+        </div>
+
+        <p-button 
+            label="Next" 
+            icon="pi pi-arrow-right" 
+            iconPos="right" 
+            (onClick)="next.emit()" 
+            [disabled]="current === total" 
+            [rounded]="true" 
+            [text]="true">
+        </p-button>
       </div>
     </div>
-  `,
-  standalone: true,
-  imports: [MyButtonComponent, InputNumberModule, MyInputNumberComponent, FormsModule],
-  styles: [
-    `
-      .navigation-bar {
-        display: flex;
-        align-items: center;
-        gap: 10px; /* Spacing between elements */
-        padding: 10px;
-        /*background-color: #f8f9fa; !* Light background *!*/
-        /*border: 1px solid #ddd;*/
-        border-radius: 5px;
-      }
-
-      .page-info {
-        font-weight: bold;
-      }
-    `,
-  ],
+  `
 })
 export class NavigationBarComponent {
   @Input() current: number;
