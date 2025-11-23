@@ -44,6 +44,16 @@
                     </button>
                 </div>
                 <div class="col-12 md:col-6 lg:col-4">
+                    <button pButton class="w-full p-4" severity="secondary" [raised]="true"
+                        (click)="navigateTo('/ipa')">
+                        <div class="flex flex-column align-items-center gap-2">
+                            <i class="pi pi-microphone" style="font-size: 2rem"></i>
+                            <span class="font-bold text-lg">Smart IPA Learning</span>
+                            <span class="text-sm">Master English sounds with AI</span>
+                        </div>
+                    </button>
+                </div>
+                <div class="col-12 md:col-6 lg:col-4">
                     <button pButton class="w-full p-4" severity="info" [raised]="true" (click)="navigateTo('/profile')">
                         <div class="flex flex-column align-items-center gap-2">
                             <i class="pi pi-user" style="font-size: 2rem"></i>

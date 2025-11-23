@@ -1,22 +1,10 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, Input, Output, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
 import { VoskService } from '../../core/vosk.service';
 import { AudioWaveComponent } from '../../shared/components/audio-wave/audio-wave.component';
-
-interface Confusion {
-    word: string;
-    ipa: string;
-    errorMsg: string;
-    highlightPart: string; // The part of the TARGET word to highlight
-}
-
-interface WordPractice {
-    targetWord: string;
-    targetIpa: string;
-    confusions: Confusion[];
-}
+import { IpaWord } from '../../core/ipa-data.service';
 
 @Component({
     selector: 'app-smart-ipa-trainer',
@@ -25,26 +13,12 @@ interface WordPractice {
     templateUrl: './smart-ipa-trainer.component.html',
     styleUrls: ['./smart-ipa-trainer.component.scss']
 })
-export class SmartIpaTrainerComponent implements OnInit, OnDestroy {
-    // Data Structure (The "Hack" Logic)
-    practiceData: WordPractice = {
-        targetWord: 'sheep',
-        targetIpa: '/ʃiːp/',
-        confusions: [
-            {
-                word: 'ship',
-                ipa: '/ʃɪp/',
-                errorMsg: 'You pronounced short /ɪ/ instead of long /iː/.',
-                highlightPart: 'ee'
-            },
-            {
-                word: 'sheet',
-                ipa: '/ʃiːt/',
-                errorMsg: 'You pronounced /t/ instead of /p/.',
-                highlightPart: 'p'
-            }
-        ]
-    };
+export class SmartIpaTrainerComponent implements OnInit, OnDestroy, OnChanges {
+    // Input: Current word to practice
+    @Input() currentWord?: IpaWord;
+
+    // Output: Emit when word is recognized
+    @Output() wordRecognized = new EventEmitter<{ correct: boolean, detected: string }>();
 
     isListening = false;
     feedback: {
@@ -64,6 +38,16 @@ export class SmartIpaTrainerComponent implements OnInit, OnDestroy {
         this.voskService.loadModel().catch(err => console.error('Failed to load model', err));
     }
 
+    ngOnChanges(changes: SimpleChanges): void {
+        // Reset when word changes
+        if (changes['currentWord'] && !changes['currentWord'].firstChange) {
+            if (this.isListening) {
+                this.stopPractice();
+            }
+            this.feedback = { status: 'idle', message: 'Press Start to practice.' };
+        }
+    }
+
     ngOnDestroy(): void {
         this.stopPractice();
     }
@@ -79,13 +63,17 @@ export class SmartIpaTrainerComponent implements OnInit, OnDestroy {
     analyser: AnalyserNode | null = null;
 
     async startPractice() {
+        if (!this.currentWord) {
+            console.error('No current word set!');
+            return;
+        }
         this.isListening = true;
         this.feedback = { status: 'idle', message: 'Listening...' };
 
         // Construct Grammar: Target + Confusions + [unk]
         const grammar = [
-            this.practiceData.targetWord,
-            ...this.practiceData.confusions.map(c => c.word),
+            this.currentWord.word,
+            ...this.currentWord.confusions.map((c: any) => c.word),
             '[unk]'
         ];
 
@@ -114,24 +102,27 @@ export class SmartIpaTrainerComponent implements OnInit, OnDestroy {
     }
 
     handleResult(text: string) {
+        if (!this.currentWord) return;
+
         console.log('Detected:', text);
 
         // Normalize
         const detected = text.toLowerCase().trim();
 
-        if (detected === this.practiceData.targetWord) {
+        if (detected === this.currentWord.word) {
             // Success
             this.playSound('success');
             this.feedback = {
                 status: 'success',
                 message: 'Perfect! You sounded like a native speaker.',
                 detectedWord: detected,
-                detectedIpa: this.practiceData.targetIpa,
-                highlightedTarget: this.practiceData.targetWord // No red highlights
+                detectedIpa: this.currentWord.ipa,
+                highlightedTarget: this.currentWord.word // No red highlights
             };
-            // Optional: Stop after success? Or keep listening?
-            // Let's keep listening for repeated practice or stop.
-            // this.stopPractice(); 
+
+            // Emit success to parent
+            this.wordRecognized.emit({ correct: true, detected });
+            this.stopPractice();
         } else if (detected === '[unk]') {
             this.feedback = {
                 status: 'unknown',
@@ -139,17 +130,20 @@ export class SmartIpaTrainerComponent implements OnInit, OnDestroy {
             };
         } else {
             // Check confusions
-            const confusion = this.practiceData.confusions.find(c => c.word === detected);
+            const confusion = this.currentWord.confusions.find((c: any) => c.word === detected);
             if (confusion) {
                 // Error Logic
                 this.playSound('error');
                 this.feedback = {
                     status: 'error',
-                    message: confusion.errorMsg,
+                    message: confusion.explanation,
                     detectedWord: detected,
                     detectedIpa: confusion.ipa,
-                    highlightedTarget: this.highlightError(this.practiceData.targetWord, confusion.highlightPart)
+                    highlightedTarget: this.currentWord.word
                 };
+
+                // Emit error to parent
+                this.wordRecognized.emit({ correct: false, detected });
             } else {
                 // Should not happen if grammar is strict, but just in case
                 this.feedback = {

@@ -1,0 +1,143 @@
+<div class="min-h-screen surface-ground p-4">
+    <div class="max-w-7xl mx-auto">
+        <!-- Header with XP Display -->
+        <div class="text-center mb-6">
+            <h1 class="text-4xl font-bold text-900 mb-2">🎯 Smart IPA Trainer</h1>
+            <p class="text-lg text-600 mb-3">Master pronunciation by level</p>
+
+            <!-- XP Display -->
+            <div class="inline-flex align-items-center gap-2 bg-primary-50 px-4 py-2 border-round-xl">
+                <i class="pi pi-star-fill text-yellow-500 text-xl"></i>
+                <span class="font-bold text-primary text-xl">{{ totalXP }} XP</span>
+            </div>
+        </div>
+
+        <!-- Filter Tabs -->
+        <div class="surface-card p-4 shadow-3 border-round-xl mb-4">
+            <div class="flex gap-2 flex-wrap">
+                <button pButton label="All ({{ level1IPAs.length }})" [outlined]="selectedFilter !== 'all'"
+                    (click)="setFilter('all')" class="flex-1"></button>
+                <button pButton label="🌱 Learn New ({{ getNewCount() }})" severity="success"
+                    [outlined]="selectedFilter !== 'new'" (click)="setFilter('new')" class="flex-1"></button>
+                <button pButton label="📚 In Progress ({{ getLearningCount() }})" severity="warn"
+                    [outlined]="selectedFilter !== 'learning'" (click)="setFilter('learning')" class="flex-1"></button>
+                <button pButton label="⭐ Mastered ({{ getMasteredCount(1) }})" severity="info"
+                    [outlined]="selectedFilter !== 'mastered'" (click)="setFilter('mastered')" class="flex-1"></button>
+            </div>
+        </div>
+
+        <!-- Level 1 IPAs -->
+        <div class="mb-6">
+            <div class="flex align-items-center justify-content-between mb-4">
+                <h2 class="text-2xl font-bold text-900 m-0">Level 1 - Beginner</h2>
+                <span class="text-sm text-600">{{ getMasteredCount(1) }} / {{ level1IPAs.length }} Mastered</span>
+            </div>
+
+            <!-- Empty State -->
+            <div *ngIf="filteredIPAs.length === 0" class="surface-card p-6 text-center border-round-xl">
+                <i class="pi pi-info-circle text-5xl text-400 mb-3"></i>
+                <p class="text-600 text-lg m-0">
+                    No IPAs in this category yet.
+                    <ng-container *ngIf="selectedFilter === 'new'">Start practicing to fill this!</ng-container>
+                    <ng-container *ngIf="selectedFilter === 'learning'">Keep practicing new sounds!</ng-container>
+                    <ng-container *ngIf="selectedFilter === 'mastered'">Practice more to master sounds!</ng-container>
+                </p>
+            </div>
+
+            <!-- IPA Grid -->
+            <div class="grid" *ngIf="filteredIPAs.length > 0">
+                <div *ngFor="let ipa of filteredIPAs" class="col-12 sm:col-6 md:col-4 lg:col-3">
+                    <div class="ipa-card cursor-pointer" (click)="openTrainer(ipa)">
+                        <p-card styleClass="h-full shadow-3 border-round-xl hover:shadow-5 transition-all">
+                            <div class="flex flex-column align-items-center gap-3 py-3">
+                                <!-- Status Badge -->
+                                <div class="absolute top-0 right-0 m-2">
+                                    <span class="status-badge" [ngClass]="getStatusClass(ipa)">
+                                        {{ getStatusIcon(ipa) }}
+                                    </span>
+                                </div>
+
+                                <!-- IPA Symbol -->
+                                <div
+                                    class="w-5rem h-5rem bg-primary-50 border-circle flex align-items-center justify-content-center">
+                                    <span class="text-4xl font-bold text-primary font-serif">/{{ ipa.symbol }}/</span>
+                                </div>
+
+                                <!-- Name & Example -->
+                                <div class="text-center">
+                                    <div class="text-lg font-bold text-900">{{ ipa.name }}</div>
+                                    <div class="text-sm text-600 font-mono">{{ ipa.exampleWord }}</div>
+                                </div>
+
+                                <!-- Progress -->
+                                <div *ngIf="getProgress(ipa).wordsAttempted > 0" class="w-full">
+                                    <!-- XP Display -->
+                                    <div class="flex justify-content-center mb-2">
+                                        <span
+                                            class="text-xs bg-yellow-100 text-yellow-800 px-2 py-1 border-round font-semibold">
+                                            <i class="pi pi-star-fill mr-1"></i>
+                                            {{ getProgress(ipa).wordsCorrect * 20 }} XP
+                                        </span>
+                                    </div>
+
+                                    <div class="flex justify-content-between text-xs text-500 mb-1">
+                                        <span>{{ getProgress(ipa).wordsAttempted }} / 30</span>
+                                        <span>{{ getProgress(ipa).accuracy }}%</span>
+                                    </div>
+                                    <div class="w-full h-0-5rem surface-200 border-round overflow-hidden">
+                                        <div class="h-full bg-primary transition-all"
+                                            [style.width.%]="(getProgress(ipa).wordsAttempted / 30) * 100">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- New Badge -->
+                                <div *ngIf="getProgress(ipa).wordsAttempted === 0" class="w-full text-center">
+                                    <span class="text-green-600 font-semibold text-sm">
+                                        <i class="pi pi-star mr-1"></i>
+                                        New!
+                                    </span>
+                                </div>
+                            </div>
+                        </p-card>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Level 2 (Locked) -->
+        <div class="mb-6">
+            <div class="flex align-items-center justify-content-between mb-4">
+                <h2 class="text-2xl font-bold text-900 m-0">Level 2 - Intermediate</h2>
+                <span *ngIf="!isLevel2Unlocked" class="text-sm text-500">
+                    <i class="pi pi-lock mr-1"></i>
+                    Complete 80% of Level 1 to unlock
+                </span>
+            </div>
+            <div class="surface-200 p-6 border-round-xl text-center">
+                <i class="pi pi-lock text-5xl text-400 mb-3 block"></i>
+                <p class="text-600 m-0 mb-2">{{ getLevel1CompletionPercent() }}% of Level 1 completed</p>
+                <div class="w-full max-w-20rem mx-auto">
+                    <div class="w-full h-1rem surface-300 border-round overflow-hidden">
+                        <div class="h-full bg-primary" [style.width.%]="getLevel1CompletionPercent()"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Level 3 (Locked) -->
+        <div class="mb-6">
+            <div class="flex align-items-center justify-content-between mb-4">
+                <h2 class="text-2xl font-bold text-900 m-0">Level 3 - Advanced</h2>
+                <span class="text-sm text-500">
+                    <i class="pi pi-lock mr-1"></i>
+                    Complete Level 2 to unlock
+                </span>
+            </div>
+            <div class="surface-200 p-6 border-round-xl text-center">
+                <i class="pi pi-lock text-5xl text-400 mb-3 block"></i>
+                <p class="text-600 m-0">Coming soon...</p>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,60 @@
+.ipa-card {
+    transition: transform 0.2s;
+}
+
+.ipa-card:hover {
+    transform: translateY(-4px);
+}
+
+.status-badge {
+    display: inline-block;
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+}
+
+.status-not-learned {
+    background: #e2e8f0;
+    color: #64748b;
+}
+
+.status-in-progress {
+    background: #fef3c7;
+    color: #d97706;
+}
+
+.status-mastered {
+    background: #d1fae5;
+    color: #059669;
+}
+
+.font-serif {
+    font-family: 'Times New Roman', serif;
+}
+
+.grid {
+    display: grid;
+    gap: 1rem;
+}
+
+@media (min-width: 576px) {
+    .sm\\:col-6 {
+        grid-column: span 6 / span 12;
+    }
+}
+
+@media (min-width: 768px) {
+    .md\\:col-4 {
+        grid-column: span 4 / span 12;
+    }
+}
+
+@media (min-width: 1024px) {
+    .lg\\:col-3 {
+        grid-column: span 3 / span 12;
+    }
+}

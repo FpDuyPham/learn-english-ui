@@ -45,8 +45,23 @@ export const routes: Routes = [
     path: 'exercises/:id/passive-listen',
     loadComponent: () => import('./exercise/exercise-passive-listening/exercise-passive-listening.component').then(m => m.ExercisePassiveListeningComponent)
   },
+  // IPA Learning Module
   {
-    path: 'smart-ipa-trainer',
-    loadComponent: () => import('./features/smart-ipa-trainer/smart-ipa-trainer.component').then(m => m.SmartIpaTrainerComponent)
+    path: 'ipa',
+    children: [
+      {
+        path: '',
+        redirectTo: 'levels',
+        pathMatch: 'full'
+      },
+      {
+        path: 'levels',
+        loadComponent: () => import('./features/ipa/ipa-list/ipa-list.component').then(m => m.IpaListComponent)
+      },
+      {
+        path: 'train/:symbol/:level',
+        loadComponent: () => import('./features/ipa/ipa-trainer/ipa-trainer.component').then(m => m.IpaTrainerComponent)
+      }
+    ]
   },
 ];

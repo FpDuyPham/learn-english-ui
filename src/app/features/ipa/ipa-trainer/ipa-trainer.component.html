@@ -1,0 +1,158 @@
+<div class="min-h-screen surface-ground p-4">
+    <div class="max-w-5xl mx-auto" *ngIf="ipaSound">
+
+        <!-- Header Section -->
+        <div class="mb-4">
+            <button pButton icon="pi pi-arrow-left" label="Back to List" class="p-button-text mb-3"
+                (click)="goBack()"></button>
+
+            <div class="surface-card p-5 shadow-3 border-round-xl">
+                <div class="flex align-items-center justify-content-between mb-4">
+                    <!-- IPA Display -->
+                    <div class="flex align-items-center gap-4">
+                        <div
+                            class="w-4rem h-4rem bg-primary-50 border-circle flex align-items-center justify-content-center">
+                            <span class="text-3xl font-bold text-primary font-serif">/{{ ipaSound.symbol }}/</span>
+                        </div>
+                        <div>
+                            <h2 class="text-2xl font-bold text-900 m-0">{{ ipaSound.name }}</h2>
+                            <span class="text-sm text-600">Level {{ ipaSound.level }}</span>
+                        </div>
+                    </div>
+
+                    <!-- Progress -->
+                    <div class="text-right">
+                        <div class="text-2xl font-bold text-primary">{{ currentWordIndex + 1 }} / 30</div>
+                        <div class="text-sm text-600">Progress</div>
+                    </div>
+                </div>
+
+                <!-- Description -->
+                <p class="text-600 mb-3">{{ ipaSound.description }}</p>
+
+                <!-- Minimal Pairs -->
+                <div class="flex gap-2 flex-wrap">
+                    <span *ngFor="let pair of ipaSound.minimalPairs"
+                        class="surface-100 px-3 py-1 border-round text-sm font-mono">
+                        {{ pair }}
+                    </span>
+                </div>
+
+                <!-- Progress Bar -->
+                <p-progressBar [value]="progressPercent" [showValue]="false" styleClass="mt-3 h-0-5rem"></p-progressBar>
+            </div>
+        </div>
+
+        <!-- Trainer Section -->
+        <div class="surface-card p-5 shadow-3 border-round-xl mb-4">
+
+            <!-- Embedded Smart Trainer -->
+            <app-smart-ipa-trainer [currentWord]="currentWord"
+                (wordRecognized)="handleRecordingResult($event.correct, $event.detected)">
+            </app-smart-ipa-trainer>
+
+            <!-- Recording Status  -->
+            <div *ngIf="feedback" class="mt-4 p-4 border-round" [class.bg-green-100]="feedback.correct"
+                [class.bg-red-100]="!feedback.correct"
+                [class.bg-yellow-100]="!feedback.correct && feedback.message.includes('Skipped')">
+                <div class="flex align-items-center gap-3">
+                    <i class="pi text-2xl" [class.pi-check-circle]="feedback.correct"
+                        [class.pi-times-circle]="!feedback.correct && !feedback.message.includes('Skipped')"
+                        [class.pi-forward]="feedback.message.includes('Skipped')"
+                        [class.text-green-600]="feedback.correct"
+                        [class.text-red-600]="!feedback.correct && !feedback.message.includes('Skipped')"
+                        [class.text-yellow-700]="feedback.message.includes('Skipped')"></i>
+                    <div class="flex-1">
+                        <h3 class="text-lg font-bold m-0 mb-1" [class.text-green-800]="feedback.correct"
+                            [class.text-red-800]="!feedback.correct && !feedback.message.includes('Skipped')"
+                            [class.text-yellow-800]="feedback.message.includes('Skipped')">
+                            {{ feedback.correct ? 'Excellent!' : (feedback.message.includes('Skipped') ? 'Skipped' :
+                            'Needs Work') }}
+                        </h3>
+                        <p class="m-0 text-sm" [class.text-green-700]="feedback.correct"
+                            [class.text-red-700]="!feedback.correct && !feedback.message.includes('Skipped')"
+                            [class.text-yellow-700]="feedback.message.includes('Skipped')">
+                            {{ feedback.message }}
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Navigation Controls -->
+        <div class="flex gap-3 justify-content-between">
+            <button pButton icon="pi pi-arrow-left" label="Back" [disabled]="currentWordIndex === 0"
+                (click)="previousWord()">
+            </button>
+
+            <div class="flex gap-2">
+                <button pButton icon="pi pi-forward" label="Skip" severity="warn" (click)="skipWord()">
+                </button>
+
+                <button pButton icon="pi pi-arrow-right" label="Next" [disabled]="!canMoveNext" (click)="nextWord()">
+                </button>
+            </div>
+        </div>
+
+        <!-- Session Complete -->
+        <div *ngIf="sessionComplete"
+            class="fixed top-0 left-0 w-full h-full flex align-items-center justify-content-center"
+            style="background: rgba(0,0,0,0.7); z-index: 1000;">
+            <div class="surface-card p-6 shadow-6 border-round-2xl max-w-md w-full m-4">
+                <div class="text-center">
+                    <i class="pi pi-check-circle text-6xl text-green-500 mb-4"></i>
+                    <h2 class="text-3xl font-bold text-900 mb-3">🎉 Session Complete!</h2>
+
+                    <!-- XP Earned -->
+                    <div class="mb-4 p-4 bg-yellow-50 border-round-xl">
+                        <div class="flex align-items-center justify-content-center gap-2 mb-2">
+                            <i class="pi pi-star-fill text-yellow-500 text-3xl"></i>
+                            <span class="text-4xl font-bold text-yellow-700">+{{ sessionResults.correct * 20 }}
+                                XP</span>
+                        </div>
+                        <div class="text-sm text-yellow-700">
+                            ({{ sessionResults.correct }} correct × 20 XP)
+                        </div>
+                    </div>
+
+                    <!-- Stats Grid -->
+                    <div class="grid gap-3 mb-4">
+                        <div class="col-4 text-center">
+                            <div class="text-3xl font-bold text-green-600">{{ sessionResults.correct }}</div>
+                            <div class="text-sm text-600">Correct</div>
+                        </div>
+                        <div class="col-4 text-center">
+                            <div class="text-3xl font-bold text-900">{{ sessionResults.attempted }}</div>
+                            <div class="text-sm text-600">Attempted</div>
+                        </div>
+                        <div class="col-4 text-center">
+                            <div class="text-3xl font-bold text-primary">{{ sessionResults.accuracy }}%</div>
+                            <div class="text-sm text-600">Accuracy</div>
+                        </div>
+                    </div>
+
+                    <!-- Mastery Badge -->
+                    <div *ngIf="sessionResults.accuracy >= 80" class="mb-4 p-3 bg-green-100 border-round">
+                        <i class="pi pi-star-fill text-green-600 mr-2"></i>
+                        <span class="text-green-800 font-semibold">🌟 Mastered!</span>
+                    </div>
+
+                    <!-- Encouragement for lower scores -->
+                    <div *ngIf="sessionResults.accuracy < 80 && sessionResults.accuracy > 0"
+                        class="mb-4 p-3 bg-blue-100 border-round">
+                        <i class="pi pi-info-circle text-blue-600 mr-2"></i>
+                        <span class="text-blue-800 font-semibold">Keep practicing! You'll get there! 💪</span>
+                    </div>
+
+                    <!-- Action Buttons -->
+                    <div class="flex gap-2">
+                        <button pButton label="Practice Again" icon="pi pi-refresh" class="flex-1 p-button-outlined"
+                            (click)="restartSession()"></button>
+                        <button pButton label="Back to List" icon="pi pi-home" class="flex-1"
+                            (click)="goBack()"></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

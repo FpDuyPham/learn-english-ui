@@ -1,0 +1,15 @@
+.font-serif {
+    font-family: 'Times New Roman', serif;
+}
+
+.grid {
+    display: grid;
+}
+
+.gap-3 {
+    gap: 1rem;
+}
+
+.col-4 {
+    grid-column: span 4 / span 12;
+}
