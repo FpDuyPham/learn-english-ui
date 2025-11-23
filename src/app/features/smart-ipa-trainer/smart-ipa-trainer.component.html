@@ -1,0 +1,118 @@
+<div class="min-h-screen flex flex-column align-items-center justify-content-center p-4 app-background overflow-hidden">
+
+    <!-- Header -->
+    <div class="text-center mb-6 fadein-down animation-duration-500">
+        <div
+            class="inline-flex align-items-center justify-content-center bg-primary-50 border-circle w-4rem h-4rem mb-3 shadow-2">
+            <i class="pi pi-wave-pulse text-primary text-3xl"></i>
+        </div>
+        <h1 class="text-4xl md:text-5xl font-bold text-900 mb-1 leading-tight">
+            Smart IPA Trainer
+        </h1>
+        <p class="text-lg text-600 opacity-80">
+            Master your pronunciation with AI feedback
+        </p>
+    </div>
+
+    <!-- Main Wrapper (better width & spacing) -->
+    <div class="w-full sm:w-11 md:w-9 lg:w-7 xl:w-6 2xl:w-5 relative">
+
+
+        <p-card styleClass="pretty-card shadow-6 border-round-3xl overflow-hidden">
+
+            <!-- Color Status Bar -->
+            <div class="status-bar" [ngClass]="{
+                    'bg-green-500': feedback.status === 'success',
+                    'bg-red-500': feedback.status === 'error',
+                    'bg-primary-500': feedback.status === 'idle' || feedback.status === 'unknown'
+                }">
+            </div>
+
+            <div class="flex flex-column align-items-center gap-5 pt-6 pb-5 px-3 md:px-5">
+
+                <!-- Target Word -->
+                <div class="flex flex-column align-items-center justify-content-center w-full mb-2">
+                    <div class="target-word font-bold mb-2 text-center transition-colors" [ngClass]="{
+                            'text-green-600': feedback.status === 'success',
+                            'text-red-600': feedback.status === 'error'
+                        }">
+                        {{ practiceData.targetWord | titlecase }}
+                    </div>
+
+                    <!-- IPA badge -->
+                    <div class="ipa-badge glass px-5 py-2 border-round-2xl text-2xl md:text-3xl">
+                        / {{ practiceData.targetIpa }} /
+                    </div>
+                </div>
+
+                <!-- Mic + Wave -->
+                <div class="relative w-full h-14rem flex justify-content-center align-items-center">
+
+                    <!-- Wave -->
+                    <div class="absolute top-0 left-0 w-full h-full z-0 flex align-items-center justify-content-center transition-opacity"
+                        [class.opacity-100]="isListening" [class.opacity-0]="!isListening">
+                        <app-audio-wave [analyser]="analyser" [active]="isListening" style="width:100%; height:100%">
+                        </app-audio-wave>
+                    </div>
+
+                    <!-- Mic Button -->
+                    <button pButton [icon]="isListening ? 'pi pi-stop' : 'pi pi-microphone'" (click)="togglePractice()"
+                        class="mic-btn p-button-rounded w-7rem h-7rem md:w-8rem md:h-8rem text-4xl shadow-5 border-none transition-transform hover:scale-105"
+                        [ngClass]="{
+                            'p-button-danger listening-glow': isListening,
+                            'p-button-primary mic-pulse': !isListening
+                        }">
+                    </button>
+
+                    <span *ngIf="!isListening && feedback.status === 'idle'"
+                        class="absolute bottom-0 text-500 text-sm fadein animation-duration-500">
+                        Tap to speak
+                    </span>
+                </div>
+
+                <!-- Feedback -->
+                <div class="w-full flex flex-column align-items-center min-h-6rem">
+                    <ng-container *ngIf="feedback.status !== 'idle'">
+
+                        <div
+                            class="feedback-bubble glass-soft flex align-items-center gap-2 mb-3 px-4 py-2 border-round-2xl fadeinup">
+                            <i class="pi text-xl" [ngClass]="{
+                                    'pi-check-circle text-green-500': feedback.status === 'success',
+                                    'pi-times-circle text-red-500': feedback.status === 'error',
+                                    'pi-question-circle text-orange-500': feedback.status === 'unknown'
+                                }">
+                            </i>
+                            <span class="font-bold text-lg text-700">
+                                {{
+                                feedback.status === 'success' ? 'Excellent!' :
+                                feedback.status === 'error' ? 'Needs Work' : 'Try Again'
+                                }}
+                            </span>
+                        </div>
+
+                        <div class="text-lg text-600 text-center mb-3 max-w-25rem line-height-3 px-3">
+                            {{ feedback.message }}
+                        </div>
+
+                        <!-- Comparison -->
+                        <div *ngIf="feedback.detectedWord"
+                            class="comparison-grid surface-50 border-round-2xl p-3 border-1 surface-border fadeinup">
+
+                            <div class="col-6 border-right-1 surface-border flex flex-column align-items-center p-2">
+                                <span class="label">Target</span>
+                                <span class="value">{{ practiceData.targetWord }}</span>
+                            </div>
+
+                            <div class="col-6 flex flex-column align-items-center p-2">
+                                <span class="label">You Said</span>
+                                <span class="value">{{ feedback.detectedWord }}</span>
+                            </div>
+
+                        </div>
+                    </ng-container>
+                </div>
+            </div>
+        </p-card>
+
+    </div>
+</div>

@@ -95,12 +95,56 @@ export class UserProfileService {
         this.profileSubject.next(profile);
     }
 
+    public login(username: string): Observable<UserProfile> {
+        return new Observable(observer => {
+            const existingProfile = this.profileSubject.value;
+
+            // If there's already a profile with this username, use it
+            if (existingProfile.name === username) {
+                this.checkStreak();
+                observer.next(existingProfile);
+                observer.complete();
+                return;
+            }
+
+            // Create new profile with the username
+            const newProfile = this.createDefaultProfile();
+            newProfile.name = username;
+            this.saveProfile(newProfile);
+            this.checkStreak();
+
+            observer.next(newProfile);
+            observer.complete();
+        });
+    }
+
+    public logout(): void {
+        // Clear the profile and reset to default
+        localStorage.removeItem(this.STORAGE_KEY);
+        const defaultProfile = this.createDefaultProfile();
+        this.profileSubject.next(defaultProfile);
+    }
+
+    public getAvatarColor(name: string): string {
+        // Generate a consistent color based on the username
+        const colors = [
+            '#FF6B6B', '#4ECDC4', '#45B7D1', '#FFA07A', '#98D8C8',
+            '#F7DC6F', '#BB8FCE', '#85C1E2', '#F8B739', '#52B788',
+            '#E63946', '#457B9D', '#F77F00', '#06D6A0', '#118AB2'
+        ];
+
+        // Simple hash function to get consistent color for same name
+        let hash = 0;
+        for (let i = 0; i < name.length; i++) {
+            hash = name.charCodeAt(i) + ((hash << 5) - hash);
+        }
+
+        const index = Math.abs(hash) % colors.length;
+        return colors[index];
+    }
+
     public updateProfile(updateFn: (profile: UserProfile) => void): void {
         const currentProfile = this.profileSubject.value;
-        // Create a deep copy to avoid direct mutation issues if needed, 
-        // but for simple usage, modifying and saving is okay if we are careful.
-        // For better safety, we could use structuredClone if supported or spread operators.
-        // Here we will just mutate and save for simplicity, assuming synchronous updates.
         updateFn(currentProfile);
         this.saveProfile(currentProfile);
     }

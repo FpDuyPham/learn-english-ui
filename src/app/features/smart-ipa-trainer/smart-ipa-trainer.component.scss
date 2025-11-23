@@ -1,0 +1,155 @@
+.app-background {
+    background: radial-gradient(circle at 50% 0%, #f8fafc 0%, #eef2ff 100%);
+}
+
+/* Card glass effect */
+.pretty-card {
+    background: rgba(255, 255, 255, 0.85) !important;
+    backdrop-filter: blur(14px);
+}
+
+/* Status Bar */
+.status-bar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 0.8rem;
+    transition: background 0.3s;
+}
+
+/* Word hierarchy */
+.target-word {
+    font-size: clamp(3.2rem, 5vw, 5rem);
+    line-height: 1;
+    color: #0f172a;
+}
+
+/* IPA */
+.ipa-badge {
+    font-family: 'Times New Roman', serif;
+    letter-spacing: 0.6px;
+}
+
+.glass {
+    background: rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(6px);
+}
+
+.glass-soft {
+    background: rgba(255, 255, 255, 0.4);
+    backdrop-filter: blur(8px);
+}
+
+/* Mic Button */
+.mic-btn {
+    border-radius: 50%;
+}
+
+.listening-glow {
+    animation: glowPulse 1.5s infinite;
+}
+
+.feedback-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 1rem;
+    gap: 1.5rem;
+    text-align: center;
+}
+
+/* Status Section */
+.feedback-status {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-size: 1.6rem;
+    font-weight: 700;
+}
+
+.feedback-status.success {
+    color: #22c55e;
+}
+
+.feedback-status.error {
+    color: #ef4444;
+}
+
+.feedback-message {
+    font-size: 1.1rem;
+    color: #475569;
+    max-width: 22rem;
+    line-height: 1.6;
+}
+
+/* Comparison Card */
+.comparison-card {
+    background: #f8fafc;
+    padding: 1.2rem 1.6rem;
+    border-radius: 1.2rem;
+    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.06);
+    width: 15rem;
+}
+
+.comparison-card .row {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.comparison-card .label {
+    text-transform: uppercase;
+    font-size: 0.7rem;
+    color: #94a3b8;
+    font-weight: 700;
+    margin-bottom: 0.25rem;
+    letter-spacing: 0.04rem;
+}
+
+.comparison-card .value {
+    font-size: 1.4rem;
+    font-weight: 800;
+    font-family: 'Inter', sans-serif;
+    color: #0f172a;
+}
+
+.comparison-card .error-text {
+    color: #dc2626;
+}
+
+.comparison-card .divider {
+    height: 1px;
+    width: 60%;
+    background: #e2e8f0;
+    margin: 1rem auto;
+}
+
+
+@keyframes glowPulse {
+    0% {
+        box-shadow: 0 0 15px rgba(244, 67, 54, 0.4);
+    }
+
+    50% {
+        box-shadow: 0 0 30px rgba(244, 67, 54, 0.75);
+    }
+
+    100% {
+        box-shadow: 0 0 15px rgba(244, 67, 54, 0.4);
+    }
+}
+
+/* Comparison Grid */
+.comparison-grid .label {
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: #94a3b8;
+}
+
+.comparison-grid .value {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: #0f172a;
+}

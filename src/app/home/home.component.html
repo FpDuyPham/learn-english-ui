@@ -1,0 +1,106 @@
+<div class="min-h-screen surface-ground p-4 md:p-6">
+    <div class="max-w-screen-xl mx-auto">
+        <!-- Welcome Header -->
+        <div class="surface-card p-5 shadow-2 border-round-xl mb-4" *ngIf="profile$ | async as profile">
+            <div class="flex align-items-center gap-4">
+                <p-avatar [label]="profile.name.charAt(0)" shape="circle" size="xlarge"
+                    [style]="{'background-color': getAvatarColor(profile.name), 'color': '#ffffff', 'width': '5rem', 'height': '5rem', 'font-size': '2rem'}">
+                </p-avatar>
+                <div class="flex-1">
+                    <h1 class="text-4xl md:text-5xl font-bold m-0 mb-2 text-900">Welcome back, {{ profile.name }}! 👋
+                    </h1>
+                    <p class="text-xl text-600 m-0">Ready to improve your English today?</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Gamification Widget -->
+        <div class="mb-4">
+            <app-gamification-widget></app-gamification-widget>
+        </div>
+
+        <!-- Quick Actions -->
+        <div class="surface-card p-5 shadow-2 border-round-xl mb-4">
+            <h2 class="text-3xl font-bold mb-4 text-900">Quick Actions</h2>
+            <div class="grid">
+                <div class="col-12 md:col-6 lg:col-4">
+                    <button pButton class="w-full p-4" severity="primary" [raised]="true"
+                        (click)="navigateTo('/exercises')">
+                        <div class="flex flex-column align-items-center gap-2">
+                            <i class="pi pi-list" style="font-size: 2rem"></i>
+                            <span class="font-bold text-lg">View Exercises</span>
+                            <span class="text-sm">Browse all exercises</span>
+                        </div>
+                    </button>
+                </div>
+                <div class="col-12 md:col-6 lg:col-4">
+                    <button pButton class="w-full p-4" severity="success" [raised]="true"
+                        (click)="navigateTo('/exercises/create')">
+                        <div class="flex flex-column align-items-center gap-2">
+                            <i class="pi pi-plus" style="font-size: 2rem"></i>
+                            <span class="font-bold text-lg">Create Exercise</span>
+                            <span class="text-sm">Add new content</span>
+                        </div>
+                    </button>
+                </div>
+                <div class="col-12 md:col-6 lg:col-4">
+                    <button pButton class="w-full p-4" severity="info" [raised]="true" (click)="navigateTo('/profile')">
+                        <div class="flex flex-column align-items-center gap-2">
+                            <i class="pi pi-user" style="font-size: 2rem"></i>
+                            <span class="font-bold text-lg">My Profile</span>
+                            <span class="text-sm">Track your progress</span>
+                        </div>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Statistics -->
+        <div class="surface-card p-5 shadow-2 border-round-xl mb-4" *ngIf="profile$ | async as profile">
+            <h2 class="text-3xl font-bold mb-4 text-900">Your Statistics</h2>
+            <div class="grid">
+                <div class="col-12 md:col-6 lg:col-3">
+                    <div class="surface-card p-4 shadow-2 border-round-xl">
+                        <div class="flex align-items-center justify-content-between mb-3">
+                            <div class="text-500 font-medium">Current Level</div>
+                            <i class="pi pi-star-fill text-2xl text-yellow-500"></i>
+                        </div>
+                        <div class="text-4xl font-bold text-900">{{ profile.currentLevel }}</div>
+                        <div class="text-500 mt-2">IELTS Band</div>
+                    </div>
+                </div>
+                <div class="col-12 md:col-6 lg:col-3">
+                    <div class="surface-card p-4 shadow-2 border-round-xl">
+                        <div class="flex align-items-center justify-content-between mb-3">
+                            <div class="text-500 font-medium">Total XP</div>
+                            <i class="pi pi-bolt text-2xl text-orange-500"></i>
+                        </div>
+                        <div class="text-4xl font-bold text-900">{{ profile.xp }}</div>
+                        <div class="text-500 mt-2">Experience Points</div>
+                    </div>
+                </div>
+                <div class="col-12 md:col-6 lg:col-3">
+                    <div class="surface-card p-4 shadow-2 border-round-xl">
+                        <div class="flex align-items-center justify-content-between mb-3">
+                            <div class="text-500 font-medium">Current Streak</div>
+                            <i class="pi pi-fire text-2xl text-red-500"></i>
+                        </div>
+                        <div class="text-4xl font-bold text-900">{{ profile.streak.currentStreak }}</div>
+                        <div class="text-500 mt-2">Days in a row</div>
+                    </div>
+                </div>
+                <div class="col-12 md:col-6 lg:col-3">
+                    <div class="surface-card p-4 shadow-2 border-round-xl">
+                        <div class="flex align-items-center justify-content-between mb-3">
+                            <div class="text-500 font-medium">Words Learned</div>
+                            <i class="pi pi-book text-2xl text-blue-500"></i>
+                        </div>
+                        <div class="text-4xl font-bold text-900">{{ profile.stats?.totalWordsLearned || 0 }}
+                        </div>
+                        <div class="text-500 mt-2">Vocabulary growth</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,42 @@
+<div class="min-h-screen flex align-items-center justify-content-center p-4"
+    style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+    <div class="surface-card p-5 shadow-8 border-round-xl max-w-30rem w-full fadein animation-duration-500">
+        <!-- Logo/Icon -->
+        <div class="text-center mb-5">
+            <div class="inline-flex align-items-center justify-content-center border-circle bg-primary mb-3"
+                style="width: 4rem; height: 4rem;">
+                <i class="pi pi-book text-4xl text-white"></i>
+            </div>
+            <h1 class="text-5xl font-bold text-900 mb-2">Learn English</h1>
+            <p class="text-600 text-lg">Welcome back! Enter your name to continue</p>
+        </div>
+
+        <!-- Login Form -->
+        <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
+            <div class="mb-4">
+                <label for="username" class="block text-900 font-semibold mb-2">Username</label>
+                <span class="p-input-icon-left w-full">
+                    <i class="pi pi-user"></i>
+                    <input id="username" type="text" pInputText formControlName="username" placeholder="Enter your name"
+                        class="w-full p-3" [autofocus]="true" />
+                </span>
+                <small *ngIf="loginForm.get('username')?.invalid && loginForm.get('username')?.touched" class="p-error">
+                    Username is required
+                </small>
+            </div>
+
+            <button pButton type="submit" label="Continue" icon="pi pi-arrow-right" iconPos="right"
+                [disabled]="loginForm.invalid || isLoading" [loading]="isLoading"
+                class="w-full p-3 text-xl font-bold shadow-3"></button>
+        </form>
+
+        <!-- Optional: Quick access users -->
+        <div class="mt-5 pt-4 border-top-1 surface-border" *ngIf="recentUsers.length > 0">
+            <p class="text-600 text-center mb-3 text-sm">Or continue as:</p>
+            <div class="flex gap-2 justify-content-center flex-wrap">
+                <button pButton *ngFor="let user of recentUsers" [label]="user" (click)="quickLogin(user)"
+                    class="p-button-outlined p-button-sm" type="button"></button>
+            </div>
+        </div>
+    </div>
+</div>

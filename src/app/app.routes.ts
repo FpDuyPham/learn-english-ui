@@ -1,49 +1,22 @@
-import {RouterModule, Routes} from '@angular/router';
-import {ExerciseListComponent} from './exercise/exercise-list/exercise-list.component';
-import {ExerciseCreateComponent} from './exercise/exercise-create/exercise-create.component';
-import {ExerciseDetailComponent} from './exercise/exercise-detail/exercise-detail.component';
-import {ExerciseEditComponent} from './exercise/exercise-edit/exercise-edit.component';
-import {AudioSplitterComponent} from './audio-splitter/audio-splitter.component';
-import {ListenAndWriteComponent} from './listen-and-write/listen-and-write.component';
-import {ExercisePassiveListeningComponent} from './exercise/exercise-passive-listening/exercise-passive-listening.component';
-import {NgModule} from '@angular/core';
-
-// export const routes: Routes = [];
-
-// export const routes: Routes = [
-//   {
-//     path: 'audio-splitter',
-//     loadComponent: () =>
-//       import('./audio-splitter/audio-splitter.component').then(
-//         (c) => c.AudioSplitterComponent
-//       ),
-//   },
-//   { path: 'listen-and-write', loadComponent: () =>
-//       import('./listen-and-write/listen-and-write.component').then(
-//         (c) => c.ListenAndWriteComponent
-//       ),
-//   }, // New route
-//   {
-//     path: '',
-//     redirectTo: 'audio-splitter',
-//     pathMatch: 'full',
-//   }
-// ];
-//
-//
-// export const routes: Routes = [
-//   { path: '', redirectTo: '/exercises', pathMatch: 'full' },
-//   { path: 'exercises', component: ExerciseListComponent },
-//   { path: 'exercises/create', component: ExerciseCreateComponent },
-//   { path: 'exercises/:id', component: ExerciseDetailComponent },
-//   { path: 'exercises/:id/edit', component: ExerciseEditComponent },
-//   { path: 'exercises/:id/audio-splitter', component: AudioSplitterComponent },
-//   { path: 'exercises/:id/listen-write', component: ListenAndWriteComponent },
-//   { path: 'exercises/:id/passive-listen', component: ExercisePassiveListeningComponent },
-// ];
+import { Routes } from '@angular/router';
 
 export const routes: Routes = [
-  { path: '', redirectTo: '/exercises', pathMatch: 'full' },
+  // Default route - redirect to login
+  { path: '', redirectTo: '/login', pathMatch: 'full' },
+
+  // Login route
+  {
+    path: 'login',
+    loadComponent: () => import('./auth/login/login.component').then(m => m.LoginComponent)
+  },
+
+  // Home route
+  {
+    path: 'home',
+    loadComponent: () => import('./home/home.component').then(m => m.HomeComponent)
+  },
+
+  // Exercise routes
   {
     path: 'exercises',
     loadComponent: () => import('./exercise/exercise-list/exercise-list.component').then(m => m.ExerciseListComponent)
@@ -71,5 +44,9 @@ export const routes: Routes = [
   {
     path: 'exercises/:id/passive-listen',
     loadComponent: () => import('./exercise/exercise-passive-listening/exercise-passive-listening.component').then(m => m.ExercisePassiveListeningComponent)
+  },
+  {
+    path: 'smart-ipa-trainer',
+    loadComponent: () => import('./features/smart-ipa-trainer/smart-ipa-trainer.component').then(m => m.SmartIpaTrainerComponent)
   },
 ];

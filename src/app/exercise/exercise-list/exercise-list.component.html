@@ -3,13 +3,70 @@
     <!-- Header Section -->
     <div
       class="flex flex-column md:flex-row justify-content-between align-items-start md:align-items-center gap-3 mb-4 p-3 md:p-4 surface-card border-round-xl shadow-2">
-      <div>
+      <div class="flex-1">
         <h1 class="text-3xl md:text-5xl font-bold m-0 mb-2 text-900">Exercises</h1>
         <p class="text-sm md:text-lg text-600 m-0">Manage and practice your English exercises</p>
       </div>
-      <button pButton type="submit" label="Create New Exercise" (click)="createExercise()" icon="pi pi-plus"
-              class="white-space-nowrap shadow-3 w-full md:w-auto"></button>
+
+      <div class="flex align-items-center gap-3 w-full md:w-auto">
+        <button pButton type="submit" label="Create New Exercise" (click)="createExercise()" icon="pi pi-plus"
+          class="white-space-nowrap shadow-3 flex-1 md:flex-none"></button>
+
+        <ng-container *ngIf="profile$ | async as profile">
+          <!-- Gamification Compact -->
+          <div class="hidden md:block">
+            <app-gamification-compact></app-gamification-compact>
+          </div>
+
+          <!-- Divider -->
+          <div class="border-left-1 surface-border h-2rem hidden md:block"></div>
+
+          <!-- Profile Avatar -->
+          <div class="cursor-pointer relative hidden md:block" (click)="op.toggle($event)">
+            <p-avatar [label]="profile.name.charAt(0)" shape="circle" size="large"
+              [style]="{'background-color': getAvatarColor(profile.name), 'color': '#ffffff'}">
+            </p-avatar>
+            <p-badge [value]="profile.currentLevel?.toFixed(1) || '1.0'" severity="success"
+              styleClass="absolute -bottom-1 -right-1">
+            </p-badge>
+          </div>
+        </ng-container>
+      </div>
     </div>
+
+    <!-- Profile Overlay Panel -->
+    <p-overlayPanel #op styleClass="w-20rem" *ngIf="profile$ | async as profile">
+      <div class="flex flex-column gap-3 p-2">
+        <div class="flex align-items-center gap-3 mb-2">
+          <p-avatar [label]="profile.name.charAt(0)" shape="circle" size="xlarge"
+            [style]="{'background-color': getAvatarColor(profile.name), 'color': '#ffffff'}">
+          </p-avatar>
+          <div>
+            <div class="font-bold text-xl">{{ profile.name }}</div>
+            <div class="text-600">Level {{ profile.currentLevel }}</div>
+          </div>
+        </div>
+
+        <div class="surface-100 p-3 border-round">
+          <div class="flex justify-content-between mb-2">
+            <span class="font-semibold">XP</span>
+            <span class="text-primary font-bold">{{ profile.xp }}</span>
+          </div>
+          <div class="flex justify-content-between mb-2">
+            <span class="font-semibold">Streak</span>
+            <span class="text-primary font-bold">{{ profile.streak.currentStreak }} days</span>
+          </div>
+          <div class="flex justify-content-between">
+            <span class="font-semibold">Words Learned</span>
+            <span class="text-primary font-bold">{{ profile.stats?.totalWordsLearned || 0 }}</span>
+          </div>
+        </div>
+
+        <!-- Logout Button -->
+        <button pButton label="Logout" icon="pi pi-sign-out" (click)="logout()"
+          class="p-button-outlined p-button-danger w-full"></button>
+      </div>
+    </p-overlayPanel>
 
     <!-- Gamification Widget -->
     <div class="mb-4">
