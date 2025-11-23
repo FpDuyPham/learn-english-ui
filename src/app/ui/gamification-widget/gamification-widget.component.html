@@ -1,0 +1,67 @@
+<div *ngIf="profile$ | async as profile" class="surface-card border-round-lg shadow-2 p-3">
+    <div class="grid">
+        <!-- Streak Section -->
+        <div class="col-12 md:col-4">
+            <div class="flex align-items-center gap-2">
+                <i class="pi pi-fire text-orange-500 text-2xl"></i>
+                <div>
+                    <div class="text-600 text-sm">Streak</div>
+                    <div class="font-bold text-xl">{{ profile.streak.currentStreak }} days</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Level Section -->
+        <div class="col-12 md:col-4">
+            <div class="flex align-items-center gap-2">
+                <i class="pi pi-trophy text-yellow-500 text-2xl"></i>
+                <div class="flex-1">
+                    <div class="text-600 text-sm">Level {{ profile.currentLevel.toFixed(1) }}</div>
+                    <p-progressBar [value]="getXPProgress(profile.xp, profile.currentLevel)" [showValue]="false"
+                        styleClass="h-1rem">
+                    </p-progressBar>
+                    <div class="text-xs text-500 mt-1">{{ getXPToNextLevel(profile.xp, profile.currentLevel) }} XP to
+                        next level</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Daily Missions Summary -->
+        <div class="col-12 md:col-4">
+            <div class="flex align-items-center gap-2">
+                <i class="pi pi-check-circle text-green-500 text-2xl"></i>
+                <div>
+                    <div class="text-600 text-sm">Today's Goals</div>
+                    <div class="font-bold">{{ getCompletedMissionsCount(profile.dailyMissions) }}/{{
+                        profile.dailyMissions?.length || 0 }}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mission Details with Progress Bars -->
+    <div *ngIf="profile.dailyMissions && profile.dailyMissions.length > 0"
+        class="mt-3 pt-3 border-top-1 surface-border">
+        <div class="text-sm font-semibold text-600 mb-3">Daily Missions</div>
+        <div class="flex flex-column gap-3">
+            <div *ngFor="let mission of profile.dailyMissions" class="surface-50 p-3 border-round-lg">
+                <div class="flex align-items-center justify-content-between mb-2">
+                    <span class="text-sm font-semibold" [class.line-through]="mission.completed"
+                        [class.text-500]="mission.completed">
+                        <i class="pi"
+                            [ngClass]="mission.completed ? 'pi-check-circle text-green-500' : 'pi-circle text-400'"
+                            style="font-size: 0.875rem"></i>
+                        {{ mission.description }}
+                    </span>
+                    <span class="text-xs font-bold px-2 py-1 border-round"
+                        [ngClass]="mission.completed ? 'bg-green-100 text-green-700' : 'bg-primary-100 text-primary-700'">
+                        {{ mission.current }}/{{ mission.target }}
+                    </span>
+                </div>
+                <p-progressBar [value]="getMissionProgress(mission)" [showValue]="false" [style]="{'height': '0.5rem'}"
+                    [styleClass]="mission.completed ? 'progress-complete' : ''">
+                </p-progressBar>
+            </div>
+        </div>
+    </div>
+</div>

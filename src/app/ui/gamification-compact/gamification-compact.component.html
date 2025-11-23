@@ -1,0 +1,19 @@
+<div *ngIf="profile$ | async as profile" class="flex align-items-center gap-3 px-2">
+    <!-- Streak -->
+    <div class="flex align-items-center gap-1" title="Daily Streak">
+        <i class="pi pi-fire text-orange-500"></i>
+        <span class="font-semibold text-sm">{{ profile.streak?.currentStreak || 0 }}</span>
+    </div>
+
+    <!-- Level -->
+    <div class="flex align-items-center gap-1" title="IELTS Level">
+        <i class="pi pi-trophy text-yellow-500"></i>
+        <span class="font-semibold text-sm">{{ profile.currentLevel?.toFixed(1) || '1.0' }}</span>
+    </div>
+
+    <!-- XP -->
+    <div class="flex align-items-center gap-1" title="Experience Points">
+        <i class="pi pi-star text-primary"></i>
+        <span class="font-semibold text-sm">{{ profile.xp || 0 }}</span>
+    </div>
+</div>

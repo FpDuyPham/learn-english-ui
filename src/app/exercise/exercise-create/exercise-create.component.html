@@ -1,19 +1,62 @@
-<h2>Create Exercise</h2>
+<div class="min-h-screen flex align-items-center justify-content-center p-4 fadein animation-duration-500"
+    style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+    <div class="w-full max-w-30rem">
+        <!-- Header -->
+        <div class="text-center mb-6 text-white">
+            <div
+                class="inline-flex align-items-center justify-content-center w-5rem h-5rem bg-white-alpha-20 border-circle mb-3 shadow-4 backdrop-blur-sm">
+                <i class="pi pi-plus text-3xl font-bold text-white"></i>
+            </div>
+            <h1 class="text-white text-4xl font-bold mb-2 text-shadow-1">Create New Exercise</h1>
+            <p class="text-white-alpha-80 text-lg m-0">Start your new learning adventure</p>
+        </div>
 
-<form [formGroup]="exerciseForm" (ngSubmit)="onSubmit()">
-  <div>
-    <label for="name">Name:</label>
-    <input pInputText type="text" id="name" formControlName="name" />
-    <div *ngIf="exerciseForm.get('name')?.invalid && exerciseForm.get('name')?.touched">
-      Name is required.
+        <!-- Form Card -->
+        <div class="surface-card p-5 shadow-8 border-round-3xl"
+            style="background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px);">
+            <form [formGroup]="exerciseForm" (ngSubmit)="onSubmit()" class="flex flex-column gap-4">
+
+                <!-- Name Input -->
+                <div class="flex flex-column gap-2">
+                    <label htmlFor="name" class="font-bold text-900 text-lg">Exercise Name</label>
+                    <div class="p-inputgroup">
+                        <span class="p-inputgroup-addon bg-white border-none shadow-1 text-primary">
+                            <i class="pi pi-tag text-xl"></i>
+                        </span>
+                        <input pInputText id="name" formControlName="name" placeholder="e.g., Travel Vocabulary"
+                            class="border-none shadow-1 p-3 text-lg"
+                            [ngClass]="{'ng-invalid ng-dirty': exerciseForm.get('name')?.invalid && exerciseForm.get('name')?.touched}" />
+                    </div>
+                    <small *ngIf="exerciseForm.get('name')?.invalid && exerciseForm.get('name')?.touched"
+                        class="text-red-500 flex align-items-center gap-1 font-medium">
+                        <i class="pi pi-exclamation-circle"></i> Name is required
+                    </small>
+                </div>
+
+                <!-- Description Input -->
+                <div class="flex flex-column gap-2">
+                    <label htmlFor="description" class="font-bold text-900 text-lg">Description <span
+                            class="text-500 font-normal text-base">(Optional)</span></label>
+                    <div class="p-inputgroup">
+                        <span class="p-inputgroup-addon bg-white border-none shadow-1 text-primary h-auto">
+                            <i class="pi pi-align-left text-xl"></i>
+                        </span>
+                        <textarea pInputTextarea id="description" formControlName="description" rows="4"
+                            placeholder="What is this exercise about?" class="w-full border-none shadow-1 p-3 text-lg"
+                            style="resize: none"></textarea>
+                    </div>
+                </div>
+
+                <!-- Actions -->
+                <div class="flex gap-3 mt-5">
+                    <button pButton type="button" label="Cancel" icon="pi pi-times" [routerLink]="['/exercises']"
+                        class="p-button-text p-button-secondary flex-1 font-bold"></button>
+                    <button pButton type="submit" label="Create Exercise" icon="pi pi-check"
+                        [disabled]="!exerciseForm.valid || isSubmitting" [loading]="isSubmitting"
+                        class="flex-1 font-bold shadow-4 p-button-lg border-round-xl"></button>
+                </div>
+            </form>
+        </div>
     </div>
-  </div>
-
-  <div>
-    <label for="description">Description:</label>
-    <textarea pInputTextarea id="description" formControlName="description"></textarea>
-  </div>
-
-  <button pButton type="submit" label="Create" [disabled]="!exerciseForm.valid"></button>
-  <button pButton type="button" label="Cancel" [routerLink]="['/exercises']" class="p-button-secondary"></button>
-</form>
+</div>
+<p-toast></p-toast>

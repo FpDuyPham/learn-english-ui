@@ -1,19 +1,22 @@
 import { Component, OnInit } from '@angular/core';
-import {Router, RouterModule} from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { ExerciseService } from '../../core/exercise.service';
 import { Exercise } from '../../core/db-schema';
 import { Observable } from 'rxjs';
-import {ReactiveFormsModule} from '@angular/forms';
-import {CommonModule} from '@angular/common';
-import {ButtonModule} from 'primeng/button';
-import {TableModule} from 'primeng/table';
+import { ReactiveFormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+import { ButtonModule } from 'primeng/button';
+import { TableModule } from 'primeng/table';
+import { GamificationWidgetComponent } from '../../ui/gamification-widget/gamification-widget.component';
+
+import { MyButtonComponent } from '../../ui/my-button/my-button.component';
 
 @Component({
   standalone: true,
   selector: 'app-exercise-list',
   templateUrl: './exercise-list.component.html',
   styleUrls: ['./exercise-list.component.scss'],
-  imports: [ReactiveFormsModule, CommonModule, RouterModule, ButtonModule, TableModule]
+  imports: [ReactiveFormsModule, CommonModule, RouterModule, ButtonModule, TableModule, GamificationWidgetComponent, MyButtonComponent]
 })
 export class ExerciseListComponent implements OnInit {
   exercises$: Observable<Exercise[]>;
@@ -22,7 +25,7 @@ export class ExerciseListComponent implements OnInit {
   constructor(
     private exerciseService: ExerciseService,
     private router: Router
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.exercises$ = this.exerciseService.getAllExercises();
@@ -59,8 +62,8 @@ export class ExerciseListComponent implements OnInit {
     this.router.navigate(['/exercises', exerciseId, 'audio-splitter']);
   }
 
-  goToListenAndWrite(exerciseId: number): void {
-    this.router.navigate(['/exercises', exerciseId, 'listen-write']);
+  goToListenAndWrite(id: number) {
+    this.router.navigate(['/exercises', id, 'listen-write']);
   }
 
   gotoLearnPassive(exerciseId: number): void {

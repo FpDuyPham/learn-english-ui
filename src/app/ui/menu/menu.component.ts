@@ -4,17 +4,38 @@ import { RouterModule } from '@angular/router';
 import { MenubarModule } from 'primeng/menubar';
 import { MenuItem } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
+import { OverlayPanelModule } from 'primeng/overlaypanel';
+import { AvatarModule } from 'primeng/avatar';
+import { BadgeModule } from 'primeng/badge';
+import { TooltipModule } from 'primeng/tooltip';
+import { UserProfileService } from '../../core/user-profile.service';
+import { GamificationCompactComponent } from '../gamification-compact/gamification-compact.component';
 
 @Component({
   selector: 'app-menu',
   standalone: true,
-  imports: [CommonModule, RouterModule, MenubarModule, ButtonModule],
+  imports: [
+    CommonModule,
+    RouterModule,
+    MenubarModule,
+    ButtonModule,
+    OverlayPanelModule,
+    AvatarModule,
+    BadgeModule,
+    TooltipModule,
+    GamificationCompactComponent
+  ],
   templateUrl: './menu.component.html',
-  // styleUrls: ['./menu.component.css'],
 })
 export class MenuComponent implements OnInit {
   items: MenuItem[] | undefined;
   isDarkMode = false;
+
+  profile$;
+
+  constructor(private userProfileService: UserProfileService) {
+    this.profile$ = this.userProfileService.profile$;
+  }
 
   ngOnInit() {
     this.items = [

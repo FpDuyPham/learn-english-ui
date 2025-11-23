@@ -1,0 +1,70 @@
+// Hide responsive column titles on desktop
+@media screen and (min-width: 960px) {
+    .p-column-title {
+        display: none;
+    }
+}
+
+// Mobile optimizations - Card-based layout
+@media screen and (max-width: 960px) {
+    :host ::ng-deep {
+
+        // Hide table structure on mobile, use card layout instead
+        .p-datatable-thead {
+            display: none;
+        }
+
+        .p-datatable-tbody>tr {
+            display: block;
+            margin-bottom: 1rem;
+            border: 1px solid var(--surface-border);
+            border-radius: 8px;
+            padding: 0.75rem;
+            background: var(--surface-card);
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .p-datatable-tbody>tr>td {
+            display: block;
+            border: none;
+            padding: 0.5rem 0;
+            text-align: left !important;
+
+            &:first-child {
+                display: none; // Hide ID on mobile
+            }
+
+            .p-column-title {
+                display: none; // Hide column titles since we're using cards
+            }
+        }
+
+        // Style the exercise name prominently
+        .p-datatable-tbody>tr>td:nth-child(2) {
+            padding-bottom: 0.75rem;
+            border-bottom: 1px solid var(--surface-border);
+            margin-bottom: 0.75rem;
+        }
+
+        // Action buttons - make them full width and stacked
+        .p-datatable-tbody>tr>td:last-child {
+            padding-top: 0.75rem;
+
+            .flex {
+                flex-direction: column;
+                gap: 0.5rem;
+
+                button {
+                    width: 100%;
+                    justify-content: center;
+                }
+            }
+        }
+
+        // Smaller buttons on mobile
+        .p-button-sm {
+            font-size: 0.875rem;
+            padding: 0.5rem 1rem;
+        }
+    }
+}

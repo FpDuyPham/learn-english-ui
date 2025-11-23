@@ -1,0 +1,45 @@
+<!-- Form Card -->
+<div class="surface-card p-4 shadow-2 border-round-xl">
+  <form [formGroup]="exerciseForm" (ngSubmit)="onSubmit()" class="flex flex-column gap-4">
+
+    <!-- Name Input -->
+    <div class="flex flex-column gap-2">
+      <label htmlFor="name" class="font-semibold text-900">Exercise Name</label>
+      <input pInputText id="name" formControlName="name" placeholder="e.g., Daily Conversation"
+        [ngClass]="{'ng-invalid ng-dirty': exerciseForm.get('name')?.invalid && exerciseForm.get('name')?.touched}" />
+      <small *ngIf="exerciseForm.get('name')?.invalid && exerciseForm.get('name')?.touched" class="text-red-500">
+        Name is required.
+      </small>
+    </div>
+
+    <!-- Description Input -->
+    <!-- Form Card -->
+    <div class="surface-card p-4 shadow-2 border-round-xl">
+      <form [formGroup]="exerciseForm" (ngSubmit)="onSubmit()" class="flex flex-column gap-4">
+
+        <!-- Name Input -->
+        <div class="flex flex-column gap-2">
+          <label htmlFor="name" class="font-semibold text-900">Exercise Name</label>
+          <input pInputText id="name" formControlName="name" placeholder="e.g., Daily Conversation"
+            [ngClass]="{'ng-invalid ng-dirty': exerciseForm.get('name')?.invalid && exerciseForm.get('name')?.touched}" />
+          <small *ngIf="exerciseForm.get('name')?.invalid && exerciseForm.get('name')?.touched" class="text-red-500">
+            Name is required.
+          </small>
+        </div>
+
+        <!-- Description Input -->
+        <div class="flex flex-column gap-2">
+          <label htmlFor="description" class="font-semibold text-900">Description (Optional)</label>
+          <textarea pInputTextarea id="description" formControlName="description" rows="4"
+            placeholder="Add a brief description..." class="w-full"></textarea>
+        </div>
+
+        <!-- Actions -->
+        <div class="flex gap-3 mt-2">
+          <button pButton type="button" label="Cancel" [routerLink]="['/exercises']"
+            class="p-button-outlined p-button-secondary flex-1"></button>
+          <button pButton type="submit" label="Create Exercise" [disabled]="!exerciseForm.valid"
+            class="flex-1 font-bold"></button>
+        </div>
+      </form>
+    </div>
