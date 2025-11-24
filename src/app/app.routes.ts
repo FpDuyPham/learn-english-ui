@@ -64,4 +64,34 @@ export const routes: Routes = [
       }
     ]
   },
+  // Shadowing & Fluency Checker Module
+  {
+    path: 'shadowing',
+    children: [
+      {
+        path: '',
+        redirectTo: 'articles',
+        pathMatch: 'full'
+      },
+      {
+        path: 'articles',
+        loadComponent: () => import('./features/shadowing/shadowing-article-list/shadowing-article-list.component').then(m => m.ShadowingArticleListComponent)
+      },
+      {
+        path: 'train/:articleId',
+        loadComponent: () => import('./features/shadowing/shadowing-trainer/shadowing-trainer.component').then(m => m.ShadowingTrainerComponent)
+      }
+    ]
+  },
+  // Admin Module
+  {
+    path: 'admin',
+    children: [
+      {
+        path: 'lesson-generator',
+        loadComponent: () => import('./features/admin/lesson-generator/lesson-generator.component').then(m => m.LessonGeneratorComponent)
+      }
+    ]
+  },
+
 ];

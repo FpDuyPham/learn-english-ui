@@ -1,0 +1,63 @@
+// Custom styles for Lesson Generator Component
+
+// Waveform container
+#waveform {
+
+    // Custom styling for wavesurfer regions
+    ::ng-deep {
+        wave {
+            overflow: visible !important;
+        }
+
+        region {
+            border-left: 2px solid var(--primary-color);
+            border-right: 2px solid var(--primary-color);
+            cursor: pointer;
+            transition: all 0.2s ease;
+
+            &:hover {
+                opacity: 0.8;
+            }
+
+            // Region content (text labels)
+            .region-content {
+                font-size: 12px;
+                font-weight: 500;
+                color: var(--text-color);
+                padding: 4px 8px;
+                background: var(--surface-overlay);
+                border-radius: 4px;
+                pointer-events: none;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                max-width: 200px;
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            }
+
+            // Resize handles
+            .resize-handle {
+                width: 8px;
+                background: var(--primary-color);
+                opacity: 0.5;
+                cursor: ew-resize;
+
+                &:hover {
+                    opacity: 1;
+                }
+            }
+        }
+    }
+}
+
+// Ensure p-steps looks good
+:host ::ng-deep {
+    .p-steps .p-steps-item .p-menuitem-link {
+        background: transparent;
+    }
+
+    .p-steps .p-steps-item.p-highlight .p-steps-number {
+        background: var(--primary-color);
+        color: var(--primary-color-text);
+    }
+}

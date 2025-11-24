@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { MenuComponent } from './ui/menu/menu.component';
 import { ConfiguratorComponent } from './ui/configurator/configurator.component';
+import { HeaderComponent } from './shared/header/header.component';
 import { UserProfileService } from './core/user-profile.service';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, MenuComponent, ConfiguratorComponent],
+  imports: [RouterOutlet, ConfiguratorComponent, HeaderComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })

@@ -1,0 +1,210 @@
+<div class="shadowing-article-list-container">
+    <!-- Header with total XP -->
+    <div class="list-header">
+        <div class="header-content">
+            <h1>Shadowing Practice</h1>
+            <p class="subtitle">Practice full sentence pronunciation with real-time feedback</p>
+        </div>
+        <div class="xp-display">
+            <i class="pi pi-star-fill"></i>
+            <span class="xp-value">{{ totalXP }} XP</span>
+        </div>
+    </div>
+
+    <!-- Level tabs -->
+    <p-tabs [(value)]="activeTabIndex">
+        <p-tablist>
+            <p-tab value="0">Level 1 - Beginner</p-tab>
+            <p-tab value="1" [disabled]="!isLevel2Unlocked()">Level 2 - Intermediate</p-tab>
+            <p-tab value="2" [disabled]="!isLevel3Unlocked()">Level 3 - Advanced</p-tab>
+        </p-tablist>
+
+        <!-- Level 1 - Beginner -->
+        <p-tabpanel value="0">
+            <div class="level-info" *ngIf="level1Progress">
+                <div class="progress-stats">
+                    <span><strong>Progress:</strong> {{ level1Progress.articlesCompleted }}/{{
+                        level1Progress.totalArticles }} packs</span>
+                    <span><strong>XP:</strong> {{ level1Progress.totalXP }}</span>
+                    <span><strong>Avg Accuracy:</strong> {{ level1Progress.averageAccuracy }}%</span>
+                </div>
+            </div>
+
+            <div class="articles-grid">
+                <p-card *ngFor="let article of level1Articles" class="article-card">
+                    <ng-template pTemplate="header">
+                        <div class="card-header">
+                            <h3>{{ article.title }}</h3>
+                            <p-badge [value]="getStatusBadge(getArticleProgress(article.id).status).label"
+                                [severity]="getStatusBadge(getArticleProgress(article.id).status).severity">
+                            </p-badge>
+                        </div>
+                    </ng-template>
+
+                    <div class="article-content">
+                        <p class="category" *ngIf="article.category">
+                            <i class="pi pi-tag"></i> {{ article.category }}
+                        </p>
+                        <p class="sentence-count">
+                            <i class="pi pi-list"></i> {{ article.sentences.length }} sentences
+                        </p>
+
+                        <!-- Progress if started -->
+                        <div class="article-progress" *ngIf="getArticleProgress(article.id).status !== 'not_started'">
+                            <div class="progress-info">
+                                <span>{{ getArticleProgress(article.id).completedSentences }}/{{
+                                    getArticleProgress(article.id).totalSentences }} sentences</span>
+                                <span [class]="getAccuracyClass(getArticleProgress(article.id).averageAccuracy)">
+                                    {{ getArticleProgress(article.id).averageAccuracy }}% accuracy
+                                </span>
+                            </div>
+                            <p-progressBar
+                                [value]="(getArticleProgress(article.id).completedSentences / getArticleProgress(article.id).totalSentences) * 100"
+                                [showValue]="false">
+                            </p-progressBar>
+                        </div>
+                    </div>
+
+                    <ng-template pTemplate="footer">
+                        <div class="card-actions">
+                            <button pButton
+                                [label]="getArticleProgress(article.id).status === 'not_started' ? 'Start' : 'Continue'"
+                                icon="pi pi-play" (click)="startPractice(article.id)">
+                            </button>
+                        </div>
+                    </ng-template>
+                </p-card>
+            </div>
+        </p-tabpanel>
+
+        <!-- Level 2 - Intermediate -->
+        <p-tabpanel value="1">
+            <div class="locked-message" *ngIf="!isLevel2Unlocked()">
+                <i class="pi pi-lock"></i>
+                <p>Complete 80% of Level 1 packs to unlock</p>
+            </div>
+
+            <div *ngIf="isLevel2Unlocked()">
+                <div class="level-info" *ngIf="level2Progress">
+                    <div class="progress-stats">
+                        <span><strong>Progress:</strong> {{ level2Progress.articlesCompleted }}/{{
+                            level2Progress.totalArticles }} packs</span>
+                        <span><strong>XP:</strong> {{ level2Progress.totalXP }}</span>
+                        <span><strong>Avg Accuracy:</strong> {{ level2Progress.averageAccuracy }}%</span>
+                    </div>
+                </div>
+
+                <div class="articles-grid">
+                    <p-card *ngFor="let article of level2Articles" class="article-card">
+                        <ng-template pTemplate="header">
+                            <div class="card-header">
+                                <h3>{{ article.title }}</h3>
+                                <p-badge [value]="getStatusBadge(getArticleProgress(article.id).status).label"
+                                    [severity]="getStatusBadge(getArticleProgress(article.id).status).severity">
+                                </p-badge>
+                            </div>
+                        </ng-template>
+
+                        <div class="article-content">
+                            <p class="category" *ngIf="article.category">
+                                <i class="pi pi-tag"></i> {{ article.category }}
+                            </p>
+                            <p class="sentence-count">
+                                <i class="pi pi-list"></i> {{ article.sentences.length }} sentences
+                            </p>
+
+                            <div class="article-progress"
+                                *ngIf="getArticleProgress(article.id).status !== 'not_started'">
+                                <div class="progress-info">
+                                    <span>{{ getArticleProgress(article.id).completedSentences }}/{{
+                                        getArticleProgress(article.id).totalSentences }} sentences</span>
+                                    <span [class]="getAccuracyClass(getArticleProgress(article.id).averageAccuracy)">
+                                        {{ getArticleProgress(article.id).averageAccuracy }}% accuracy
+                                    </span>
+                                </div>
+                                <p-progressBar
+                                    [value]="(getArticleProgress(article.id).completedSentences / getArticleProgress(article.id).totalSentences) * 100"
+                                    [showValue]="false">
+                                </p-progressBar>
+                            </div>
+                        </div>
+
+                        <ng-template pTemplate="footer">
+                            <div class="card-actions">
+                                <button pButton
+                                    [label]="getArticleProgress(article.id).status === 'not_started' ? 'Start' : 'Continue'"
+                                    icon="pi pi-play" (click)="startPractice(article.id)">
+                                </button>
+                            </div>
+                        </ng-template>
+                    </p-card>
+                </div>
+            </div>
+        </p-tabpanel>
+
+        <!-- Level 3 - Advanced -->
+        <p-tabpanel value="2">
+            <div class="locked-message" *ngIf="!isLevel3Unlocked()">
+                <i class="pi pi-lock"></i>
+                <p>Complete 80% of Level 2 packs to unlock</p>
+            </div>
+
+            <div *ngIf="isLevel3Unlocked()">
+                <div class="level-info" *ngIf="level3Progress">
+                    <div class="progress-stats">
+                        <span><strong>Progress:</strong> {{ level3Progress.articlesCompleted }}/{{
+                            level3Progress.totalArticles }} packs</span>
+                        <span><strong>XP:</strong> {{ level3Progress.totalXP }}</span>
+                        <span><strong>Avg Accuracy:</strong> {{ level3Progress.averageAccuracy }}%</span>
+                    </div>
+                </div>
+
+                <div class="articles-grid">
+                    <p-card *ngFor="let article of level3Articles" class="article-card">
+                        <ng-template pTemplate="header">
+                            <div class="card-header">
+                                <h3>{{ article.title }}</h3>
+                                <p-badge [value]="getStatusBadge(getArticleProgress(article.id).status).label"
+                                    [severity]="getStatusBadge(getArticleProgress(article.id).status).severity">
+                                </p-badge>
+                            </div>
+                        </ng-template>
+
+                        <div class="article-content">
+                            <p class="category" *ngIf="article.category">
+                                <i class="pi pi-tag"></i> {{ article.category }}
+                            </p>
+                            <p class="sentence-count">
+                                <i class="pi pi-list"></i> {{ article.sentences.length }} sentences
+                            </p>
+
+                            <div class="article-progress"
+                                *ngIf="getArticleProgress(article.id).status !== 'not_started'">
+                                <div class="progress-info">
+                                    <span>{{ getArticleProgress(article.id).completedSentences }}/{{
+                                        getArticleProgress(article.id).totalSentences }} sentences</span>
+                                    <span [class]="getAccuracyClass(getArticleProgress(article.id).averageAccuracy)">
+                                        {{ getArticleProgress(article.id).averageAccuracy }}% accuracy
+                                    </span>
+                                </div>
+                                <p-progressBar
+                                    [value]="(getArticleProgress(article.id).completedSentences / getArticleProgress(article.id).totalSentences) * 100"
+                                    [showValue]="false">
+                                </p-progressBar>
+                            </div>
+                        </div>
+
+                        <ng-template pTemplate="footer">
+                            <div class="card-actions">
+                                <button pButton
+                                    [label]="getArticleProgress(article.id).status === 'not_started' ? 'Start' : 'Continue'"
+                                    icon="pi pi-play" (click)="startPractice(article.id)">
+                                </button>
+                            </div>
+                        </ng-template>
+                    </p-card>
+                </div>
+            </div>
+        </p-tabpanel>
+    </p-tabs>
+</div>

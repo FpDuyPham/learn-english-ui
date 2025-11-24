@@ -45,12 +45,28 @@ export class MenuComponent implements OnInit {
         routerLink: '/home'
       },
       {
-        label: 'Exercises',
-        icon: 'pi pi-fw pi-list',
-        routerLink: '/exercises'
+        label: 'Practice',
+        icon: 'pi pi-fw pi-bolt',
+        items: [
+          {
+            label: 'Exercises',
+            icon: 'pi pi-fw pi-list',
+            routerLink: '/exercises'
+          },
+          {
+            label: 'Smart IPA',
+            icon: 'pi pi-fw pi-microphone',
+            routerLink: '/ipa'
+          },
+          {
+            label: 'Shadowing',
+            icon: 'pi pi-fw pi-comments',
+            routerLink: '/shadowing'
+          }
+        ]
       },
       {
-        label: 'Create Exercise',
+        label: 'Create',
         icon: 'pi pi-fw pi-plus',
         routerLink: '/exercises/create'
       }

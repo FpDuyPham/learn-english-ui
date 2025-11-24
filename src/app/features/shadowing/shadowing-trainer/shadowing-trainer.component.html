@@ -1,0 +1,240 @@
+<div class="shadowing-trainer-container" *ngIf="!sessionComplete">
+    <!-- Header -->
+    <div class="trainer-header">
+        <button pButton icon="pi pi-arrow-left" class="p-button-text p-button-rounded back-btn"
+            (click)="goBack()"></button>
+        <div class="header-info">
+            <h2 class="text-xl font-bold m-0">{{ article?.title }}</h2>
+            <p class="text-sm text-500 m-0 mt-1">Sentence {{ currentSentenceIndex + 1 }} of {{ article?.sentences.length
+                }}</p>
+        </div>
+        <div class="header-actions flex gap-2 align-items-center">
+            <button pButton icon="pi pi-question-circle" class="p-button-rounded p-button-text p-button-help"
+                pTooltip="Hướng dẫn" tooltipPosition="bottom" (click)="showHelp = true"></button>
+            <p-badge [value]="sessionResults.totalXP + ' XP'" severity="warn" styleClass="xp-badge"></p-badge>
+        </div>
+    </div>
+
+    <div class="progress-container mb-4">
+        <p-progressBar [value]="progressPercent" [showValue]="false" [style]="{'height': '6px'}"
+            styleClass="custom-progress"></p-progressBar>
+    </div>
+
+    <!-- Main Content -->
+    <div class="trainer-content">
+
+        <!-- Target Card -->
+        <div class="card-container target-section">
+            <div class="section-header">
+                <div class="header-left">
+                    <i class="pi pi-headphones text-primary text-xl"></i>
+                    <span class="font-semibold text-lg">Listen & Repeat</span>
+                </div>
+
+                <!-- Ghost Mode Toggle -->
+                <div class="difficulty-toggle flex gap-2">
+                    <button pButton label="Easy" class="p-button-sm p-button-rounded"
+                        [class.p-button-outlined]="difficulty !== 'easy'" (click)="setDifficulty('easy')"></button>
+                    <button pButton label="Medium" class="p-button-sm p-button-rounded"
+                        [class.p-button-outlined]="difficulty !== 'medium'" (click)="setDifficulty('medium')"></button>
+                    <button pButton label="Hard (Ghost)" class="p-button-sm p-button-rounded p-button-danger"
+                        [class.p-button-outlined]="difficulty !== 'hard'" (click)="setDifficulty('hard')"></button>
+                </div>
+
+                <div class="speed-control">
+                    <p-dropdown [options]="playbackOptions" [(ngModel)]="playbackSpeed" optionLabel="label"
+                        optionValue="value" styleClass="speed-dropdown" [autoDisplayFirst]="false">
+                        <ng-template pTemplate="selectedItem">
+                            <div class="flex align-items-center gap-2" *ngIf="playbackSpeed">
+                                <i class="pi pi-cog text-sm"></i>
+                                <span>{{ getSpeedLabel(playbackSpeed) }}</span>
+                            </div>
+                        </ng-template>
+                    </p-dropdown>
+                </div>
+            </div>
+
+            <div class="sentence-display" [class.ghost-blur]="difficulty === 'hard'">
+                <p class="english-text">{{ currentSentence?.text }}</p>
+                <p class="ipa-text">{{ currentSentence?.ipa }}</p>
+            </div>
+
+            <div class="playback-action">
+                <button pButton [icon]="isPlayingTarget ? 'pi pi-stop' : 'pi pi-volume-up'"
+                    class="p-button-rounded p-button-lg play-btn" [class.playing]="isPlayingTarget"
+                    (click)="isPlayingTarget ? stopAudio() : playTargetAudio()">
+                </button>
+                <span class="play-hint">{{ isPlayingTarget ? 'Stop Audio' : 'Play Audio' }}</span>
+            </div>
+        </div>
+
+        <!-- Recording Area -->
+        <div class="card-container recording-section" [class.recording]="isRecording">
+            <div class="waveform-wrapper" style="position: relative;">
+                <app-audio-wave [analyser]="analyser" [active]="isRecording"></app-audio-wave>
+                <canvas #pitchCanvas
+                    style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 10;"></canvas>
+            </div>
+
+            <div class="recording-controls">
+                <button pButton [icon]="isRecording ? 'pi pi-stop' : 'pi pi-microphone'"
+                    class="record-btn p-button-rounded p-button-xl" [class.recording-active]="isRecording"
+                    (click)="isRecording ? stopRecordingManual() : startRecording()">
+                </button>
+                <p class="recording-status" *ngIf="isRecording">Listening...</p>
+                <p class="recording-status placeholder" *ngIf="!isRecording">Tap to Speak</p>
+            </div>
+
+            <div class="partial-transcript" *ngIf="partialText">
+                <p>{{ partialText }}</p>
+            </div>
+        </div>
+
+        <!-- Feedback Section -->
+        <div class="feedback-container" *ngIf="feedback">
+            <div class="feedback-header-card">
+                <div class="score-ring-container">
+                    <div class="score-ring" [class]="getScoreColorClass(feedback.fluencyScore)">
+                        <span class="score-value">{{ feedback.fluencyScore }}</span>
+                        <span class="score-label">Fluency</span>
+                    </div>
+                </div>
+                <div class="feedback-summary">
+                    <h3 class="feedback-title">{{ feedback.overallComment }}</h3>
+                    <div class="metrics-grid">
+                        <div class="metric-item">
+                            <span class="metric-label">Accuracy</span>
+                            <span class="metric-value">{{ feedback.accuracy }}%</span>
+                            <div class="metric-bar">
+                                <div class="bar-fill" [style.width.%]="feedback.accuracy"></div>
+                            </div>
+                        </div>
+                        <div class="metric-item">
+                            <span class="metric-label">Rhythm</span>
+                            <span class="metric-value">{{ feedback.rhythmScore }}%</span>
+                            <div class="metric-bar">
+                                <div class="bar-fill" [style.width.%]="feedback.rhythmScore"></div>
+                            </div>
+                        </div>
+                        <div class="metric-item">
+                            <span class="metric-label">Intonation</span>
+                            <span class="metric-value">{{ feedback.intonationScore }}%</span>
+                            <div class="metric-bar">
+                                <div class="bar-fill" [style.width.%]="feedback.intonationScore"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="comparison-card">
+                <div class="comparison-row target">
+                    <span class="row-label">TARGET</span>
+                    <div class="words-container">
+                        <span *ngFor="let word of currentSentence?.text?.split(' ')" class="word-chip target">{{ word
+                            }}</span>
+                    </div>
+                </div>
+                <div class="comparison-row user">
+                    <span class="row-label">YOU SAID</span>
+                    <div class="words-container">
+                        <span *ngFor="let w of feedback.wordFeedbacks" [class]="getWordStatusClass(w)"
+                            class="word-chip user" [pTooltip]="w.status !== 'correct' ? w.status : ''"
+                            tooltipPosition="top">
+                            {{ w.word }}
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="improvements-card" *ngIf="feedback.pronunciationErrors.length > 0">
+                <h4 class="card-title"><i class="pi pi-bolt text-yellow-500 mr-2"></i>Improvements</h4>
+                <div class="errors-list">
+                    <div class="error-item" *ngFor="let error of feedback.pronunciationErrors">
+                        <div class="error-word-badge">{{ error.word }}</div>
+                        <div class="error-details">
+                            <span class="error-desc">{{ error.explanation }}</span>
+                            <span class="error-ipa">Expected: <span class="ipa-font">{{ error.expectedIpa
+                                    }}</span></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="action-footer">
+                <button pButton label="Try Again" icon="pi pi-refresh"
+                    class="p-button-outlined p-button-secondary w-full" (click)="tryAgain()"></button>
+                <button pButton label="Next Sentence" icon="pi pi-arrow-right" class="p-button-primary w-full"
+                    (click)="nextSentence()"></button>
+            </div>
+        </div>
+
+        <!-- Navigation (when no feedback) -->
+        <div class="navigation-footer" *ngIf="!feedback">
+            <button pButton label="Skip" class="p-button-text p-button-secondary" (click)="skipSentence()"></button>
+        </div>
+    </div>
+
+    <p-dialog header="Hướng dẫn sử dụng" [(visible)]="showHelp" [modal]="true" [style]="{width: '50vw'}"
+        [draggable]="false" [resizable]="false">
+        <div class="flex flex-column gap-3">
+            <section>
+                <h3 class="text-lg font-bold mb-2 text-primary">👻 Chế độ Ghost Shadowing</h3>
+                <ul class="line-height-3 m-0 pl-3">
+                    <li class="mb-2"><strong>Easy (Dễ):</strong> Nghe âm thanh gốc 100%, hiển thị văn bản đầy đủ.</li>
+                    <li class="mb-2"><strong>Medium (Trung bình):</strong> Âm thanh gốc giảm còn 50%, vẫn hiện văn bản.
+                    </li>
+                    <li><strong>Hard (Khó):</strong> Tắt âm thanh gốc (Mute) và <strong>làm mờ văn bản</strong>. Bạn cần
+                        dựa vào trí nhớ và biểu đồ sóng âm để nhại lại câu nói.</li>
+                </ul>
+            </section>
+
+            <p-divider></p-divider>
+
+            <section>
+                <h3 class="text-lg font-bold mb-2 text-orange-500">📈 Biểu đồ Ngữ điệu (Pitch)</h3>
+                <p class="line-height-3 m-0">
+                    Khi bạn ghi âm, một <strong>đường màu cam</strong> sẽ xuất hiện trên biểu đồ sóng âm.
+                    Đường này biểu thị <strong>cao độ (ngữ điệu)</strong> giọng nói của bạn.
+                    Hãy cố gắng điều chỉnh giọng lên xuống nhịp nhàng để khớp với ngữ điệu của người bản xứ.
+                </p>
+            </section>
+        </div>
+        <ng-template pTemplate="footer">
+            <button pButton label="Đã hiểu" icon="pi pi-check" (click)="showHelp = false" autofocus></button>
+        </ng-template>
+    </p-dialog>
+</div>
+
+<!-- Session Complete -->
+<div class="session-complete-container" *ngIf="sessionComplete">
+    <div class="completion-card">
+        <div class="celebration-header">
+            <i class="pi pi-check-circle completion-icon"></i>
+            <h1>Session Complete!</h1>
+            <p>Great job practicing today!</p>
+        </div>
+
+        <div class="stats-grid">
+            <div class="stat-box">
+                <span class="stat-value">{{ sessionResults.sentencesCompleted }}</span>
+                <span class="stat-label">Sentences</span>
+            </div>
+            <div class="stat-box">
+                <span class="stat-value">{{ sessionResults.averageAccuracy }}%</span>
+                <span class="stat-label">Accuracy</span>
+            </div>
+            <div class="stat-box xp-box">
+                <span class="stat-value">+{{ sessionResults.totalXP }}</span>
+                <span class="stat-label">XP Earned</span>
+            </div>
+        </div>
+
+        <div class="completion-actions">
+            <button pButton label="Practice Again" icon="pi pi-refresh" class="p-button-outlined w-full"
+                (click)="restartSession()"></button>
+            <button pButton label="Back to List" icon="pi pi-list" class="p-button-primary w-full"
+                (click)="goBack()"></button>
+        </div>
+    </div>
+</div>

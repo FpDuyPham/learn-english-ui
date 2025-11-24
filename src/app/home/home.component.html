@@ -21,44 +21,58 @@
 
         <!-- Quick Actions -->
         <div class="surface-card p-5 shadow-2 border-round-xl mb-4">
-            <h2 class="text-3xl font-bold mb-4 text-900">Quick Actions</h2>
+            <h2 class="text-3xl font-bold mb-4 text-900">Start Learning</h2>
             <div class="grid">
+                <!-- Practice Section -->
                 <div class="col-12 md:col-6 lg:col-4">
-                    <button pButton class="w-full p-4" severity="primary" [raised]="true"
+                    <button pButton class="w-full p-4 h-full" severity="primary" [raised]="true"
                         (click)="navigateTo('/exercises')">
                         <div class="flex flex-column align-items-center gap-2">
-                            <i class="pi pi-list" style="font-size: 2rem"></i>
-                            <span class="font-bold text-lg">View Exercises</span>
-                            <span class="text-sm">Browse all exercises</span>
+                            <i class="pi pi-list" style="font-size: 2.5rem"></i>
+                            <span class="font-bold text-xl">Exercises</span>
+                            <span class="text-sm text-center">Practice listening & writing</span>
                         </div>
                     </button>
                 </div>
                 <div class="col-12 md:col-6 lg:col-4">
-                    <button pButton class="w-full p-4" severity="success" [raised]="true"
+                    <button pButton class="w-full p-4 h-full" severity="help" [raised]="true"
+                        (click)="navigateTo('/ipa')">
+                        <div class="flex flex-column align-items-center gap-2">
+                            <i class="pi pi-microphone" style="font-size: 2.5rem"></i>
+                            <span class="font-bold text-xl">Smart IPA</span>
+                            <span class="text-sm text-center">Master pronunciation</span>
+                        </div>
+                    </button>
+                </div>
+                <div class="col-12 md:col-6 lg:col-4">
+                    <button pButton class="w-full p-4 h-full" severity="warn" [raised]="true"
+                        (click)="navigateTo('/shadowing')">
+                        <div class="flex flex-column align-items-center gap-2">
+                            <i class="pi pi-comments" style="font-size: 2.5rem"></i>
+                            <span class="font-bold text-xl">Shadowing</span>
+                            <span class="text-sm text-center">Improve fluency & rhythm</span>
+                        </div>
+                    </button>
+                </div>
+
+                <!-- Tools Section -->
+                <div class="col-12 md:col-6">
+                    <button pButton class="w-full p-4 h-full surface-100 text-900" [raised]="true"
                         (click)="navigateTo('/exercises/create')">
                         <div class="flex flex-column align-items-center gap-2">
                             <i class="pi pi-plus" style="font-size: 2rem"></i>
                             <span class="font-bold text-lg">Create Exercise</span>
-                            <span class="text-sm">Add new content</span>
+                            <span class="text-sm text-center">Add custom content</span>
                         </div>
                     </button>
                 </div>
-                <div class="col-12 md:col-6 lg:col-4">
-                    <button pButton class="w-full p-4" severity="secondary" [raised]="true"
-                        (click)="navigateTo('/ipa')">
-                        <div class="flex flex-column align-items-center gap-2">
-                            <i class="pi pi-microphone" style="font-size: 2rem"></i>
-                            <span class="font-bold text-lg">Smart IPA Learning</span>
-                            <span class="text-sm">Master English sounds with AI</span>
-                        </div>
-                    </button>
-                </div>
-                <div class="col-12 md:col-6 lg:col-4">
-                    <button pButton class="w-full p-4" severity="info" [raised]="true" (click)="navigateTo('/profile')">
+                <div class="col-12 md:col-6">
+                    <button pButton class="w-full p-4 h-full surface-100 text-900" [raised]="true"
+                        (click)="navigateTo('/profile')">
                         <div class="flex flex-column align-items-center gap-2">
                             <i class="pi pi-user" style="font-size: 2rem"></i>
                             <span class="font-bold text-lg">My Profile</span>
-                            <span class="text-sm">Track your progress</span>
+                            <span class="text-sm text-center">View stats & progress</span>
                         </div>
                     </button>
                 </div>
