@@ -97,98 +97,125 @@ export function fuzzyMatchWord(word1: string, word2: string): number {
     return compareTwoStrings(norm1, norm2);
 }
 
-/**
- * Find the best matching Vosk word for a script word
- */
-function findBestMatch(
-    scriptWord: string,
-    voskWords: VoskWord[],
-    startIndex: number,
-    config: AlignmentConfig
-): { index: number; score: number } | null {
-    let bestMatch: { index: number; score: number } | null = null;
-
-    // Search within a reasonable window (next 10 words)
-    const searchWindow = Math.min(startIndex + 10, voskWords.length);
-
-    for (let i = startIndex; i < searchWindow; i++) {
-        const voskWord = voskWords[i];
-        const score = fuzzyMatchWord(scriptWord, voskWord.word);
-
-        if (score >= config.fuzzyMatchThreshold) {
-            if (!bestMatch || score > bestMatch.score) {
-                bestMatch = { index: i, score };
-            }
-
-            // If we found an exact match, stop searching
-            if (score === 1.0) {
-                break;
-            }
-        }
-    }
-
-    return bestMatch;
+interface ScriptToken {
+    word: string;
+    sentenceIndex: number;
+    originalIndex: number;
 }
 
 /**
- * Align a single sentence with Vosk words
+ * Perform Global Alignment using Needleman-Wunsch algorithm
+ * Maps each script token to a Vosk word index (or null)
  */
-function alignSentence(
-    sentence: string,
-    voskWords: VoskWord[],
-    voskStartIndex: number,
-    config: AlignmentConfig
-): { segment: Segment; endIndex: number } | null {
-    const words = normalizeText(sentence).split(/\s+/).filter(w => w.length > 0);
+function performGlobalAlignment(scriptTokens: ScriptToken[], voskWords: VoskWord[], config: AlignmentConfig): (number | null)[] {
+    const n = scriptTokens.length;
+    const m = voskWords.length;
 
-    if (words.length === 0) {
-        return null;
+    // DP Matrix: score[i][j]
+    // We use a flat array to represent 2D matrix for slightly better memory layout, 
+    // but array-of-arrays is easier to debug. Let's use array of arrays.
+    // Dimensions: (n+1) x (m+1)
+    const score: number[][] = Array(n + 1).fill(0).map(() => Array(m + 1).fill(0));
+    const direction: number[][] = Array(n + 1).fill(0).map(() => Array(m + 1).fill(0));
+    // Directions: 0=Stop, 1=Diagonal(Match), 2=Up(Gap in Vosk), 3=Left(Gap in Script)
+
+    // Penalties
+    const GAP_PENALTY = -1;
+    const MISMATCH_PENALTY = -2;
+    const MATCH_BONUS = 5;
+
+    // Initialize boundaries
+    for (let i = 0; i <= n; i++) {
+        score[i][0] = i * GAP_PENALTY;
+        direction[i][0] = 2; // Up
+    }
+    for (let j = 0; j <= m; j++) {
+        score[0][j] = j * GAP_PENALTY;
+        direction[0][j] = 3; // Left
     }
 
-    // Find first word match
-    const firstMatch = findBestMatch(words[0], voskWords, voskStartIndex, config);
-    if (!firstMatch) {
-        console.warn('Could not find match for first word:', words[0]);
-        return null;
-    }
+    // Fill Matrix
+    // Optimization: We can limit the search band (j must be close to i * ratio)
+    // But for N, M < 5000, full matrix is ~25M entries, might be heavy for browser.
+    // Let's implement a simple banded check if N*M > 10,000,000
 
-    // Find last word match
-    let lastMatch = firstMatch;
-    let currentVoskIndex = firstMatch.index + 1;
+    const ratio = m / n;
+    const bandSize = Math.max(50, m * 0.2); // 20% buffer or 50 words
 
-    for (let i = 1; i < words.length; i++) {
-        const match = findBestMatch(words[i], voskWords, currentVoskIndex, config);
-        if (match) {
-            lastMatch = match;
-            currentVoskIndex = match.index + 1;
-        } else {
-            // If we can't find a match, try to continue from current position
-            console.warn('Could not find match for word:', words[i]);
+    for (let i = 1; i <= n; i++) {
+        const centerJ = Math.floor(i * ratio);
+        const startJ = Math.max(1, centerJ - bandSize);
+        const endJ = Math.min(m, centerJ + bandSize);
+
+        for (let j = startJ; j <= endJ; j++) {
+            const scriptWord = scriptTokens[i - 1].word;
+            const voskWord = voskWords[j - 1].word;
+
+            const similarity = fuzzyMatchWord(scriptWord, voskWord);
+            const isMatch = similarity >= config.fuzzyMatchThreshold;
+
+            const matchScore = isMatch
+                ? MATCH_BONUS * similarity
+                : MISMATCH_PENALTY;
+
+            const diagonal = score[i - 1][j - 1] + matchScore;
+            const up = score[i - 1][j] + GAP_PENALTY;
+            const left = score[i][j - 1] + GAP_PENALTY;
+
+            if (diagonal >= up && diagonal >= left) {
+                score[i][j] = diagonal;
+                direction[i][j] = 1;
+            } else if (up >= left) {
+                score[i][j] = up;
+                direction[i][j] = 2;
+            } else {
+                score[i][j] = left;
+                direction[i][j] = 3;
+            }
         }
     }
 
-    // Create segment with timestamps
-    const startTime = voskWords[firstMatch.index].start;
-    const endTime = voskWords[lastMatch.index].end;
+    // Traceback
+    const mapping: (number | null)[] = new Array(n).fill(null);
+    let i = n;
+    let j = m;
 
-    return {
-        segment: {
-            id: `seg_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
-            text: sentence,
-            start: startTime,
-            end: endTime
-        },
-        endIndex: lastMatch.index + 1
-    };
+    while (i > 0 && j > 0) {
+        // If we are outside the computed band (due to band logic), just go diagonally or greedy
+        // But our initialization handles 0-indices, so we just need to be careful if we hit uncomputed cells (0)
+        // Since we initialized with 0 and valid scores are likely non-zero or negative, 
+        // uncomputed cells might be an issue. 
+        // Ideally we should initialize with -Infinity.
+        // For now, assuming the band covered the optimal path.
+
+        const dir = direction[i][j];
+
+        if (dir === 1) { // Diagonal (Match or Mismatch)
+            // Only map if it was actually a good match
+            const scriptWord = scriptTokens[i - 1].word;
+            const voskWord = voskWords[j - 1].word;
+            if (fuzzyMatchWord(scriptWord, voskWord) >= config.fuzzyMatchThreshold) {
+                mapping[i - 1] = j - 1;
+            }
+            i--;
+            j--;
+        } else if (dir === 2) { // Up (Gap in Vosk / Script word skipped)
+            i--;
+        } else if (dir === 3) { // Left (Gap in Script / Vosk word skipped)
+            j--;
+        } else {
+            // Should not happen if logic is correct, but if we hit boundary
+            if (i > 0) i--;
+            else if (j > 0) j--;
+        }
+    }
+
+    return mapping;
 }
 
 /**
  * Main alignment function: Aligns script sentences with Vosk word timestamps
- * 
- * @param script The correct script text
- * @param voskWords Array of recognized words with timestamps
- * @param config Optional configuration for alignment
- * @returns Array of segments with aligned timestamps
+ * Uses Global Alignment for robustness.
  */
 export function alignSegments(
     script: string,
@@ -197,52 +224,110 @@ export function alignSegments(
 ): Segment[] {
     const finalConfig: AlignmentConfig = { ...DEFAULT_CONFIG, ...config };
 
-    // Handle edge case: no Vosk results
     if (!voskWords || voskWords.length === 0) {
         console.warn('No Vosk words provided for alignment');
         return [];
     }
 
-    // Split script into sentences/lines
+    // 1. Prepare Script Tokens
     const sentences = splitIntoSentences(script);
-    console.log(`Split script into ${sentences.length} segments`);
+    const scriptTokens: ScriptToken[] = [];
 
-    if (sentences.length === 0) {
-        console.warn('No sentences found in script');
+    sentences.forEach((sentence, sIdx) => {
+        const words = normalizeText(sentence).split(/\s+/).filter(w => w.length > 0);
+        words.forEach(word => {
+            scriptTokens.push({
+                word,
+                sentenceIndex: sIdx,
+                originalIndex: scriptTokens.length
+            });
+        });
+    });
+
+    if (scriptTokens.length === 0) {
         return [];
     }
 
+    console.log(`Starting Global Alignment: ${scriptTokens.length} script words vs ${voskWords.length} audio words`);
+
+    // 2. Run Global Alignment
+    const mapping = performGlobalAlignment(scriptTokens, voskWords, finalConfig);
+
+    // 3. Construct Segments
     const segments: Segment[] = [];
-    let currentVoskIndex = 0;
 
-    for (const sentence of sentences) {
-        const result = alignSentence(sentence, voskWords, currentVoskIndex, finalConfig);
+    // Group tokens by sentence
+    for (let sIdx = 0; sIdx < sentences.length; sIdx++) {
+        const sentenceTokens = scriptTokens.filter(t => t.sentenceIndex === sIdx);
+        if (sentenceTokens.length === 0) continue;
 
-        if (result) {
-            segments.push(result.segment);
-            currentVoskIndex = result.endIndex;
+        // Find matched Vosk words for this sentence
+        const matchedVoskIndices = sentenceTokens
+            .map(t => mapping[t.originalIndex])
+            .filter(idx => idx !== null) as number[];
+
+        if (matchedVoskIndices.length > 0) {
+            // We have matches!
+            const startVoskIdx = Math.min(...matchedVoskIndices);
+            const endVoskIdx = Math.max(...matchedVoskIndices);
+
+            segments.push({
+                id: `seg_${Date.now()}_${sIdx}`,
+                text: sentences[sIdx],
+                start: voskWords[startVoskIdx].start,
+                end: voskWords[endVoskIdx].end
+            });
         } else {
-            console.warn('Failed to align sentence:', sentence);
-
-            // Try to create a segment with estimated timing
-            if (segments.length > 0 && currentVoskIndex < voskWords.length) {
-                const lastSegment = segments[segments.length - 1];
-                const estimatedStart = lastSegment.end;
-                const estimatedEnd = currentVoskIndex < voskWords.length
-                    ? voskWords[currentVoskIndex].end
-                    : estimatedStart + 2.0; // Estimate 2 seconds
-
-                segments.push({
-                    id: `seg_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
-                    text: sentence,
-                    start: estimatedStart,
-                    end: estimatedEnd
-                });
-            }
+            // No matches for this sentence (Gap)
+            // We will fill this in Step 4
+            segments.push({
+                id: `seg_${Date.now()}_${sIdx}`,
+                text: sentences[sIdx],
+                start: -1, // Marker for interpolation
+                end: -1
+            });
         }
     }
 
-    console.log(`Generated ${segments.length} aligned segments`);
+    // 4. Interpolate Gaps
+    // We have some segments with -1 start/end. We need to fill them.
+
+    for (let i = 0; i < segments.length; i++) {
+        if (segments[i].start === -1) {
+            // Find previous valid segment
+            let prevValidIdx = i - 1;
+            while (prevValidIdx >= 0 && segments[prevValidIdx].start === -1) {
+                prevValidIdx--;
+            }
+
+            // Find next valid segment
+            let nextValidIdx = i + 1;
+            while (nextValidIdx < segments.length && segments[nextValidIdx].start === -1) {
+                nextValidIdx++;
+            }
+
+            const prevEnd = prevValidIdx >= 0 ? segments[prevValidIdx].end : 0;
+            const nextStart = nextValidIdx < segments.length ? segments[nextValidIdx].start : (voskWords[voskWords.length - 1].end);
+
+            // How many gaps to fill?
+            const gapCount = nextValidIdx - prevValidIdx - 1;
+            const totalGapDuration = nextStart - prevEnd;
+            const durationPerSegment = Math.max(0.5, totalGapDuration / gapCount); // At least 0.5s
+
+            // Fill current gap and subsequent gaps in this block
+            let currentStart = prevEnd;
+            for (let k = prevValidIdx + 1; k < nextValidIdx; k++) {
+                segments[k].start = parseFloat(currentStart.toFixed(2));
+                segments[k].end = parseFloat((currentStart + durationPerSegment).toFixed(2));
+                currentStart += durationPerSegment;
+            }
+
+            // Skip outer loop to end of this block
+            i = nextValidIdx - 1;
+        }
+    }
+
+    console.log(`Generated ${segments.length} globally aligned segments`);
     return segments;
 }
 

@@ -29,13 +29,28 @@
               {
                 "glob": "**/*",
                 "input": "public"
+              },
+              {
+                "glob": "**/*",
+                "input": "src/assets",
+                "output": "/assets"
+              },
+              {
+                "glob": "**/*",
+                "input": "node_modules/@xenova/transformers/dist/",
+                "output": "/assets/transformers/"
               }
             ],
             "styles": [
               "src/styles.scss",
               "node_modules/primeflex/primeflex.css"
             ],
-            "scripts": []
+            "scripts": [],
+            "allowedCommonJsDependencies": [
+              "diff-match-patch",
+              "wavesurfer.js",
+              "vosk-browser"
+            ]
           },
           "configurations": {
             "production": {

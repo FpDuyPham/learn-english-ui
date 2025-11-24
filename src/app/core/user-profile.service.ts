@@ -86,7 +86,7 @@ export class UserProfileService {
             achievements: this.initializeAchievements(),
             dailyMissions: this.generateDailyMissions()
         };
-        this.saveProfile(defaultProfile);
+        localStorage.setItem(this.STORAGE_KEY, JSON.stringify(defaultProfile));
         return defaultProfile;
     }
 

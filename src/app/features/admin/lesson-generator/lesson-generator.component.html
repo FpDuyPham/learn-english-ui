@@ -1,192 +1,105 @@
-<div class="min-h-screen surface-ground p-4">
-    <div class="card">
-        <p-steps [model]="items" [(activeIndex)]="activeIndex" [readonly]="false" styleClass="mb-5"></p-steps>
+<p-toast></p-toast>
+
+<div class="card">
+    <h1 class="text-2xl font-bold mb-6">Lesson Generator</h1>
+
+    <p-steps [model]="steps" [(activeIndex)]="activeIndex" [readonly]="false"
+        (activeIndexChange)="onActiveIndexChange($event)" styleClass="mb-6"></p-steps>
+
+    <!-- Step 1: Upload & Configure -->
+    <div *ngIf="activeIndex === 0" class="p-4 border-round surface-card shadow-1">
+        <h2 class="text-xl font-semibold mb-4">Upload & Configure</h2>
+
+        <div class="grid">
+            <div class="col-12 md:col-6">
+                <h3 class="font-medium mb-3">Audio File</h3>
+                <p-fileUpload mode="advanced" [customUpload]="true" (onSelect)="onFileSelect($event)"
+                    [showUploadButton]="false" [showCancelButton]="false" chooseLabel="Select Audio" accept="audio/*"
+                    [maxFileSize]="50000000" styleClass="w-full">
+                    <ng-template pTemplate="content">
+                        <div *ngIf="!selectedFile"
+                            class="flex flex-column align-items-center justify-content-center p-5">
+                            <i class="pi pi-cloud-upload text-5xl text-primary mb-3"></i>
+                            <p class="m-0">Drag and drop audio file here</p>
+                        </div>
+                    </ng-template>
+                </p-fileUpload>
+            </div>
+
+            <div class="col-12 md:col-6">
+                <h3 class="font-medium mb-3">Correct Script</h3>
+                <textarea pInputTextarea [(ngModel)]="scriptText" rows="10" class="w-full"
+                    placeholder="Paste your script here..."></textarea>
+            </div>
+        </div>
+
+        <div class="flex justify-content-end mt-4">
+            <p-button label="Next Step" icon="pi pi-arrow-right" iconPos="right" (onClick)="nextStep()"
+                [disabled]="!selectedFile || !scriptText"></p-button>
+        </div>
     </div>
 
-    <div class="container mx-auto max-w-7xl mt-4">
+    <!-- Step 2: Waveform & Visualization -->
+    <!-- Use [hidden] to keep Wavesurfer instance alive -->
+    <div [class.hidden]="activeIndex !== 1" class="p-4 border-round surface-card shadow-1">
+        <h2 class="text-xl font-semibold mb-4">Waveform & Visualization</h2>
 
-        <!-- Phase 1: Upload & Configure -->
-        <div *ngIf="activeIndex === 0">
-            <p-card header="Upload & Configure" subheader="Select audio and provide the script">
-                <div class="grid formgrid p-fluid">
-                    <div class="col-12 md:col-6 mb-4">
-                        <h3 class="text-xl font-semibold mb-3">Audio File</h3>
-                        <p-fileUpload mode="advanced" chooseLabel="Select Audio" accept="audio/*"
-                            [maxFileSize]="50000000" (onSelect)="onAudioSelect($event)" [auto]="true"
-                            [customUpload]="true" (uploadHandler)="onUploadHandler($event)">
-                            <ng-template pTemplate="content">
-                                <div *ngIf="audioFile"
-                                    class="flex align-items-center justify-content-center flex-column">
-                                    <i class="pi pi-file-audio text-4xl text-primary mb-2"></i>
-                                    <span class="font-semibold">{{audioFile.name}}</span>
-                                </div>
-                                <div *ngIf="!audioFile"
-                                    class="flex align-items-center justify-content-center flex-column text-gray-500">
-                                    <i class="pi pi-cloud-upload text-4xl mb-2"></i>
-                                    <span>Drag and drop audio file here</span>
-                                </div>
-                            </ng-template>
-                        </p-fileUpload>
-                    </div>
-
-                    <div class="col-12 md:col-6 mb-4">
-                        <h3 class="text-xl font-semibold mb-3">Correct Script</h3>
-                        <p-floatLabel>
-                            <textarea id="script" rows="10" cols="30" pInputTextarea [(ngModel)]="script"
-                                [autoResize]="true" class="w-full" style="min-height: 250px; font-family: monospace;">
-                            </textarea>
-                            <label for="script">Paste your script here...</label>
-                        </p-floatLabel>
-                        <small class="block mt-2 text-gray-600">
-                            Format: One sentence per line for dialogue, or paragraphs for narrative.
-                        </small>
-                    </div>
-                </div>
-
-                <ng-template pTemplate="footer">
-                    <div class="flex justify-content-end gap-2">
-                        <button pButton label="Generate Segments" icon="pi pi-cog"
-                            [loading]="processingState.isProcessing" [disabled]="!audioFile || !script.trim()"
-                            (click)="generateSegments()">
-                        </button>
-                    </div>
-
-                    <div *ngIf="processingState.isProcessing" class="mt-3">
-                        <div class="flex justify-content-between mb-1">
-                            <span class="text-primary font-semibold">{{ processingState.currentStep }}</span>
-                            <span class="text-primary font-bold">{{ processingState.progress }}%</span>
-                        </div>
-                        <div class="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700">
-                            <div class="bg-primary h-2.5 rounded-full" [style.width.%]="processingState.progress"></div>
-                        </div>
-                    </div>
-                </ng-template>
-            </p-card>
+        <!-- Progress Bar -->
+        <div *ngIf="isProcessing || progress > 0" class="mb-4">
+            <div class="flex justify-content-between mb-2">
+                <span class="font-medium">{{ progressStatus }}</span>
+                <span>{{ progress | number:'1.0-0' }}%</span>
+            </div>
+            <p-progressBar [value]="progress" [showValue]="false"></p-progressBar>
         </div>
 
-        <!-- Phase 2: Waveform & Visualization -->
-        <div *ngIf="activeIndex === 1">
-            <p-panel header="Waveform Visualization">
-                <!-- Alignment Warnings Panel -->
-                <p-panel *ngIf="alignmentWarnings.length > 0" header="Alignment Warnings" [toggleable]="true"
-                    styleClass="mb-4">
-                    <div class="bg-yellow-50 border-yellow-200 border-1 border-round p-3">
-                        <div class="flex align-items-center mb-2">
-                            <i class="pi pi-exclamation-triangle text-yellow-600 mr-2"></i>
-                            <strong class="text-yellow-800">{{ alignmentWarnings.length }} words could not be
-                                matched</strong>
-                        </div>
-                        <p class="text-sm text-gray-700 mb-2">
-                            These words from your script were not found in the audio transcription.
-                        </p>
-                        <div class="flex flex-wrap gap-2">
-                            <span *ngFor="let word of alignmentWarnings"
-                                class="inline-block bg-yellow-100 text-yellow-800 px-2 py-1 rounded text-sm border border-yellow-300">
-                                {{ word }}
-                            </span>
-                        </div>
-                    </div>
-                </p-panel>
-
-                <p-toolbar styleClass="mb-4">
-                    <div class="p-toolbar-group-start">
-                        <button pButton icon="pi pi-play" class="mr-2" (click)="togglePlayPause()"
-                            pTooltip="Play/Pause"></button>
-                        <button pButton icon="pi pi-search-plus" class="mr-2" (click)="zoomIn()"
-                            pTooltip="Zoom In"></button>
-                        <button pButton icon="pi pi-search-minus" (click)="zoomOut()" pTooltip="Zoom Out"></button>
-                    </div>
-                    <div class="p-toolbar-group-end">
-                        <button pButton label="Next: Edit Segments" icon="pi pi-arrow-right"
-                            (click)="activeIndex = 2"></button>
-                    </div>
-                </p-toolbar>
-
-                <div class="surface-border border-1 border-round p-3 bg-white">
-                    <div id="waveform"></div>
-                </div>
-
-                <div class="mt-3 text-center text-gray-600">
-                    <small>Click on a region to play it. Drag edges to adjust timing.</small>
-                </div>
-            </p-panel>
+        <!-- Waveform Container -->
+        <div class="border-1 surface-border border-round p-3 surface-ground mb-4">
+            <div #waveform class="w-full"></div>
         </div>
 
-        <!-- Phase 3: Edit Segments -->
-        <div *ngIf="activeIndex === 2">
-            <p-card>
-                <p-table [value]="segments()" [scrollable]="true" scrollHeight="600px" styleClass="p-datatable-striped"
-                    [tableStyle]="{'min-width': '50rem'}">
+        <div class="flex justify-content-between mt-4">
+            <p-button label="Back" icon="pi pi-arrow-left" styleClass="p-button-secondary p-button-text"
+                (onClick)="prevStep()"></p-button>
+            <p-button label="Next Step" icon="pi pi-arrow-right" iconPos="right" (onClick)="nextStep()"
+                [disabled]="isProcessing || !segments.length"></p-button>
+        </div>
+    </div>
 
-                    <ng-template pTemplate="header">
-                        <tr>
-                            <th style="width: 5%">#</th>
-                            <th style="width: 25%">Timing (Start - End)</th>
-                            <th style="width: 50%">Content</th>
-                            <th style="width: 20%">Actions</th>
-                        </tr>
-                    </ng-template>
+    <!-- Step 3: Edit Segments -->
+    <div *ngIf="activeIndex === 2" class="p-4 border-round surface-card shadow-1">
+        <h2 class="text-xl font-semibold mb-4">Edit Segments</h2>
 
-                    <ng-template pTemplate="body" let-segment let-rowIndex="rowIndex">
-                        <tr [class.bg-blue-50]="segment.id === activeSegmentId">
-                            <td>
-                                <span class="font-bold text-lg text-primary">{{ rowIndex + 1 }}</span>
-                            </td>
-                            <td>
-                                <div class="flex align-items-center gap-2">
-                                    <p-inputNumber [(ngModel)]="segment.start" [minFractionDigits]="2"
-                                        [maxFractionDigits]="2" [step]="0.1"
-                                        (onInput)="updateSegmentTiming(segment.id, +$event.value!, segment.end)"
-                                        inputStyleClass="w-6rem text-center">
-                                    </p-inputNumber>
-                                    <span>-</span>
-                                    <p-inputNumber [(ngModel)]="segment.end" [minFractionDigits]="2"
-                                        [maxFractionDigits]="2" [step]="0.1"
-                                        (onInput)="updateSegmentTiming(segment.id, segment.start, +$event.value!)"
-                                        inputStyleClass="w-6rem text-center">
-                                    </p-inputNumber>
-                                </div>
-                                <div class="text-xs text-gray-500 mt-1 text-center">
-                                    Duration: {{ (segment.end - segment.start).toFixed(2) }}s
-                                </div>
-                            </td>
-                            <td>
-                                <input pInputText type="text" [(ngModel)]="segment.text"
-                                    (ngModelChange)="updateSegmentText(segment.id, $event)"
-                                    class="w-full font-serif text-lg">
-                            </td>
-                            <td>
-                                <div class="flex gap-2">
-                                    <button pButton icon="pi pi-play"
-                                        class="p-button-rounded p-button-text p-button-success"
-                                        (click)="playSegment(segment.id)" pTooltip="Play Segment">
-                                    </button>
-                                    <button pButton icon="pi pi-trash"
-                                        class="p-button-rounded p-button-text p-button-danger"
-                                        (click)="deleteSegment(segment.id)" pTooltip="Delete Segment">
-                                    </button>
-                                </div>
-                            </td>
-                        </tr>
-                    </ng-template>
+        <p-table [value]="segments" [scrollable]="true" scrollHeight="400px" styleClass="p-datatable-sm mb-4">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th style="width: 200px">Time</th>
+                    <th>Text</th>
+                    <th style="width: 100px" class="text-right">Action</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-seg>
+                <tr>
+                    <td class="font-mono text-sm">
+                        {{ seg.start | number:'1.2-2' }} - {{ seg.end | number:'1.2-2' }}
+                    </td>
+                    <td>
+                        <input pInputText type="text" [(ngModel)]="seg.text"
+                            class="w-full border-none bg-transparent p-0">
+                    </td>
+                    <td class="text-right">
+                        <button pButton icon="pi pi-play" class="p-button-text p-button-rounded p-button-sm"
+                            (click)="wavesurfer?.setTime(seg.start); wavesurfer?.play()"></button>
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table>
 
-                    <ng-template pTemplate="footer">
-                        <tr>
-                            <td colspan="4">
-                                <div class="flex justify-content-between align-items-center w-full">
-                                    <button pButton label="Add New Segment" icon="pi pi-plus" class="p-button-text"
-                                        (click)="addNewSegment()">
-                                    </button>
-
-                                    <button pButton label="Export Lesson" icon="pi pi-download" class="p-button-success"
-                                        (click)="exportJSON()">
-                                    </button>
-                                </div>
-                            </td>
-                        </tr>
-                    </ng-template>
-                </p-table>
-            </p-card>
+        <div class="flex justify-content-between mt-4">
+            <p-button label="Back" icon="pi pi-arrow-left" styleClass="p-button-secondary p-button-text"
+                (onClick)="prevStep()"></p-button>
+            <p-button label="Export JSON" icon="pi pi-download" styleClass="p-button-success"
+                (onClick)="exportJson()"></p-button>
         </div>
     </div>
 </div>

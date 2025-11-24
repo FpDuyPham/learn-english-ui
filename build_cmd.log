@@ -1,0 +1,85 @@
+
+> learn-english-ui@0.0.0 build
+> ng build
+
+[33m❯[39m Building...
+[32m✔[39m Building...
+[1mInitial chunk files[22m  [2m | [22m[1mNames[22m                           [2m | [22m [1mRaw size[22m[2m | [22m[1mEstimated transfer size[22m
+[32mmain-YLURKFGI.js[39m     [2m | [22m[2mmain[22m                            [2m | [22m[36m495.56 kB[39m[2m | [22m               [36m31.29 kB[39m
+[32mstyles-MQFER7EH.css[39m  [2m | [22m[2mstyles[22m                          [2m | [22m[36m360.38 kB[39m[2m | [22m               [36m19.95 kB[39m
+[32mchunk-3F5Y2NSN.js[39m    [2m | [22m[2m-[22m                               [2m | [22m[36m219.17 kB[39m[2m | [22m               [36m50.05 kB[39m
+[32mchunk-PIVFGHYF.js[39m    [2m | [22m[2m-[22m                               [2m | [22m[36m194.62 kB[39m[2m | [22m               [36m55.36 kB[39m
+[32mchunk-VWZOQU4H.js[39m    [2m | [22m[2m-[22m                               [2m | [22m [36m36.85 kB[39m[2m | [22m                [36m7.87 kB[39m
+[32mpolyfills-FFHMD2TL.js[39m[2m | [22m[2mpolyfills[22m                       [2m | [22m [36m34.52 kB[39m[2m | [22m               [36m11.28 kB[39m
+[32mchunk-AFNZG5AR.js[39m    [2m | [22m[2m-[22m                               [2m | [22m [36m10.45 kB[39m[2m | [22m                [36m3.09 kB[39m
+[32mchunk-6EBMRDTY.js[39m    [2m | [22m[2m-[22m                               [2m | [22m  [36m9.89 kB[39m[2m | [22m                [36m2.55 kB[39m
+[32mchunk-ABXW4UHX.js[39m    [2m | [22m[2m-[22m                               [2m | [22m  [36m6.71 kB[39m[2m | [22m                [36m2.10 kB[39m
+[32mchunk-4STQ2ZMG.js[39m    [2m | [22m[2m-[22m                               [2m | [22m  [36m6.39 kB[39m[2m | [22m                [36m2.34 kB[39m
+[32mchunk-MM4B5YRZ.js[39m    [2m | [22m[2m-[22m                               [2m | [22m  [36m4.60 kB[39m[2m | [22m                [36m1.48 kB[39m
+[32mchunk-4YRY4IP2.js[39m    [2m | [22m[2m-[22m                               [2m | [22m  [36m4.35 kB[39m[2m | [22m                [36m1.08 kB[39m
+[32mchunk-4BTIH3RW.js[39m    [2m | [22m[2m-[22m                               [2m | [22m  [36m3.00 kB[39m[2m | [22m                [36m1.32 kB[39m
+
+[1m [22m                    [2m | [22m[1mInitial total[22m                   [2m | [22m  [1m1.39 MB[22m[2m | [22m              [1m189.77 kB[22m
+
+[1mLazy chunk files[22m     [2m | [22m[1mNames[22m                           [2m | [22m [1mRaw size[22m[2m | [22m[1mEstimated transfer size[22m
+[32mchunk-2M46ASWI.js[39m    [2m | [22m[2m-[22m                               [2m | [22m  [36m5.79 MB[39m[2m | [22m                [36m1.59 MB[39m
+[32mworker-D5C2C6ZM.js[39m   [2m | [22m[2mwhisper-worker[22m                  [2m | [22m[36m769.88 kB[39m[2m | [22m              [36m155.63 kB[39m
+[32mchunk-AV75UAJQ.js[39m    [2m | [22m[2m-[22m                               [2m | [22m[36m341.76 kB[39m[2m | [22m               [36m60.86 kB[39m
+[32mchunk-P6CATQTV.js[39m    [2m | [22m[2m-[22m                               [2m | [22m [36m98.81 kB[39m[2m | [22m               [36m28.81 kB[39m
+[32mchunk-FMLYXF6F.js[39m    [2m | [22m[2m-[22m                               [2m | [22m [36m86.01 kB[39m[2m | [22m               [36m18.63 kB[39m
+[32mchunk-XYVN7P27.js[39m    [2m | [22m[2maudio-splitter-component[22m        [2m | [22m [36m70.73 kB[39m[2m | [22m               [36m14.56 kB[39m
+[32mchunk-E2VDEZBB.js[39m    [2m | [22m[2mbrowser[22m                         [2m | [22m [36m63.60 kB[39m[2m | [22m               [36m16.85 kB[39m
+[32mchunk-WBYMAPNJ.js[39m    [2m | [22m[2mshadowing-trainer-component[22m     [2m | [22m [36m55.41 kB[39m[2m | [22m               [36m13.01 kB[39m
+[32mchunk-S5HDI7G4.js[39m    [2m | [22m[2m-[22m                               [2m | [22m [36m45.79 kB[39m[2m | [22m               [36m10.79 kB[39m
+[32mchunk-AOSHUSWZ.js[39m    [2m | [22m[2mlisten-and-write-component[22m      [2m | [22m [36m45.23 kB[39m[2m | [22m               [36m10.48 kB[39m
+[32mchunk-SQ7GMDNW.js[39m    [2m | [22m[2mlesson-generator-component[22m      [2m | [22m [36m42.58 kB[39m[2m | [22m               [36m12.87 kB[39m
+[32mchunk-YSZDLMP6.js[39m    [2m | [22m[2mshadowing-article-list-component[22m[2m | [22m [36m33.53 kB[39m[2m | [22m                [36m6.44 kB[39m
+[32mchunk-Z6RUEIVY.js[39m    [2m | [22m[2m-[22m                               [2m | [22m [36m33.13 kB[39m[2m | [22m                [36m9.21 kB[39m
+[32mchunk-ER4TG4LA.js[39m    [2m | [22m[2mipa-list-component[22m              [2m | [22m [36m30.70 kB[39m[2m | [22m                [36m7.82 kB[39m
+[32mchunk-TOYV4Q2X.js[39m    [2m | [22m[2m-[22m                               [2m | [22m [36m26.86 kB[39m[2m | [22m                [36m3.52 kB[39m
+[2m...and 20 more lazy chunks files. Use "--verbose" to show all the files.[22m
+
+Application bundle generation failed. [19.969 seconds]
+
+[1m[33m[33m▲ [43;33m[[43;30mWARNING[43;33m][0m [1msrc/app/features/shadowing/shadowing-trainer/shadowing-trainer.component.scss exceeded maximum budget. Budget 2.05 kB was not met by 8.89 kB with a total of 10.94 kB.[0m
+
+
+[33m▲ [43;33m[[43;30mWARNING[43;33m][0m [1msrc/app/features/shadowing/shadowing-article-list/shadowing-article-list.component.scss exceeded maximum budget. Budget 2.05 kB was not met by 2.56 kB with a total of 4.61 kB.[0m
+
+
+[33m▲ [43;33m[[43;30mWARNING[43;33m][0m [1mModule 'vosk-browser' used by 'src/app/core/vosk.service.ts' is not ESM[0m
+
+  CommonJS or AMD dependencies can cause optimization bailouts.
+  For more information see: [4mhttps://angular.dev/tools/cli/build#configuring-commonjs-dependencies[0m
+
+
+[33m▲ [43;33m[[43;30mWARNING[43;33m][0m [1mModule 'pitchfinder' used by 'src/app/core/services/audio-analysis.service.ts' is not ESM[0m
+
+  CommonJS or AMD dependencies can cause optimization bailouts.
+  For more information see: [4mhttps://angular.dev/tools/cli/build#configuring-commonjs-dependencies[0m
+
+
+[33m▲ [43;33m[[43;30mWARNING[43;33m][0m [1mModule 'sharp' used by 'node_modules/@xenova/transformers/src/utils/image.js' is not ESM[0m
+
+  CommonJS or AMD dependencies can cause optimization bailouts.
+  For more information see: [4mhttps://angular.dev/tools/cli/build#configuring-commonjs-dependencies[0m
+
+
+[33m▲ [43;33m[[43;30mWARNING[43;33m][0m [1mModule 'onnxruntime-node' used by 'node_modules/@xenova/transformers/src/backends/onnx.js' is not ESM[0m
+
+  CommonJS or AMD dependencies can cause optimization bailouts.
+  For more information see: [4mhttps://angular.dev/tools/cli/build#configuring-commonjs-dependencies[0m
+
+
+[33m▲ [43;33m[[43;30mWARNING[43;33m][0m [1mModule 'onnxruntime-web' used by 'node_modules/@xenova/transformers/src/backends/onnx.js' is not ESM[0m
+
+  CommonJS or AMD dependencies can cause optimization bailouts.
+  For more information see: [4mhttps://angular.dev/tools/cli/build#configuring-commonjs-dependencies[0m
+
+[39m[22m
+[1m[31m[31mX [41;31m[[41;97mERROR[41;31m][0m [1msrc/app/features/shadowing/shadowing-trainer/shadowing-trainer.component.scss exceeded maximum budget. Budget 4.10 kB was not met by 6.84 kB with a total of 10.94 kB.[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1msrc/app/features/shadowing/shadowing-article-list/shadowing-article-list.component.scss exceeded maximum budget. Budget 4.10 kB was not met by 511 bytes with a total of 4.61 kB.[0m
+
+[39m[22m
