@@ -1,0 +1,102 @@
+<div class="exercise-edit-container p-4">
+  <div class="max-w-4xl mx-auto">
+    <p-card styleClass="mb-4 shadow-3">
+      <ng-template pTemplate="header">
+        <div class="flex align-items-center gap-3 p-3">
+          <i class="pi pi-pencil text-4xl text-primary"></i>
+          <div class="flex-1">
+            <h1 class="text-3xl font-bold m-0 text-900">Edit Exercise</h1>
+            <p class="text-600 m-0 mt-1">Update exercise details and configuration</p>
+          </div>
+        </div>
+      </ng-template>
+
+      <div class="p-fluid" *ngIf="exerciseForm">
+        <form [formGroup]="exerciseForm" (ngSubmit)="onSubmit()">
+          <div class="surface-section border-round p-4 mb-4">
+            <h3 class="text-xl font-semibold mb-4 text-800 flex align-items-center gap-2">
+              <i class="pi pi-info-circle text-primary"></i>
+              Basic Information
+            </h3>
+
+            <div class="field mb-4">
+              <p-floatLabel>
+                <input pInputText id="name" formControlName="name" class="w-full" />
+                <label for="name">Exercise Name *</label>
+              </p-floatLabel>
+              <small *ngIf="exerciseForm.get('name')?.invalid && exerciseForm.get('name')?.touched"
+                class="p-error block mt-2">
+                <i class="pi pi-times-circle mr-1"></i>
+                Exercise name is required
+              </small>
+            </div>
+
+            <div class="field">
+              <p-floatLabel>
+                <textarea pInputTextarea id="description" formControlName="description" rows="4"
+                  class="w-full"></textarea>
+                <label for="description">Description (Optional)</label>
+              </p-floatLabel>
+            </div>
+          </div>
+
+          <div class="surface-section border-round p-4 mb-4" *ngIf="exercise">
+            <h3 class="text-xl font-semibold mb-4 text-800 flex align-items-center gap-2">
+              <i class="pi pi-chart-bar text-primary"></i>
+              Exercise Statistics
+            </h3>
+
+            <div class="grid">
+              <div class="col-12 md:col-4">
+                <div class="surface-card border-round p-3 text-center">
+                  <div class="text-500 text-sm mb-2">Total Sentences</div>
+                  <div class="text-3xl font-bold text-primary">
+                    {{ exercise.sentences?.length || 0 }}
+                  </div>
+                </div>
+              </div>
+              <div class="col-12 md:col-4">
+                <div class="surface-card border-round p-3 text-center">
+                  <div class="text-500 text-sm mb-2">Exercise ID</div>
+                  <div class="text-3xl font-bold text-600">
+                    #{{ exercise.id }}
+                  </div>
+                </div>
+              </div>
+              <div class="col-12 md:col-4">
+                <div class="surface-card border-round p-3 text-center">
+                  <div class="text-500 text-sm mb-2">Status</div>
+                  <p-tag [value]="exercise.sentences?.length > 0 ? 'Active' : 'Empty'"
+                    [severity]="exercise.sentences?.length > 0 ? 'success' : 'warn'">
+                  </p-tag>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="surface-section border-round p-4 mb-4">
+            <h3 class="text-xl font-semibold mb-4 text-800 flex align-items-center gap-2">
+              <i class="pi pi-volume-up text-primary"></i>
+              Audio & Sentences
+            </h3>
+            <app-audio-splitter [isEmbedded]="true" [exerciseIdInput]="exerciseId"
+              (onSegmentsChange)="onSegmentsChange($event)"></app-audio-splitter>
+          </div>
+
+          <div class="flex gap-3 justify-content-end pt-3 border-top-1 surface-border">
+            <p-button label="Cancel" icon="pi pi-times" severity="secondary" [outlined]="true"
+              (onClick)="router.navigate(['/exercises'])" [disabled]="isSubmitting"></p-button>
+
+            <p-button label="Save Changes" icon="pi pi-check" severity="success" type="submit"
+              [disabled]="!exerciseForm.valid || isSubmitting" [loading]="isSubmitting"></p-button>
+          </div>
+        </form>
+      </div>
+
+      <div *ngIf="!exerciseForm" class="text-center p-5">
+        <p-progressSpinner styleClass="w-4rem h-4rem"></p-progressSpinner>
+        <p class="text-600 mt-3">Loading exercise data...</p>
+      </div>
+    </p-card>
+  </div>
+</div>

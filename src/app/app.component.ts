@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { ConfiguratorComponent } from './ui/configurator/configurator.component';
+import { ConfiguratorComponent } from './shared/configurator/configurator.component';
 import { HeaderComponent } from './shared/header/header.component';
-import { UserProfileService } from './core/user-profile.service';
+import { UserProfileService } from './domains/user/user.api';
 
 @Component({
   selector: 'app-root',

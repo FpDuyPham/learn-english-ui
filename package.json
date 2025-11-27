@@ -31,6 +31,7 @@
     "primeflex": "^4.0.0",
     "primeicons": "^7.0.0",
     "primeng": "^18.0.0",
+    "pronouncing": "github:aparrish/pronouncingjs",
     "rxjs": "~7.8.0",
     "string-similarity": "^4.0.4",
     "tslib": "^2.3.0",

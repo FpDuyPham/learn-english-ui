@@ -1,7 +1,7 @@
 import { Component, signal, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { UserProfileService } from '../../core/user-profile.service';
+import { UserProfileService } from '../../domains/user/user.api';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { map } from 'rxjs/operators';
 import { SidebarModule } from 'primeng/sidebar';
@@ -13,6 +13,8 @@ import { OverlayPanelModule } from 'primeng/overlaypanel';
 import { BadgeModule } from 'primeng/badge';
 import { ToolbarModule } from 'primeng/toolbar';
 import { ChipModule } from 'primeng/chip';
+import { MenubarModule } from 'primeng/menubar';
+import { MenuItem } from 'primeng/api';
 
 @Component({
   selector: 'app-header',
@@ -28,55 +30,49 @@ import { ChipModule } from 'primeng/chip';
     OverlayPanelModule,
     BadgeModule,
     ToolbarModule,
-    ChipModule
+    ChipModule,
+    MenubarModule
   ],
   template: `
     <div class="sticky top-0 z-50">
-      <p-toolbar styleClass="bg-white shadow-2 border-none px-4 py-2">
-        <!-- Left Section: Logo -->
-        <div class="p-toolbar-group-start gap-4">
-          <a routerLink="/" class="flex items-center gap-2 no-underline cursor-pointer">
+      <p-menubar [model]="items" styleClass="bg-white shadow-2 border-none px-4 py-2">
+        <ng-template pTemplate="start">
+          <a routerLink="/" class="flex items-center gap-2 no-underline cursor-pointer mr-4">
             <i class="pi pi-book text-indigo-600 text-2xl"></i>
             <span class="text-xl font-bold text-gray-800">LearnEnglish</span>
           </a>
-        </div>
+        </ng-template>
 
-        <!-- Center Section: Navigation (Desktop) -->
-        <div class="p-toolbar-group-center hidden md:flex gap-2">
-          <p-button label="Home" icon="pi pi-home" styleClass="p-button-text text-gray-600 hover:text-indigo-600" routerLink="/" routerLinkActive="text-indigo-600 font-bold" [routerLinkActiveOptions]="{exact: true}"></p-button>
-          <p-button label="Practice" icon="pi pi-bolt" styleClass="p-button-text text-gray-600 hover:text-indigo-600" routerLink="/exercises" routerLinkActive="text-indigo-600 font-bold"></p-button>
-          <p-button label="Create" icon="pi pi-plus" styleClass="p-button-text text-gray-600 hover:text-indigo-600" routerLink="/admin/lesson-generator" routerLinkActive="text-indigo-600 font-bold"></p-button>
-        </div>
+        <ng-template pTemplate="end">
+          <div class="flex items-center gap-3">
+            <!-- Stats (Desktop) -->
+            <div class="hidden md:flex gap-2">
+              <p-chip styleClass="bg-orange-50 text-orange-600 font-bold pl-2 pr-3">
+                <i class="pi pi-fire mr-2"></i>
+                <span>{{ streak() }}</span>
+              </p-chip>
+              <p-chip styleClass="bg-blue-50 text-blue-600 font-bold pl-2 pr-3">
+                <i class="pi pi-star-fill mr-2"></i>
+                <span>{{ xp() }}</span>
+              </p-chip>
+            </div>
 
-        <!-- Right Section: Stats & Profile -->
-        <div class="p-toolbar-group-end gap-3">
-          <!-- Stats (Desktop) -->
-          <div class="hidden md:flex gap-2">
-            <p-chip styleClass="bg-orange-50 text-orange-600 font-bold pl-2 pr-3">
-              <i class="pi pi-fire mr-2"></i>
-              <span>{{ streak() }}</span>
-            </p-chip>
-            <p-chip styleClass="bg-blue-50 text-blue-600 font-bold pl-2 pr-3">
-              <i class="pi pi-star-fill mr-2"></i>
-              <span>{{ xp() }}</span>
-            </p-chip>
+            <!-- Avatar (Always Visible) -->
+            <div class="relative cursor-pointer" (click)="op.toggle($event)">
+              <p-avatar 
+                [label]="userInitial()" 
+                shape="circle" 
+                size="large" 
+                [style]="{'background-color': avatarColor(), 'color': '#ffffff', 'font-weight': 'bold'}">
+              </p-avatar>
+              <p-badge [value]="level().toString()" severity="success" styleClass="absolute -bottom-1 -right-1"></p-badge>
+            </div>
+
+            <!-- Mobile Menu Button -->
+            <p-button icon="pi pi-bars" styleClass="p-button-text md:hidden" (click)="sidebarVisible.set(true)"></p-button>
           </div>
-
-          <!-- Avatar (Always Visible) -->
-          <div class="relative cursor-pointer" (click)="op.toggle($event)">
-            <p-avatar 
-              [label]="userInitial()" 
-              shape="circle" 
-              size="large" 
-              [style]="{'background-color': avatarColor(), 'color': '#ffffff', 'font-weight': 'bold'}">
-            </p-avatar>
-            <p-badge [value]="level().toString()" severity="success" styleClass="absolute -bottom-1 -right-1"></p-badge>
-          </div>
-
-          <!-- Mobile Menu Button -->
-          <p-button icon="pi pi-bars" styleClass="p-button-text md:hidden" (click)="sidebarVisible.set(true)"></p-button>
-        </div>
-      </p-toolbar>
+        </ng-template>
+      </p-menubar>
     </div>
 
     <!-- User Profile Overlay -->
@@ -156,6 +152,7 @@ import { ChipModule } from 'primeng/chip';
 
         <button pButton label="Home" icon="pi pi-home" class="p-button-text text-left justify-start text-gray-700" (click)="sidebarVisible.set(false)" routerLink="/"></button>
         <button pButton label="Practice" icon="pi pi-bolt" class="p-button-text text-left justify-start text-gray-700" (click)="sidebarVisible.set(false)" routerLink="/exercises"></button>
+        <button pButton label="Phoneme Practice" icon="pi pi-microphone" class="p-button-text text-left justify-start text-gray-700" (click)="sidebarVisible.set(false)" routerLink="/ipa/practice-free"></button>
         <button pButton label="Create" icon="pi pi-plus" class="p-button-text text-left justify-start text-gray-700" (click)="sidebarVisible.set(false)" routerLink="/admin/lesson-generator"></button>
         
         <div class="my-2 border-t border-gray-100"></div>
@@ -168,18 +165,57 @@ import { ChipModule } from 'primeng/chip';
     </p-sidebar>
   `,
   styles: [`
-    :host ::ng-deep .p-toolbar {
+    :host ::ng-deep .p-menubar {
       background: transparent;
       border: none;
       padding: 0;
     }
-    :host ::ng-deep .p-button-text {
-      padding: 0.5rem 1rem;
+    :host ::ng-deep .p-menubar-button {
+      display: none; /* Hide default menubar hamburger, use custom one */
+    }
+    :host ::ng-deep .p-menuitem-link {
+      color: #4b5563 !important; /* text-gray-600 */
+    }
+    :host ::ng-deep .p-menuitem-link:hover {
+      color: #4f46e5 !important; /* text-indigo-600 */
+      background: transparent !important;
+    }
+    :host ::ng-deep .p-menuitem-link:focus {
+      background: transparent !important;
+    }
+    /* Hide menu items on mobile since we use sidebar */
+    @media screen and (max-width: 768px) {
+      :host ::ng-deep .p-menubar-root-list {
+        display: none !important;
+      }
     }
   `]
 })
 export class HeaderComponent {
   private userProfileService = inject(UserProfileService);
+
+  items: MenuItem[] = [
+    {
+      label: 'Home',
+      icon: 'pi pi-home',
+      routerLink: '/'
+    },
+    {
+      label: 'Practice',
+      icon: 'pi pi-bolt',
+      routerLink: '/exercises'
+    },
+    {
+      label: 'Phoneme Practice',
+      icon: 'pi pi-microphone',
+      routerLink: '/ipa/practice-free'
+    },
+    {
+      label: 'Create',
+      icon: 'pi pi-plus',
+      routerLink: '/admin/lesson-generator'
+    }
+  ];
 
   sidebarVisible = signal(false);
 

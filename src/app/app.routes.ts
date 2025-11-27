@@ -7,44 +7,45 @@ export const routes: Routes = [
   // Login route
   {
     path: 'login',
-    loadComponent: () => import('./auth/login/login.component').then(m => m.LoginComponent)
+    loadComponent: () => import('./domains/auth/feature/login/login.component').then(m => m.LoginComponent)
   },
 
-  // Home route
+  // Home route  
   {
     path: 'home',
-    loadComponent: () => import('./home/home.component').then(m => m.HomeComponent)
+    loadComponent: () => import('./domains/shell/feature/home/home.component').then(m => m.HomeComponent)
   },
 
   // Exercise routes
   {
     path: 'exercises',
-    loadComponent: () => import('./exercise/exercise-list/exercise-list.component').then(m => m.ExerciseListComponent)
+    loadComponent: () => import('./domains/exercise/feature/exercise-list/exercise-list.component').then(m => m.ExerciseListComponent)
   },
   {
     path: 'exercises/create',
-    loadComponent: () => import('./exercise/exercise-create/exercise-create.component').then(m => m.ExerciseCreateComponent)
+    loadComponent: () => import('./domains/exercise/feature/exercise-create/exercise-create.component').then(m => m.ExerciseCreateComponent)
   },
   {
     path: 'exercises/:id',
-    loadComponent: () => import('./exercise/exercise-detail/exercise-detail.component').then(m => m.ExerciseDetailComponent)
+    loadComponent: () => import('./domains/exercise/feature/exercise-detail/exercise-detail.component').then(m => m.ExerciseDetailComponent)
   },
   {
     path: 'exercises/:id/edit',
-    loadComponent: () => import('./exercise/exercise-edit/exercise-edit.component').then(m => m.ExerciseEditComponent)
+    loadComponent: () => import('./domains/exercise/feature/exercise-edit/exercise-edit.component').then(m => m.ExerciseEditComponent)
   },
   {
     path: 'exercises/:id/audio-splitter',
-    loadComponent: () => import('./audio-splitter/audio-splitter.component').then(m => m.AudioSplitterComponent)
+    loadComponent: () => import('./domains/exercise/feature/audio-splitter/audio-splitter.component').then(m => m.AudioSplitterComponent)
   },
   {
     path: 'exercises/:id/listen-write',
-    loadComponent: () => import('./listen-and-write/listen-and-write.component').then(m => m.ListenAndWriteComponent)
+    loadComponent: () => import('./domains/exercise/feature/listen-and-write/listen-and-write.component').then(m => m.ListenAndWriteComponent)
   },
   {
     path: 'exercises/:id/passive-listen',
-    loadComponent: () => import('./exercise/exercise-passive-listening/exercise-passive-listening.component').then(m => m.ExercisePassiveListeningComponent)
+    loadComponent: () => import('./domains/exercise/feature/passive-listening/exercise-passive-listening.component').then(m => m.ExercisePassiveListeningComponent)
   },
+
   // IPA Learning Module
   {
     path: 'ipa',
@@ -56,15 +57,20 @@ export const routes: Routes = [
       },
       {
         path: 'levels',
-        loadComponent: () => import('./features/ipa/ipa-list/ipa-list.component').then(m => m.IpaListComponent)
+        loadComponent: () => import('./domains/ipa/feature/ipa-list/ipa-list.component').then(m => m.IpaListComponent)
       },
       {
         path: 'train/:symbol/:level',
-        loadComponent: () => import('./features/ipa/ipa-trainer/ipa-trainer.component').then(m => m.IpaTrainerComponent)
+        loadComponent: () => import('./domains/ipa/feature/ipa-trainer/ipa-trainer.component').then(m => m.IpaTrainerComponent)
+      },
+      {
+        path: 'practice-free',
+        loadComponent: () => import('./domains/ipa/feature/phoneme-practice/phoneme-practice.component').then(m => m.PhonemePracticeComponent)
       }
     ]
   },
-  // Shadowing & Fluency Checker Module
+
+  // Shadowing Module
   {
     path: 'shadowing',
     children: [
@@ -75,23 +81,23 @@ export const routes: Routes = [
       },
       {
         path: 'articles',
-        loadComponent: () => import('./features/shadowing/shadowing-article-list/shadowing-article-list.component').then(m => m.ShadowingArticleListComponent)
+        loadComponent: () => import('./domains/shadowing/feature/article-list/shadowing-article-list.component').then(m => m.ShadowingArticleListComponent)
       },
       {
         path: 'train/:articleId',
-        loadComponent: () => import('./features/shadowing/shadowing-trainer/shadowing-trainer.component').then(m => m.ShadowingTrainerComponent)
+        loadComponent: () => import('./domains/shadowing/feature/trainer/shadowing-trainer.component').then(m => m.ShadowingTrainerComponent)
       }
     ]
   },
+
   // Admin Module
   {
     path: 'admin',
     children: [
       {
         path: 'lesson-generator',
-        loadComponent: () => import('./features/admin/lesson-generator/lesson-generator.component').then(m => m.LessonGeneratorComponent)
+        loadComponent: () => import('./domains/admin/feature/lesson-generator/lesson-generator.component').then(m => m.LessonGeneratorComponent)
       }
     ]
-  },
-
+  }
 ];

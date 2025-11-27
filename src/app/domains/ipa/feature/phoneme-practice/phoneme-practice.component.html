@@ -1,0 +1,64 @@
+<div class="min-h-screen surface-ground p-4 flex flex-column align-items-center">
+
+    <div class="w-full max-w-30rem">
+        <h1 class="text-3xl font-bold text-center mb-4">Phoneme Practice</h1>
+
+        <!-- Input Area -->
+        <div class=" p-inputgroup mb-4">
+            <input type="text" pInputText placeholder="Enter a word (e.g. mask)" [(ngModel)]="targetWord"
+                (keydown.enter)="onWordSubmit()" />
+            <button type="button" pButton icon="pi pi-search" label="Analyze" (click)="onWordSubmit()"></button>
+        </div>
+
+        <!-- Main Display -->
+        <p-card *ngIf="wordData" styleClass="text-center shadow-4 border-round-2xl">
+            <div class="flex flex-column align-items-center gap-4">
+
+                <!-- Target Word -->
+                <div>
+                    <div class="text-sm text-500 uppercase font-semibold mb-2">Target Word</div>
+                    <div class="text-5xl font-bold text-900">{{ wordData.targetWord }}</div>
+                </div>
+
+                <!-- IPA Display -->
+                <div class="text-3xl font-serif bg-surface-100 p-3 border-round">
+                    <span *ngFor="let symbol of wordData.ipaSymbols; let i = index"
+                        class="mx-1 transition-colors duration-300" [ngClass]="{
+                  'text-green-500': score > 0 && !isMismatch(i),
+                  'text-red-500': score > 0 && isMismatch(i),
+                  'text-600': score === 0
+                }">
+                        {{ symbol }}
+                    </span>
+                </div>
+
+                <!-- Controls -->
+                <div class="flex flex-row align-items-center gap-3">
+                    <p-knob [(ngModel)]="score" [readonly]="true" [size]="100"
+                        [valueColor]="score > 80 ? 'var(--green-500)' : (score > 50 ? 'var(--orange-500)' : 'var(--red-500)')">
+                    </p-knob>
+
+                    <div class="flex flex-column gap-2">
+                        <button pButton [label]="isListening ? 'Listening...' : 'Start Speaking'"
+                            [icon]="isListening ? 'pi pi-spin pi-spinner' : 'pi pi-microphone'"
+                            [class]="isListening ? 'p-button-danger' : 'p-button-primary'"
+                            class="p-button-rounded p-button-lg" [disabled]="isListening" (click)="togglePractice()">
+                        </button>
+
+                        <button *ngIf="isListening" pButton label="Stop" icon="pi pi-stop"
+                            class="p-button-rounded p-button-lg p-button-secondary" (click)="stopPractice()">
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Feedback -->
+                <div *ngIf="feedbackMessage" class="w-full">
+                    <p-message [severity]="score > 80 ? 'success' : (score === 0 ? 'info' : 'error')"
+                        [text]="feedbackMessage" styleClass="w-full justify-content-center"></p-message>
+                </div>
+
+            </div>
+        </p-card>
+
+    </div>
+</div>
